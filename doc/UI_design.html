@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学爸AI - 开发者算力加速引擎</title>
+  
+  <!-- 引入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            hyper: {
+              orange: '#FF5E1E',
+              orangeGlow: '#FF7A00',
+              amber: '#FFB800',
+              indigo: '#6366F1',
+              violet: '#8B5CF6',
+              darkBg: '#06070B',
+              darkCard: '#0D0F17',
+              darkBorder: '#1F2436',
+              lightBg: '#F8FAFC',
+              lightCard: '#FFFFFF',
+              lightBorder: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"Segoe UI"', 'Roboto', 'sans-serif'],
+            mono: ['"SF Mono"', 'Monaco', 'Consolas', 'monospace']
+          },
+          boxShadow: {
+            'glow-orange': '0 0 35px -5px rgba(255, 94, 30, 0.45)',
+            'glow-orange-lg': '0 0 50px -5px rgba(255, 94, 30, 0.65)',
+            'glow-card': '0 0 30px -10px rgba(99, 102, 241, 0.25)',
+            'cyber': '0 10px 40px -10px rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* 流光文字动画 */
+    @keyframes text-flow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .animate-gradient-text {
+      background-size: 200% 200%;
+      animation: text-flow 4s ease infinite;
+    }
+
+    /* 能量呼吸按钮 */
+    @keyframes pulse-ignite {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px -2px rgba(255, 94, 30, 0.5); }
+      50% { transform: scale(1.02); box-shadow: 0 0 35px 2px rgba(255, 94, 30, 0.75); }
+    }
+    .btn-ignite {
+      animation: pulse-ignite 3s infinite ease-in-out;
+    }
+
+    /* 背景粒子网格 */
+    .bg-grid-pattern {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    .light .bg-grid-pattern {
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-hyper-lightBg dark:bg-hyper-darkBg text-slate-900 dark:text-slate-100 transition-colors duration-300 min-h-screen relative selection:bg-hyper-orange selection:text-white bg-grid-pattern overflow-x-hidden">
+
+  <!-- 顶部超能发光光晕 (营造深空算力中心的兴奋感) -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-hyper-orange/20 via-hyper-indigo/15 to-transparent blur-[120px] pointer-events-none -z-10"></div>
+
+  <!-- ================= 1. 顶部导航 (Header) ================= -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-hyper-lightBg/80 dark:bg-hyper-darkBg/80 border-b border-hyper-lightBorder dark:border-hyper-darkBorder transition-colors">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="relative flex items-center justify-center">
+          <span class="w-3.5 h-3.5 rounded-full bg-hyper-orange animate-ping opacity-75 absolute"></span>
+          <span class="w-3 h-3 rounded-full bg-gradient-to-tr from-hyper-orange to-hyper-amber relative"></span>
+        </div>
+        <div class="flex items-baseline gap-1.5">
+          <span class="font-black text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300">学爸AI</span>
+          <span class="text-[11px] font-mono px-1.5 py-0.5 rounded bg-hyper-orange/10 text-hyper-orange border border-hyper-orange/20 font-bold uppercase tracking-wider">Turbo</span>
+        </div>
+      </a>
+
+      <!-- 快速导航 -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="#chatgpt-section" class="hover:text-hyper-orange transition flex items-center gap-1.5">
+          <span>ChatGPT 代充</span>
+        </a>
+        <a href="#claude-section" class="hover:text-hyper-orange transition flex items-center gap-1.5">
+          <span>Claude Code 终端直连</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        </a>
+        <a href="#video-section" class="hover:text-hyper-orange transition">充值实录</a>
+        <a href="#why-section" class="hover:text-hyper-orange transition">防坑保障</a>
+      </nav>
+
+      <!-- 右侧控制区 -->
+      <div class="flex items-center gap-3.5">
+        <!-- 主题切换 -->
+        <button onclick="toggleTheme()" class="p-2.5 rounded-xl border border-hyper-lightBorder dark:border-hyper-darkBorder hover:border-hyper-orange/50 transition active:scale-95 text-slate-600 dark:text-slate-300 shadow-sm" title="切换深浅模式">
+          <span id="theme-icon">🌙</span>
+        </button>
+
+        <!-- 企微 CTA 按钮 -->
+        <button onclick="openModal('客服专席')" class="bg-gradient-to-r from-hyper-orange to-hyper-orangeGlow text-white px-5 py-2.5 rounded-xl text-sm font-bold transition shadow-glow-orange hover:shadow-glow-orange-lg active:scale-95 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+          <span>添加企微下单</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= 2. 英雄区 (Hero Section) ================= -->
+  <section class="max-w-4xl mx-auto px-6 pt-14 pb-10 text-center relative">
+    
+    <!-- 顶部数据信任徽章 -->
+    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-mono mb-8 border border-hyper-orange/30 bg-hyper-orange/5 dark:bg-hyper-orange/10 backdrop-blur-md shadow-sm">
+      <span class="flex h-2 w-2 relative">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      </span>
+      <span class="font-medium text-slate-700 dark:text-slate-200">
+        官方正规渠道代充 <span class="opacity-30 mx-1.5">|</span> 
+        累计服务顾客 <strong class="text-hyper-orange font-bold font-mono">1,665</strong> 位 <span class="opacity-30 mx-1.5">|</span> 
+        <span class="text-hyper-orange font-bold">安全交易可开发票</span>
+      </span>
+    </div>
+
+    <!-- 高能量主标题 (渐变流光文字，刺激多巴胺) -->
+    <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.15] mb-6">
+      原生算力不卡脖子<br>
+      <span class="animate-gradient-text bg-clip-text text-transparent bg-gradient-to-r from-hyper-orange via-hyper-amber to-hyper-violet">
+        官方定价 · 3分钟点火直充
+      </span>
+    </h1>
+
+    <!-- 副标题 -->
+    <p class="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+      使用您自己的 ChatGPT 账号开通会员，<strong class="text-slate-900 dark:text-white font-bold bg-hyper-orange/10 dark:bg-hyper-orange/20 px-2 py-0.5 rounded border border-hyper-orange/20">办理过程中不需要向客服提供账号密码</strong>，付款后通常几分钟完成。
+    </p>
+
+    <!-- 四大核心承诺 (立体高能标签) -->
+    <div class="flex flex-wrap items-center justify-center gap-3 mb-10 text-xs font-mono font-semibold">
+      <div class="px-3.5 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 shadow-sm">
+        <span>⚡</span> 自有账号办理
+      </div>
+      <div class="px-3.5 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 shadow-sm">
+        <span>🛡️</span> 无需提供密码
+      </div>
+      <div class="px-3.5 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 shadow-sm">
+        <span>🔄</span> 支持正常续费
+      </div>
+      <div class="px-3.5 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 shadow-sm">
+        <span>💎</span> 全周期订阅保障
+      </div>
+    </div>
+
+    <!-- 首屏发射行动按钮 (点火式冲动) -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <button onclick="openModal('快速办理通道')" class="btn-ignite w-full sm:w-auto bg-gradient-to-r from-hyper-orange via-hyper-orangeGlow to-hyper-amber text-white px-8 py-4 rounded-2xl font-bold text-base transition shadow-glow-orange active:scale-95 flex items-center justify-center gap-3">
+        <span>🚀 立即添加企微办理</span>
+        <span class="text-xs opacity-90 font-mono px-2 py-0.5 rounded-md bg-black/20">几分钟到账 →</span>
+      </button>
+
+      <a href="#chatgpt-section" class="w-full sm:w-auto px-7 py-4 rounded-2xl text-sm font-bold border border-hyper-lightBorder dark:border-hyper-darkBorder hover:border-hyper-orange hover:text-hyper-orange transition bg-hyper-lightCard/50 dark:bg-hyper-darkCard/50 backdrop-blur-md shadow-sm">
+        查看硬核定价表 ↓
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= 3. 充值流程演示视频 (Cyber 视窗) ================= -->
+  <section id="video-section" class="max-w-4xl mx-auto px-6 pb-20">
+    <div class="rounded-3xl border border-hyper-lightBorder dark:border-hyper-darkBorder bg-hyper-lightCard dark:bg-hyper-darkCard shadow-cyber overflow-hidden relative group hover:border-hyper-orange/50 transition duration-500">
+      
+      <!-- 视窗光感装饰条 -->
+      <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-hyper-orange to-transparent opacity-80"></div>
+
+      <!-- macOS 顶部状态条 -->
+      <div class="h-11 px-5 flex items-center justify-between bg-slate-100/80 dark:bg-[#0A0D14] border-b border-hyper-lightBorder dark:border-hyper-darkBorder">
+        <div class="flex items-center gap-2.5">
+          <span class="w-3 h-3 rounded-full bg-[#FF5F56] border border-black/10"></span>
+          <span class="w-3 h-3 rounded-full bg-[#FFBD2E] border border-black/10"></span>
+          <span class="w-3 h-3 rounded-full bg-[#27C93F] border border-black/10"></span>
+        </div>
+        <div class="flex items-center gap-2 text-xs font-mono font-medium text-slate-500">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>recharge-guide.mp4 — 极速无密码实录</span>
+        </div>
+        <div class="text-xs font-mono text-hyper-orange font-bold opacity-80">LIVE FEED</div>
+      </div>
+
+      <!-- 视频播放区 (直接嵌入真实源) -->
+      <div class="relative aspect-video bg-black flex items-center justify-center overflow-hidden">
+        <video 
+          id="guide-video"
+          src="https://boluoing.com/recharge-guide.mp4" 
+          autoplay 
+          loop 
+          muted 
+          playsinline 
+          class="w-full h-full object-contain">
+        </video>
+        
+        <!-- 声音切换交互浮窗 -->
+        <button onclick="toggleAudio()" class="absolute bottom-5 right-5 bg-black/75 hover:bg-black/90 backdrop-blur-xl text-white px-4 py-2 rounded-xl text-xs font-mono flex items-center gap-2 border border-white/10 shadow-lg transition active:scale-95">
+          <span id="audio-icon">🔇</span>
+          <span id="audio-text" class="font-medium">静音中 · 点击开启实录解说</span>
+        </button>
+      </div>
+
+      <!-- 底部信任通告条 -->
+      <div class="py-3.5 px-6 bg-slate-50 dark:bg-[#07090E] text-xs text-slate-500 dark:text-slate-400 text-center border-t border-hyper-lightBorder dark:border-hyper-darkBorder flex items-center justify-center gap-2">
+        <span class="text-hyper-orange font-bold">● 技术验证：</span>
+        <span>直接将官方升级会话交由专席代付即可，<strong class="text-slate-800 dark:text-slate-100 font-semibold underline decoration-hyper-orange/50">客服全程不索要任何密码</strong>。</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4. 核心定价矩阵 (High-Energy Pricing) ================= -->
+  <section class="max-w-5xl mx-auto px-6 py-8">
+
+    <!-- 4.1 ChatGPT Plus / Codex 代充 -->
+    <div id="chatgpt-section" class="mb-20">
+      <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono font-bold tracking-widest text-hyper-orange uppercase">POWERED BY OFFICIAL BILLING</span>
+          <h2 class="text-3xl font-extrabold tracking-tight mt-1 mb-2">ChatGPT Plus / Codex 代充</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400">多种套餐灵活选择，专业代充服务，安全快速开通（代充自己的账号 / 可购买独享账号）</p>
+        </div>
+        <div class="text-xs font-mono px-3 py-1.5 rounded-lg border border-hyper-lightBorder dark:border-hyper-darkBorder text-slate-500">
+          支持代充自有号 ｜ 现号交付
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        
+        <!-- Card 1: Codex Plus -->
+        <div class="p-7 rounded-3xl border border-hyper-lightBorder dark:border-hyper-darkBorder bg-hyper-lightCard dark:bg-hyper-darkCard flex flex-col justify-between shadow-sm hover:border-hyper-orange/50 transition duration-300 group">
+          <div>
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">Daily Driver</div>
+            <h3 class="text-xl font-bold group-hover:text-hyper-orange transition">Codex Plus</h3>
+            <div class="mt-4 mb-3 flex items-baseline gap-1">
+              <span class="text-4xl font-black font-mono tracking-tight">¥145</span>
+              <span class="text-xs font-normal text-slate-400">/ 月</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+              官方标配独立算力，自用账号直接升级，零密码接入，日常高频写代码与架构思考助手。
+            </p>
+          </div>
+          <button onclick="openModal('Codex Plus (¥145)')" class="w-full py-3 rounded-xl border-2 border-slate-200 dark:border-slate-800 hover:border-hyper-orange hover:text-hyper-orange font-bold text-sm transition active:scale-95 shadow-sm">
+            办理 Plus 套餐
+          </button>
+        </div>
+
+        <!-- Card 2: Codex Pro 5X (HOT 能量暴走卡) -->
+        <div class="p-7 rounded-3xl border-2 border-hyper-orange bg-hyper-lightCard dark:bg-hyper-darkCard flex flex-col justify-between shadow-glow-orange relative transform hover:-translate-y-1 transition duration-300">
+          <div class="absolute -top-3.5 right-6 px-3 py-1 bg-gradient-to-r from-hyper-orange to-hyper-amber text-white text-[11px] font-mono font-black rounded-full shadow-md uppercase tracking-wider">
+            🔥 极客最爱 5X
+          </div>
+          <div>
+            <div class="text-xs font-mono text-hyper-orange font-bold uppercase tracking-wider mb-2">Heavy Computing</div>
+            <h3 class="text-xl font-black">Codex Pro 5X</h3>
+            <div class="mt-4 mb-3 flex items-baseline gap-1">
+              <span class="text-4xl font-black font-mono tracking-tight text-hyper-orange">¥680</span>
+              <span class="text-xs font-normal text-slate-400">/ 月</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+              5倍深度推理算力池，算法攻坚、微调代码库重度调用首选，全订阅周期硬核质保。
+            </p>
+          </div>
+          <button onclick="openModal('Codex Pro 5X (¥680)')" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-hyper-orange to-hyper-orangeGlow hover:to-hyper-amber text-white font-extrabold text-sm transition shadow-glow-orange active:scale-95">
+            ⚡ 立即抢占 5X 算力
+          </button>
+        </div>
+
+        <!-- Card 3: Codex Pro 20X -->
+        <div class="p-7 rounded-3xl border border-hyper-lightBorder dark:border-hyper-darkBorder bg-hyper-lightCard dark:bg-hyper-darkCard flex flex-col justify-between shadow-sm hover:border-hyper-orange/50 transition duration-300 group">
+          <div>
+            <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">Team & Enterprise</div>
+            <h3 class="text-xl font-bold group-hover:text-hyper-orange transition">Codex Pro 20X</h3>
+            <div class="mt-4 mb-3 flex items-baseline gap-1">
+              <span class="text-4xl font-black font-mono tracking-tight">¥1280</span>
+              <span class="text-xs font-normal text-slate-400">/ 月</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+              20倍极限顶配算力专席，研发团队全天候无限制重度调度，支持对公打款与开具发票。
+            </p>
+          </div>
+          <button onclick="openModal('Codex Pro 20X (¥1280)')" class="w-full py-3 rounded-xl border-2 border-slate-200 dark:border-slate-800 hover:border-hyper-orange hover:text-hyper-orange font-bold text-sm transition active:scale-95 shadow-sm">
+            咨询 20X 现席
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4.2 Claude Code 专属直连专区 (未来终端机能风) -->
+    <div id="claude-section" class="p-8 md:p-10 rounded-3xl border border-hyper-indigo/40 bg-gradient-to-br from-hyper-lightCard via-hyper-lightCard to-hyper-indigo/5 dark:from-hyper-darkCard dark:via-hyper-darkCard dark:to-hyper-indigo/15 shadow-glow-card mb-16 relative overflow-hidden">
+      
+      <!-- 极光能量条 -->
+      <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-hyper-orange via-hyper-amber to-hyper-violet"></div>
+
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-bold bg-hyper-indigo/10 text-hyper-indigo dark:text-indigo-400 mb-3 border border-hyper-indigo/20">
+            <span class="w-2 h-2 rounded-full bg-hyper-indigo animate-pulse"></span>
+            100% 官方客户端直连 · 非第三方降智镜像
+          </div>
+          <h2 class="text-3xl font-black tracking-tight mb-3">Claude Code 代申请与环境接入</h2>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            每天请求 <strong class="text-hyper-orange font-bold font-mono">500 次</strong> 官方版非镜像（高频排查 Bug、自动化重构代码充沛有余）。
+            按天 / 周卡 / 多档月卡 <strong class="text-slate-900 dark:text-white font-bold underline decoration-hyper-orange">七档套餐灵活选择</strong>。
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <div class="text-left sm:text-right">
+            <div class="text-xs font-mono text-slate-400 font-bold uppercase">灵活体验档位</div>
+            <div class="flex items-baseline gap-1 mt-0.5">
+              <span class="text-xs font-mono font-medium">起价仅</span>
+              <span class="text-4xl font-black text-hyper-orange font-mono">¥11</span>
+            </div>
+          </div>
+
+          <button onclick="openModal('Claude Code 7档套餐')" class="w-full sm:w-auto bg-gradient-to-r from-hyper-indigo to-hyper-violet hover:from-hyper-violet hover:to-hyper-indigo text-white px-7 py-4 rounded-2xl font-bold text-sm transition shadow-lg hover:shadow-glow-card active:scale-95 whitespace-nowrap flex items-center justify-center gap-2">
+            <span>选档下单 · 立即连接终端</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 5. 杀手级心智卡片：为什么我们的价格比别人高？ ================= -->
+    <div id="why-section" class="p-8 md:p-10 rounded-3xl border border-hyper-lightBorder dark:border-hyper-darkBorder bg-slate-100/60 dark:bg-[#0B0D14] shadow-sm mb-16">
+      <div class="max-w-3xl mx-auto">
+        
+        <div class="flex items-center gap-2.5 text-hyper-orange mb-3">
+          <span class="text-xl">⚠️</span>
+          <h3 class="font-black text-xl text-slate-900 dark:text-white">为什么我们的价格比别人高？</h3>
+        </div>
+
+        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+          我们采用官网官方渠道充值，Plus 严格按官网 <strong class="text-hyper-orange font-bold font-mono text-base">20 美元</strong> 原价采购划扣。明显低于官方成本的充值（如某宝几十元的低价代充）可能存在黑卡盗刷、汇率套利等严重风险。平台对异常充值审核极其严格，一旦风控将直接导致 <strong class="text-rose-500 font-bold">会员被撤销或账号受限，个人代码和对话资产彻底丢失</strong>。
+        </p>
+
+        <!-- 硬核黑白对照表 -->
+        <div class="grid sm:grid-cols-2 gap-4 text-xs font-mono">
+          <div class="p-5 rounded-2xl bg-white dark:bg-hyper-darkCard border border-rose-500/30 shadow-sm">
+            <div class="font-bold text-rose-500 mb-2 flex items-center gap-1.5 text-sm">
+              <span>✕</span> 低价非正规代充
+            </div>
+            <ul class="space-y-1.5 text-slate-500 dark:text-slate-400">
+              <li>• 低于 $20 美金成本，黑产盗刷极易封号</li>
+              <li>• 索要个人账号密码代登，Token面临泄露</li>
+              <li>• 几天内被撤销会员，售后客服直接失联</li>
+            </ul>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white dark:bg-hyper-darkCard border-2 border-emerald-500/40 shadow-sm">
+            <div class="font-bold text-emerald-500 mb-2 flex items-center gap-1.5 text-sm">
+              <span>✓</span> 学爸AI 正规直充
+            </div>
+            <ul class="space-y-1.5 text-slate-700 dark:text-slate-200">
+              <li>• 100% 官方足额 $20 美元划扣，凭证齐全</li>
+              <li>• 办理过程中不需要向客服提供密码</li>
+              <li>• 支持正常续费，提供全订阅周期保障服务</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= 6. 页脚 (Footer) ================= -->
+  <footer class="border-t border-hyper-lightBorder dark:border-hyper-darkBorder py-12 text-center text-xs text-slate-400">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 学爸AI (Xueba.ai) · 专注为研发与极客加速顶尖 AI 算力</div>
+      <div class="flex items-center gap-6 font-mono">
+        <span>安全正规渠道</span>
+        <span>全程无密</span>
+        <span>可开数电发票</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= 7. 全局高能企业微信扫码弹窗 (Modal) ================= -->
+  <div id="wechat-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden items-center justify-center p-4 transition-all">
+    <div class="bg-hyper-lightCard dark:bg-hyper-darkCard border-2 border-hyper-orange/50 rounded-3xl max-w-sm w-full p-6 text-center shadow-glow-orange-lg relative animate-scale-up">
+      
+      <!-- 关闭按钮 -->
+      <button onclick="closeModal()" class="absolute top-4 right-4 p-1 rounded-full text-slate-400 hover:text-slate-200 transition">
+        ✕
+      </button>
+
+      <!-- 动态标题 -->
+      <div class="text-[11px] font-mono text-hyper-orange font-bold uppercase tracking-wider mb-1" id="modal-service-tag">专席通道</div>
+      <h3 class="text-xl font-black mb-1" id="modal-title">扫码添加企业微信办理</h3>
+      <p class="text-xs text-slate-400 mb-5">办理全程不需要向客服提供账号密码 · 几分钟交付</p>
+
+      <!-- 二维码发光容器 -->
+      <div class="w-48 h-48 mx-auto p-2.5 rounded-2xl border-2 border-hyper-orange bg-white shadow-glow-orange mb-4 flex items-center justify-center relative">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://work.weixin.qq.com" alt="企业微信二维码" class="w-full h-full rounded-xl">
+      </div>
+
+      <!-- 微信号一键复制 -->
+      <div class="p-3 rounded-xl bg-slate-100 dark:bg-[#141722] border border-hyper-lightBorder dark:border-hyper-darkBorder flex items-center justify-between text-xs font-mono mb-2">
+        <span class="text-slate-500">微信：<strong class="text-slate-900 dark:text-slate-100 font-bold">xueba-ai-01</strong></span>
+        <button onclick="copyWechat()" class="text-hyper-orange hover:underline font-bold">点击复制</button>
+      </div>
+
+      <div class="text-[11px] text-emerald-500 font-mono flex items-center justify-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>专席顾问已在线（平均响应 < 30 秒）</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-hyper-orange text-white px-5 py-2.5 rounded-full text-xs font-bold shadow-glow-orange opacity-0 pointer-events-none transition-all duration-300">
+    已复制微信号，请在微信中搜索添加
+  </div>
+
+  <!-- ================= 8. 前端交互逻辑 JS ================= -->
+  <script>
+    // 主题切换函数
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        icon.textContent = '☀️';
+      } else {
+        html.classList.add('dark');
+        icon.textContent = '🌙';
+      }
+    }
+
+    // 视频音频切换函数
+    function toggleAudio() {
+      const video = document.getElementById('guide-video');
+      const icon = document.getElementById('audio-icon');
+      const text = document.getElementById('audio-text');
+      
+      if (video.muted) {
+        video.muted = false;
+        icon.textContent = '🔊';
+        text.textContent = '声音已开启';
+      } else {
+        video.muted = true;
+        icon.textContent = '🔇';
+        text.textContent = '静音中 · 点击开启实录解说';
+      }
+    }
+
+    // 弹窗控制
+    function openModal(serviceName) {
+      const modal = document.getElementById('wechat-modal');
+      const tag = document.getElementById('modal-service-tag');
+      const title = document.getElementById('modal-title');
+      
+      tag.textContent = serviceName;
+      title.textContent = `办理 ${serviceName}`;
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('wechat-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // 点击遮罩层背景关闭
+    document.getElementById('wechat-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    // 复制微信号 + Toast
+    function copyWechat() {
+      navigator.clipboard.writeText('xueba-ai-01').then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('opacity-0');
+        setTimeout(() => {
+          toast.classList.add('opacity-0');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
