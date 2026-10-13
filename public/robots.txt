@@ -1,0 +1,9 @@
+# Gutast AI - https://www.gutast.com/
+# Allow all crawlers (including Googlebot, Baiduspider, Bingbot) on this
+# single-page site. Only build artifacts are disallowed.
+
+User-agent: *
+Allow: /
+Disallow: /node_modules/
+
+Sitemap: https://www.gutast.com/sitemap.xml

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#06070B" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/UI/favicon-48.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/UI/apple-touch-icon.png" />
+  <title>Claude 订阅套餐怎么选？Pro / Max 5x / Max 20x 三档对比与省钱建议（2026 版）</title>
+  <meta name="description" content="Claude 订阅三档怎么选：Pro（20 美元/月）、Max 5x（100 美元/月）、Max 20x（200 美元/月）。本文对比三档额度与排队优先级、2026 年涨价情况、订阅送 API 额度新福利，并给出轻度、日常、重度用户的选档与省钱建议。" />
+  <link rel="canonical" href="https://www.gutast.com/blog/claude-subscription-plan-guide" />
+  <meta property="og:title" content="Claude 订阅套餐怎么选？Pro / Max 5x / Max 20x 三档对比与省钱建议（2026 版）" />
+  <meta property="og:description" content="Pro 20 美元、Max 5x 100 美元、Max 20x 200 美元，三档额度差 5 到 20 倍。附涨价情况、API 额度福利与按月付费省钱建议。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.gutast.com/blog/claude-subscription-plan-guide" />
+  <meta property="og:site_name" content="Gutast AI" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:image" content="https://www.gutast.com/UI/og-cover.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://www.gutast.com/blog/claude-subscription-plan-guide#article",
+        "headline": "Claude 订阅套餐怎么选？Pro / Max 5x / Max 20x 三档对比与省钱建议（2026 版）",
+        "description": "Pro 20 美元、Max 5x 100 美元、Max 20x 200 美元，三档额度差 5 到 20 倍。附涨价情况、API 额度福利与按月付费省钱建议。",
+        "inLanguage": "zh-CN",
+        "datePublished": "2026-10-13",
+        "dateModified": "2026-10-13",
+        "author": {
+          "@type": "Organization",
+          "name": "Gutast AI 内容团队",
+          "url": "https://www.gutast.com/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://www.gutast.com/#organization",
+          "name": "Gutast AI",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.gutast.com/UI/logo/300_300.webp"
+          }
+        },
+        "mainEntityOfPage": "https://www.gutast.com/blog/claude-subscription-plan-guide",
+        "image": "https://www.gutast.com/UI/og-cover.png",
+        "articleSection": "开发者指南"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.gutast.com/" },
+          { "@type": "ListItem", "position": 2, "name": "开发者指南", "item": "https://www.gutast.com/#faq-section" },
+          { "@type": "ListItem", "position": 3, "name": "Claude 订阅套餐怎么选" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root{color-scheme:dark}
+    *{box-sizing:border-box}
+    body{margin:0;background:#06070B;color:#CBD5E1;font:16px/1.85 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+    a{color:#FF8A50;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+    header.site{border-bottom:1px solid #1F2436}
+    header.site .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:18px;padding-bottom:18px}
+    .brand{color:#fff;font-weight:800;font-size:18px;letter-spacing:.5px}
+    .brand small{color:#64748B;font-weight:400;font-size:12px;margin-left:8px}
+    .crumbs{font-size:13px;color:#64748B;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;margin:26px 0 4px}
+    .crumbs a{color:#94A3B8}
+    h1{color:#fff;font-size:26px;line-height:1.5;margin:14px 0 8px}
+    .meta{color:#64748B;font-size:13px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;margin-bottom:30px}
+    main{padding-bottom:24px}
+    h2{color:#F1F5F9;font-size:19px;margin:38px 0 10px;padding-left:12px;border-left:3px solid #FF5E1E}
+    h3{color:#E2E8F0;font-size:16px;margin:22px 0 8px}
+    p,li{margin:0 0 12px}
+    ul,ol{padding-left:22px;margin:0 0 14px}
+    table{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:14px}
+    th,td{border:1px solid #1F2436;padding:9px 12px;text-align:left;vertical-align:top}
+    th{background:#0D0F17;color:#F1F5F9;white-space:nowrap}
+    .note{border-left:3px solid #FFB800;background:rgba(255,184,0,.07);padding:12px 16px;border-radius:0 10px 10px 0;font-size:14px;margin:16px 0}
+    strong{color:#F1F5F9}
+    .cta{border:1px solid #1F2436;background:linear-gradient(135deg,rgba(255,94,30,.10),rgba(255,94,30,.02));border-radius:14px;padding:22px 24px;margin:40px 0 8px}
+    .cta h2{margin:0 0 8px;border:none;padding:0;font-size:18px}
+    .cta p{font-size:14.5px;margin-bottom:14px}
+    .cta .btn{display:inline-block;background:#FF5E1E;color:#fff;font-weight:700;font-size:14.5px;padding:10px 22px;border-radius:10px}
+    .cta .btn:hover{text-decoration:none;background:#FF7A42}
+    .related{border-top:1px solid #1F2436;margin-top:34px;padding-top:20px;font-size:14.5px}
+    .related h2{font-size:16px;margin:0 0 10px}
+    .related ul{list-style:none;padding:0;margin:0}
+    .related li{margin:0 0 8px}
+    footer{border-top:1px solid #1F2436;margin-top:44px;padding:26px 20px 40px;text-align:center;font-size:12.5px;color:#64748B;line-height:2}
+    @media(max-width:600px){h1{font-size:22px}}
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="/">Gutast AI<small>开发者算力加速引擎</small></a>
+      <a href="/">← 返回首页</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="crumbs" aria-label="面包屑导航"><a href="/">首页</a> › 开发者指南 › Claude 订阅套餐怎么选</nav>
+    <article>
+      <h1>Claude 订阅套餐怎么选？Pro / Max 5x / Max 20x 三档对比与省钱建议（2026 版）</h1>
+      <p class="meta">发布于 2026 年 10 月 13 日 · 阅读约 8 分钟 · 作者：Gutast AI 内容团队</p>
+
+      <p>Claude Code 目前主要依托 Claude 订阅套餐使用。主流选择是 <strong>Pro（20 美元/月）</strong>，重度开发者则推荐 <strong>Max 5x（100 美元/月）</strong>——两者价差 5 倍，核心差异在额度松紧和高峰期排队优先级。这篇文章把三档套餐、涨价情况和新出的 API 额度福利一次讲清楚，帮你选到最划算的那一档。</p>
+
+      <h2>一、三档订阅价格一览</h2>
+      <p>Claude 现在有三档个人订阅：20 美元的 Pro、100 美元的 Max 5x、200 美元的 Max 20x。三档都能使用 Claude Sonnet 和 Opus 模型，区别主要在用量额度上——Pro 是「日常体验装」，Opus 有严格的日配额；Max 5x 和 20x 则把配额直接放宽 5 倍和 20 倍，高峰时段的排队优先级也更高。</p>
+      <table>
+        <tr><th>方案</th><th>月费</th><th>适合人群</th><th>核心特征</th></tr>
+        <tr><td>Pro</td><td>$20</td><td>轻度尝鲜、单任务</td><td>Sonnet 随便用，Opus 严格日配额</td></tr>
+        <tr><td>Max 5x</td><td>$100</td><td>独立开发者、小团队</td><td>配额放宽 5 倍，高峰优先</td></tr>
+        <tr><td>Max 20x</td><td>$200</td><td>重度生产力用户</td><td>配额放宽 20 倍，最高优先级</td></tr>
+      </table>
+      <p>Pro 年付可折合每月约 17 美元（一次支付 200 美元）。Claude Code 已包含在 Pro 套餐内，无需单独购买。</p>
+
+      <h2>二、涨价情况：悄悄上调，没有公告</h2>
+      <div class="note">
+        Anthropic 曾在 2026 年 4 月 29 日悄然上调过一次计费标准：<strong>企业开发者每日费用从 6 美元跳升至 13 美元（涨幅 117%）</strong>，<strong>普通用户单日费用上限从 12 美元上调至 30 美元（涨幅 150%）</strong>——且未发布任何公开公告，仅在产品文档中更新了数据。
+      </div>
+      <p>另外，Pro 和 Team Standard 套餐的默认模型已从 Sonnet 升级为 Opus，与 Max、Team Premium、Enterprise 的配置对齐。基础套餐用户自动获得更强的默认模型，但账单金额可能会随之上升。订阅这类按量计费的服务，「今天的规则」未必是「明年的规则」，预算要留出弹性。</p>
+
+      <h2>三、2026 年 10 月新福利：订阅与 API 额度打通</h2>
+      <p>2026 年 10 月，Anthropic 宣布 Claude 订阅套餐与开发者 API 正式打通，按月免费发放 API 额度：</p>
+      <ul>
+        <li>Max 5x：<strong>每月送 100 美元</strong> API 额度；</li>
+        <li>Max 20x：<strong>每月送 200 美元</strong> API 额度；</li>
+        <li>Team 团队版：最高 500 美元。</li>
+      </ul>
+      <p>领取方式：登录 claude.ai → 「设置」→ 「账单」→ 找到 API 额度，绑定一个 Claude Console 组织即可，<strong>无需绑定信用卡</strong>。注意：新订阅用户需满 7 天才能领取。这相当于给 Max 用户加了一层「隐藏折扣」，重度用户的实际成本又降了一截。</p>
+
+      <h2>四、到底哪一档更划算</h2>
+      <h3>用得少：API 按量付费可能最便宜</h3>
+      <p>一天聊二十来轮、每轮几千 token 的量，用中档模型一个月也就十美元上下，换便宜模型更少。但 API 的坑也不少：多轮对话每次都会把前面的聊天记录整个重发一遍，实际输入 token 经常是预估的好几倍；网页版的 Projects、记忆等功能 API 里没有，得自己找客户端；而且 API 控制台一样要绑卡、一样受地区政策约束——这条路并没有绕开任何合规问题。</p>
+      <h3>天天用、写东西查资料：Pro 按月付就完事了</h3>
+      <p>20 美元封顶，不用算 token，心里踏实。大多数人其实就是这一档。目前 Pro 的默认模型已升级为 Opus，性价比进一步拉高。</p>
+      <h3>天天开 Claude Code 写好几个小时代码：可以算算 Max</h3>
+      <p>Claude Code 很吃额度。如果你经常顶到 Pro 的上限、被迫排队或降级到小模型，升 Max 5x 通常比切去 API 划算；如果从没顶到过上限，就没必要为了「额度大」多花 80 美元。别忘了 Max 还有每月送 API 额度的福利，实际差价更小。</p>
+
+      <h2>五、省钱四原则</h2>
+      <ol>
+        <li><strong>先按月，别一上来就年付。</strong>$200 的年付单价确实更低，但订阅周期越长，暴露在政策变化、封号风险下的敞口越大。先按月用一两个月，确认稳定再考虑年付。</li>
+        <li><strong>把税和支付成本算进总价。</strong>官方标价都是税前，账单地址所在地的税率会另加；换汇、开卡费、月费、每笔交易费也都要摊进来看，光盯着「免开卡费」容易被坑。</li>
+        <li><strong>新号循序渐进。</strong>第一次订阅从 Pro 起步，直接冲 Max 更容易触发 KYC 身份验证；新订阅满 7 天后记得去领 API 额度。</li>
+        <li><strong>远离拼车和共享号。</strong>共享号、拼车、转卖额度都明确违反服务条款，号被停掉的概率远高于省下的差价——重新注册加订阅的成本，往往比省的钱更多。</li>
+      </ol>
+      <p>小结：<strong>轻度用户选 Pro（约 20 美元/月），重度用户升 Max 5x（100 美元/月），用量极大再考虑 Max 20x（200 美元/月）。想省钱的先按月付，别一上来就付年费。</strong></p>
+
+      <div class="cta">
+        <h2>付款这一步，交给我们</h2>
+        <p>看完了怎么选，剩下的问题是「怎么付」。Gutast AI 提供 Claude Code 直连套餐与 ChatGPT Plus / Codex 官方渠道代充：<strong>升级的是你自己的账号</strong>，全程不索要密码和验证码，官方收据确认交付，订阅有效期内全周期质保，支持数电发票。价格与办理流程见首页。</p>
+        <a class="btn" href="/#video-section">查看套餐与办理流程 →</a>
+      </div>
+
+      <aside class="related">
+        <h2>相关阅读</h2>
+        <ul>
+          <li><a href="/blog/claude-ban-risk-guide">Claude 封号机制详解：半年 1140 万账号被封，风控逻辑与自保指南</a></li>
+          <li><a href="/blog/claude-chinese-ui-analysis">Claude 中文版上线解读：界面支持简体中文，但支持地区名单没变</a></li>
+          <li><a href="/refund-policy">退款与质保政策</a> · <a href="/terms-of-service">服务协议</a></li>
+        </ul>
+      </aside>
+      <p class="meta">免责声明：本文价格与政策信息整理自公开渠道，更新于 2026 年 10 月 13 日，可能随官方调整而变化，请以 Claude 官方定价页为准。</p>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>© 2026 Gutast AI (gutast.com) · 运营主体：深圳市优品家居材料科技有限公司 · D-U-N-S® 710229185</div>
+      <div><a href="/">首页</a> · <a href="/terms-of-service">服务协议</a> · <a href="/refund-policy">退款与质保政策</a> · <a href="/privacy-policy">隐私声明</a></div>
+      <div>联系邮箱：475290875@qq.com</div>
+    </div>
+  </footer>
+</body>
+</html>
