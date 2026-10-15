@@ -1,57 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<!-- lastmod policy: set each row to the date that page's content last
+     substantively changed (source file mtime / its last git commit date).
+     NEVER bump all rows on deploy or on non-content edits — uniform lastmod
+     makes Google distrust and ignore the signal. Do not add changefreq /
+     priority: Google ignores both. Video entry stays in sync with the
+     VideoObject JSON-LD in chatgpt-plus/index.html and
+     public/recharge-guide.vtt. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <!-- Brand hub: React SPA, changes whenever src/ or index.html content
+       changes (2026-10-13: split into a brand hub; product topics moved to
+       their own landing pages below). -->
   <url>
     <loc>https://www.gutast.com/</loc>
     <lastmod>2026-10-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
   </url>
+  <!-- ChatGPT Plus landing page: created 2026-10-13 (extracted from the
+       former single-page anchors). Owns the demo video + VideoObject. -->
+  <url>
+    <loc>https://www.gutast.com/chatgpt-plus</loc>
+    <lastmod>2026-10-13</lastmod>
+    <video:video>
+      <video:thumbnail_loc>https://www.gutast.com/UI/video-poster.webp</video:thumbnail_loc>
+      <video:title>充值实录：ChatGPT Plus 官方划扣演示，全程无需提供账号密码</video:title>
+      <video:description>Gutast AI 实录演示 ChatGPT Plus / Codex 官方渠道代充全流程：自有账号保持登录、扫码联系企微专席顾问、官方订阅页发起升级由顾问代付、留存官方收据并提供数电发票与全周期订阅保障。客服全程不索要任何账号密码。</video:description>
+      <video:content_loc>https://www.gutast.com/recharge-guide.mp4</video:content_loc>
+      <video:duration>47</video:duration>
+      <video:publication_date>2026-10-12T21:19:24+08:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+    </video:video>
+  </url>
+  <!-- Claude Code landing page: created 2026-10-13 (extracted from the
+       former single-page anchors). -->
+  <url>
+    <loc>https://www.gutast.com/claude-code</loc>
+    <lastmod>2026-10-13</lastmod>
+  </url>
+  <!-- FAQ landing page: created 2026-10-13 (full Q&A list extracted from the
+       former single-page anchors). -->
+  <url>
+    <loc>https://www.gutast.com/faq</loc>
+    <lastmod>2026-10-13</lastmod>
+  </url>
+  <!-- Legal pages: content created 2026-10-13. -->
   <url>
     <loc>https://www.gutast.com/terms-of-service</loc>
     <lastmod>2026-10-13</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.gutast.com/refund-policy</loc>
     <lastmod>2026-10-13</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.gutast.com/privacy-policy</loc>
     <lastmod>2026-10-13</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
   </url>
+  <!-- Blog articles: created 2026-10-13 (site launch). Update only the
+       article actually revised. -->
   <url>
     <loc>https://www.gutast.com/blog/claude-ban-risk-guide</loc>
     <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.gutast.com/blog/claude-account-safety-faq</loc>
     <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.gutast.com/blog/claude-chinese-ui-analysis</loc>
     <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.gutast.com/blog/claude-subscription-plan-guide</loc>
     <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.gutast.com/blog/claude-pro-recharge-guide</loc>
     <lastmod>2026-10-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+  </url>
+  <!-- Blog article: created 2026-10-13 (new-account ban appeal guide). -->
+  <url>
+    <loc>https://www.gutast.com/blog/claude-new-account-ban-appeal</loc>
+    <lastmod>2026-10-13</lastmod>
+  </url>
+  <!-- Blog article: created 2026-10-14 (Claude Pro payment flow guide,
+       complements claude-pro-recharge-guide with a conversion-focused angle). -->
+  <url>
+    <loc>https://www.gutast.com/blog/claude-pro-payment-guide</loc>
+    <lastmod>2026-10-14</lastmod>
+  </url>
+  <!-- Blog article: created 2026-10-15 (Claude registration guide, leads with
+       the Google-account no-verification method). -->
+  <url>
+    <loc>https://www.gutast.com/blog/claude-registration-guide</loc>
+    <lastmod>2026-10-15</lastmod>
   </url>
 </urlset>

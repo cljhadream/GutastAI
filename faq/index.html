@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/UI/favicon-48.png" />
+    <link rel="icon" type="image/webp" href="/UI/logo/72_72.webp" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/UI/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8FAFC" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#06070B" />
+
+    <!-- SEO meta baked at build time: dedicated FAQ landing page covering
+         safety, delivery time, invoices and after-sales questions for both
+         product lines. H1 (in React) carries the single topic
+         "办理前常见问题". -->
+    <title>常见问题 FAQ - ChatGPT 充值与 Claude 接入答疑｜Gutast AI</title>
+    <!-- Description: ~40 CJK-equivalent chars. One core value + one CTA, no
+         price/promise stacking (Google truncates around 70 CJK chars). -->
+    <meta
+      name="description"
+      content="ChatGPT 充值与 Claude Code 接入办理前常见问题：安全、时效、发票与售后答疑，办理前必读。"
+    />
+    <meta
+      name="keywords"
+      content="ChatGPT代充常见问题, ChatGPT充值安全, Plus代充封号, Claude Code常见问题, Organization ID安全, AI订阅FAQ"
+    />
+    <link rel="canonical" href="https://www.gutast.com/faq" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="常见问题 FAQ - ChatGPT 充值与 Claude 接入答疑｜Gutast AI" />
+    <meta
+      property="og:description"
+      content="ChatGPT Plus 充值与 Claude Code 接入的安全、时效、发票与售后问题全解答。"
+    />
+    <meta property="og:url" content="https://www.gutast.com/faq" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Gutast AI" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:image" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta property="og:image:secure_url" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Gutast AI 常见问题 FAQ：充值与接入答疑"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="常见问题 FAQ - ChatGPT 充值与 Claude 接入答疑｜Gutast AI" />
+    <meta
+      name="twitter:description"
+      content="ChatGPT Plus 充值与 Claude Code 接入的安全、时效、发票与售后问题全解答。"
+    />
+    <meta name="twitter:image" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta name="twitter:image:alt" content="Gutast AI 常见问题 FAQ：充值与接入答疑" />
+
+    <!-- Structured data: Organization + BreadcrumbList + FAQPage (all visible
+         Q&A; groups mirror src/pages/faq/FaqPage.tsx). Note: FAQ rich results
+         are restricted to authoritative gov/health sites since 2023 — this
+         markup mainly helps machine comprehension. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.gutast.com/#organization",
+            "name": "Gutast AI",
+            "slogan": "Good Taste, Top AI — 好品味，先用上顶尖 AI",
+            "legalName": "深圳市优品家居材料科技有限公司",
+            "duns": "710229185",
+            "url": "https://www.gutast.com/",
+            "logo": "https://www.gutast.com/UI/logo/300_300.webp",
+            "email": "475290875@qq.com",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "email": "475290875@qq.com",
+              "availableLanguage": ["zh-CN"]
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.gutast.com/faq#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.gutast.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "常见问题",
+                "item": "https://www.gutast.com/faq"
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.gutast.com/faq#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "ChatGPT Plus 代充安全吗？会不会封号？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Gutast AI 走官网官方渠道划扣，Plus 严格按官网 $20 美元原价采购，绝不使用黑卡、盗刷等低价通道，并提供全周期订阅保障。明显低于官方成本的低价代充才存在会员被撤销、账号受限的风险。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "办理需要提供我的账号密码吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "不需要。全程在您自己的账号上完成：您在官方升级会话中发起订阅，专席仅代为完成支付，客服全程不索要任何账号密码。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "付款后多久能开通会员？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "通常几分钟内完成官方划扣与激活；如遇官方高峰期出现延迟，顾问会第一时间同步进度。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "可以开发票吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "支持。可提供国内正规数电发票，付款后向顾问说明报销需求并提供抬头即可。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "会员到期后还能续费吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "可以。官方渠道办理支持正常续费，到期前顾问会主动提醒；原有账号、历史 Prompt 与工程记录 100% 保留。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Claude Code 七档套餐怎么选？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "¥11 起，提供按天卡、周卡、月卡等七档灵活选择，官方客户端直连非镜像，日均 500 次请求。轻度试用选天卡，日常开发建议月卡，重度重构与算法攻坚建议高倍率档位。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Claude Code 接入为什么只需要 Organization ID？安全吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "安全。Organization ID 是 Anthropic 官方分配的组织唯一标识符（org_ 开头），仅用于在官方系统中定位组织与套餐归属：它不是密码也不是 API Key，任何人都无法用它登录账号、调用接口或读取代码。您可以在官方控制台 console.anthropic.com/settings/organization 自行查看与复制，接入全程无需提供账号密码或验证码。"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/pages/faq/main.tsx"></script>
+  </body>
+</html>

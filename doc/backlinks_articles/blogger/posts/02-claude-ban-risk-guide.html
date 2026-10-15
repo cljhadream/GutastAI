@@ -1,0 +1,39 @@
+<p><img src="https://www.gutast.com/UI/og-cover.png" alt="Gutast AI" /></p>
+<p><em>本文为精简版，完整版《Claude 封号机制详解》见文末链接。</em></p>
+<h2>先看数据：封号潮有多严重</h2>
+<p>Anthropic 官方透明度报告显示：2026 上半年封禁约 <b>1140 万</b>账号，是去年下半年的 <b>8 倍</b>；申诉后成功解封的仅约 4.2 万个，<b>不足 0.4%</b>。</p>
+<p>9 月下旬 Opus 5.5 发布后，社区封号讨论帖从每周二三十个涨到一百个上下。10 月 9 日发布的新版使用政策（11 月 12 日生效）进一步收紧：处罚门槛从“发现违规”降到“怀疑违规”，<b>转售与共享被单独写成红线</b>。</p>
+<h2>风控的五大信号</h2>
+<p>Claude 的风控体系自动收集并交叉验证五类信号：</p>
+<ol>
+<li><b>IP 地址</b>：类型、归属地、历史记录</li>
+<li><b>设备指纹</b>：浏览器特征、硬件信息</li>
+<li><b>支付方式</b>：卡片归属地与账号地区是否一致</li>
+<li><b>系统时区</b></li>
+<li><b>使用时段</b></li>
+</ol>
+<p>核心逻辑是：<b>所有信号是否讲同一个故事</b>。单看每一项都没问题，但“IP 在海外、时区 UTC+8、付款卡是第三个地区、活跃时间集中在北京时间工作时间”——信号互相打架，综合分就爆了。</p>
+<h2>三个流传甚广的误区</h2>
+<ul>
+<li>“住宅 IP 必安全”——不成立，曾有近 5000 个住宅 IP 的蒸馏号被一锅端</li>
+<li>“老号比新号安全”——不成立，大批量行为异常的老号同样被处理</li>
+<li>“中文设置会秒封”——不成立，界面语言单看不构成风险信号</li>
+</ul>
+<h2>四条自保原则</h2>
+<ol>
+<li><b>现在就备份数据</b>：设置 → 隐私 → 导出数据（导出链接 24 小时有效）</li>
+<li><b>一人一号一套环境</b>：不共享、不拼车</li>
+<li><b>关键关卡别折腾</b>：注册、首次付款、升级、换卡这几个节点，不要同时更换网络和设备</li>
+<li><b>订阅前想好退路</b>：优先级为海外真实卡 &gt; App Store / Google Play &gt; 虚拟卡</li>
+</ol>
+<h2>真被封了：三步自救</h2>
+<ol>
+<li>立即导出账号数据</li>
+<li>提交申诉（官方口径约 10% 改判率，可以试但别指望）</li>
+<li>按付款渠道申请退款</li>
+</ol>
+<blockquote>
+<p><b>完整原文：</b><a href="https://www.gutast.com/blog/claude-ban-risk-guide?utm_source=blogger&amp;utm_medium=social&amp;utm_campaign=claude_ban_risk">Claude 封号机制详解（含五大风控信号对照表）</a></p>
+</blockquote>
+<hr />
+<p><small>免责声明：本文为经验分享与公开信息整理，仅供参考，不构成任何规避服务条款的建议。请始终遵守 Anthropic / OpenAI 官方使用政策。更多教程见 <a href="https://www.gutast.com/?utm_source=blogger&amp;utm_medium=social&amp;utm_campaign=blogger_footer">Gutast AI 官网</a>。</small></p>

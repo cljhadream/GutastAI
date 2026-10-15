@@ -1,0 +1,32 @@
+WEBVTT
+kind: subtitles
+language: zh-CN
+
+NOTE
+Recharge demo captions — keep in sync with the 4-step walkthrough
+in src/App.tsx ("办理流程：4 步搞定") and the VideoObject transcript
+in index.html (SEO: video indexability).
+
+intro
+00:00:00.000 --> 00:00:06.000
+ChatGPT Plus / Codex 官方划扣实录演示，全程无需提供账号密码。
+
+step-1
+00:00:06.000 --> 00:00:13.000
+第一步 · 备好账号：自己的账号保持登录，选好套餐。
+
+step-2
+00:00:13.000 --> 00:00:20.000
+第二步 · 扫码联系：扫企微二维码找专席顾问。
+
+step-3
+00:00:20.000 --> 00:00:31.000
+第三步 · 官方下单：官方订阅页发起升级，由顾问代为完成支付。
+
+step-4
+00:00:31.000 --> 00:00:40.000
+第四步 · 收据质保：留存官方收据凭证，全周期质保 + 数电发票。
+
+outro
+00:00:40.000 --> 00:00:47.000
+官方渠道划扣，通常几分钟到账。客服全程不索要任何密码。

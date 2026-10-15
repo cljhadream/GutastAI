@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/UI/favicon-48.png" />
+    <link rel="icon" type="image/webp" href="/UI/logo/72_72.webp" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/UI/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8FAFC" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#06070B" />
+
+    <!-- SEO meta baked at build time: dedicated landing page so "ChatGPT Plus
+         充值" ranks on its own URL (not a home-page anchor).
+         Title: user-search phrasing first, brand last. H1 (in React) carries
+         the single topic "ChatGPT Plus / Codex 官方充值".
+         Prices below MUST mirror CHATGPT_PLANS in src/shared/data.ts. -->
+    <title>ChatGPT Plus 充值 - Codex 官方代充｜Gutast AI</title>
+    <!-- Description: ~40 CJK-equivalent chars. One core value + one CTA, no
+         price/promise stacking (Google truncates around 70 CJK chars). -->
+    <meta
+      name="description"
+      content="ChatGPT Plus / Codex 官方渠道代充：自有账号零密码，付款后几分钟开通。添加企微顾问，立即办理。"
+    />
+    <meta
+      name="keywords"
+      content="ChatGPT Plus充值, ChatGPT代充, Codex开通, Codex代充, Plus会员代充, 官方渠道充值, ChatGPT充值流程"
+    />
+    <link rel="canonical" href="https://www.gutast.com/chatgpt-plus" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="ChatGPT Plus 充值 - Codex 官方代充｜Gutast AI" />
+    <meta
+      property="og:description"
+      content="ChatGPT Plus / Codex 官方渠道代充：自有账号零密码，付款后几分钟开通。"
+    />
+    <meta property="og:url" content="https://www.gutast.com/chatgpt-plus" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Gutast AI" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:image" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta property="og:image:secure_url" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="ChatGPT Plus / Codex 官方代充 ¥145 起 - Gutast AI"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ChatGPT Plus 充值 - Codex 官方代充｜Gutast AI" />
+    <meta
+      name="twitter:description"
+      content="官方渠道代充 ¥145 起：自有账号零密码办理，100% 官方划扣，附充值实录视频。"
+    />
+    <meta name="twitter:image" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta
+      name="twitter:image:alt"
+      content="ChatGPT Plus / Codex 官方代充 ¥145 起 - Gutast AI"
+    />
+
+    <!-- Structured data: Organization + BreadcrumbList + Product + Offers +
+         VideoObject + FAQPage (visible Q&A only: topic !== 'claude' in
+         src/shared/data.ts). Keep FAQ text in sync with the page. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.gutast.com/#organization",
+            "name": "Gutast AI",
+            "slogan": "Good Taste, Top AI — 好品味，先用上顶尖 AI",
+            "legalName": "深圳市优品家居材料科技有限公司",
+            "duns": "710229185",
+            "url": "https://www.gutast.com/",
+            "logo": "https://www.gutast.com/UI/logo/300_300.webp",
+            "email": "475290875@qq.com",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "email": "475290875@qq.com",
+              "availableLanguage": ["zh-CN"]
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.gutast.com/chatgpt-plus#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.gutast.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "ChatGPT Plus 充值",
+                "item": "https://www.gutast.com/chatgpt-plus"
+              }
+            ]
+          },
+          {
+            "@type": "Product",
+            "@id": "https://www.gutast.com/chatgpt-plus#product-chatgpt-codex",
+            "name": "ChatGPT Plus / Codex 官方代充（Gutast AI）",
+            "image": [
+              "https://www.gutast.com/UI/og-cover.png",
+              "https://www.gutast.com/UI/logo/300_300.webp"
+            ],
+            "description": "自有账号办理 ChatGPT Plus / Codex 代充，100% 官方渠道划扣，无需提供账号密码，支持正常续费与全周期订阅保障。",
+            "brand": { "@type": "Brand", "name": "Gutast AI" },
+            "offers": [
+              {
+                "@type": "Offer",
+                "name": "Codex Plus",
+                "price": "145",
+                "priceCurrency": "CNY",
+                "availability": "https://schema.org/InStock",
+                "url": "https://www.gutast.com/chatgpt-plus#pricing-section",
+                "shippingDetails": {
+                  "@type": "OfferShippingDetails",
+                  "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "CNY"
+                  },
+                  "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "CN"
+                  }
+                },
+                "hasMerchantReturnPolicy": {
+                  "@type": "MerchantReturnPolicy",
+                  "applicableCountry": "CN",
+                  "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+                }
+              },
+              {
+                "@type": "Offer",
+                "name": "Codex Pro 5X",
+                "price": "680",
+                "priceCurrency": "CNY",
+                "availability": "https://schema.org/InStock",
+                "url": "https://www.gutast.com/chatgpt-plus#pricing-section",
+                "shippingDetails": {
+                  "@type": "OfferShippingDetails",
+                  "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "CNY"
+                  },
+                  "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "CN"
+                  }
+                },
+                "hasMerchantReturnPolicy": {
+                  "@type": "MerchantReturnPolicy",
+                  "applicableCountry": "CN",
+                  "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+                }
+              },
+              {
+                "@type": "Offer",
+                "name": "Codex Pro 20X",
+                "price": "1280",
+                "priceCurrency": "CNY",
+                "availability": "https://schema.org/InStock",
+                "url": "https://www.gutast.com/chatgpt-plus#pricing-section",
+                "shippingDetails": {
+                  "@type": "OfferShippingDetails",
+                  "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "CNY"
+                  },
+                  "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "CN"
+                  }
+                },
+                "hasMerchantReturnPolicy": {
+                  "@type": "MerchantReturnPolicy",
+                  "applicableCountry": "CN",
+                  "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+                }
+              }
+            ]
+          },
+          {
+            "@type": "VideoObject",
+            "@id": "https://www.gutast.com/chatgpt-plus#video-recharge-guide",
+            "name": "充值实录：ChatGPT Plus 官方划扣演示，全程无需提供账号密码",
+            "description": "Gutast AI 实录演示 ChatGPT Plus / Codex 官方渠道代充全流程：自有账号保持登录、扫码联系企微专席顾问、官方订阅页发起升级由顾问代付、留存官方收据并提供数电发票与全周期订阅保障。客服全程不索要任何账号密码。",
+            "thumbnailUrl": [
+              "https://www.gutast.com/UI/video-poster.webp",
+              "https://www.gutast.com/UI/og-cover.png"
+            ],
+            "uploadDate": "2026-10-12T21:19:24+08:00",
+            "duration": "PT47S",
+            "contentUrl": "https://www.gutast.com/recharge-guide.mp4",
+            "inLanguage": "zh-CN",
+            "isFamilyFriendly": true,
+            "caption": "https://www.gutast.com/recharge-guide.vtt",
+            "transcript": "充值实录演示 ChatGPT Plus / Codex 官方划扣全流程。第一步备好账号：自己的账号保持登录，选好套餐。第二步扫码联系：扫企微二维码找专席顾问。第三步官方下单：官方订阅页发起升级，顾问代为完成支付。第四步收据质保：留存官方收据凭证，提供全周期质保与数电发票。客服全程不索要任何密码。",
+            "publisher": { "@id": "https://www.gutast.com/#organization" }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.gutast.com/chatgpt-plus#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "ChatGPT Plus 代充安全吗？会不会封号？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Gutast AI 走官网官方渠道划扣，Plus 严格按官网 $20 美元原价采购，绝不使用黑卡、盗刷等低价通道，并提供全周期订阅保障。明显低于官方成本的低价代充才存在会员被撤销、账号受限的风险。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "办理需要提供我的账号密码吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "不需要。全程在您自己的账号上完成：您在官方升级会话中发起订阅，专席仅代为完成支付，客服全程不索要任何账号密码。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "付款后多久能开通会员？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "通常几分钟内完成官方划扣与激活；如遇官方高峰期出现延迟，顾问会第一时间同步进度。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "可以开发票吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "支持。可提供国内正规数电发票，付款后向顾问说明报销需求并提供抬头即可。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "会员到期后还能续费吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "可以。官方渠道办理支持正常续费，到期前顾问会主动提醒；原有账号、历史 Prompt 与工程记录 100% 保留。"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/pages/chatgpt-plus/main.tsx"></script>
+  </body>
+</html>

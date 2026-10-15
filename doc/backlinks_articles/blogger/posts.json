@@ -1,0 +1,27 @@
+[
+  {
+    "file": "01-claude-account-safety-faq.html",
+    "title": "Claude 账号防封答疑：六不原则、环境自测与 7 条防风控技巧",
+    "labels": ["Claude", "账号安全", "防封指南"]
+  },
+  {
+    "file": "02-claude-ban-risk-guide.html",
+    "title": "Claude 封号机制详解：半年 1140 万账号被封背后的风控逻辑",
+    "labels": ["Claude", "风控解读", "数据报告"]
+  },
+  {
+    "file": "03-claude-pro-recharge-guide.html",
+    "title": "Claude Pro 怎么充值？2026 年国内用户五条路径安全性横评",
+    "labels": ["Claude", "订阅充值", "防坑指南"]
+  },
+  {
+    "file": "04-claude-chinese-ui-analysis.html",
+    "title": "Claude 中文版上线解读：界面支持简体中文，但支持地区名单没变",
+    "labels": ["Claude", "中文界面", "政策解读"]
+  },
+  {
+    "file": "05-claude-subscription-plan-guide.html",
+    "title": "Claude 订阅套餐怎么选？Pro / Max 5x / Max 20x 三档对比（2026 版）",
+    "labels": ["Claude", "套餐对比", "订阅指南"]
+  }
+]

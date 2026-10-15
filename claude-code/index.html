@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/UI/favicon-48.png" />
+    <link rel="icon" type="image/webp" href="/UI/logo/72_72.webp" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/UI/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8FAFC" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#06070B" />
+
+    <!-- SEO meta baked at build time: dedicated landing page so "Claude Code
+         接入/直连" ranks on its own URL. Title: user-search phrasing first,
+         brand last. H1 (in React) carries the single topic
+         "Claude Code 终端直连". -->
+    <title>Claude Code 接入 - 终端直连 ¥11 起｜Gutast AI</title>
+    <!-- Description: ~40 CJK-equivalent chars. One core value + one CTA, no
+         price/promise stacking (Google truncates around 70 CJK chars). -->
+    <meta
+      name="description"
+      content="Claude Code 终端直连官方客户端，无需账号密码，只需 Organization ID。添加企微顾问，立即开通。"
+    />
+    <meta
+      name="keywords"
+      content="Claude Code接入, Claude Code直连, Claude Code购买, Organization ID, Claude终端配置, Claude订阅套餐"
+    />
+    <link rel="canonical" href="https://www.gutast.com/claude-code" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Claude Code 接入 - 终端直连 ¥11 起｜Gutast AI" />
+    <meta
+      property="og:description"
+      content="Claude Code 终端直连官方客户端，无需账号密码，只需 Organization ID。"
+    />
+    <meta property="og:url" content="https://www.gutast.com/claude-code" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Gutast AI" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:image" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta property="og:image:secure_url" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Claude Code 终端直连 ¥11 起，零凭证接入 - Gutast AI"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Claude Code 接入 - 终端直连 ¥11 起｜Gutast AI" />
+    <meta
+      name="twitter:description"
+      content="官方客户端直连非镜像，¥11 起七档套餐：零凭证接入只需 Organization ID。"
+    />
+    <meta name="twitter:image" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta
+      name="twitter:image:alt"
+      content="Claude Code 终端直连 ¥11 起，零凭证接入 - Gutast AI"
+    />
+
+    <!-- Structured data: Organization + BreadcrumbList + FAQPage (visible Q&A
+         only: topic !== 'chatgpt' in src/shared/data.ts, i.e. general + claude
+         questions). Keep FAQ text in sync with the page. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.gutast.com/#organization",
+            "name": "Gutast AI",
+            "slogan": "Good Taste, Top AI — 好品味，先用上顶尖 AI",
+            "legalName": "深圳市优品家居材料科技有限公司",
+            "duns": "710229185",
+            "url": "https://www.gutast.com/",
+            "logo": "https://www.gutast.com/UI/logo/300_300.webp",
+            "email": "475290875@qq.com",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "email": "475290875@qq.com",
+              "availableLanguage": ["zh-CN"]
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.gutast.com/claude-code#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.gutast.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Claude Code 接入",
+                "item": "https://www.gutast.com/claude-code"
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.gutast.com/claude-code#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "办理需要提供我的账号密码吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "不需要。全程在您自己的账号上完成：您在官方升级会话中发起订阅，专席仅代为完成支付，客服全程不索要任何账号密码。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "付款后多久能开通会员？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "通常几分钟内完成官方划扣与激活；如遇官方高峰期出现延迟，顾问会第一时间同步进度。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "可以开发票吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "支持。可提供国内正规数电发票，付款后向顾问说明报销需求并提供抬头即可。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "会员到期后还能续费吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "可以。官方渠道办理支持正常续费，到期前顾问会主动提醒；原有账号、历史 Prompt 与工程记录 100% 保留。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Claude Code 七档套餐怎么选？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "¥11 起，提供按天卡、周卡、月卡等七档灵活选择，官方客户端直连非镜像，日均 500 次请求。轻度试用选天卡，日常开发建议月卡，重度重构与算法攻坚建议高倍率档位。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Claude Code 接入为什么只需要 Organization ID？安全吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "安全。Organization ID 是 Anthropic 官方分配的组织唯一标识符（org_ 开头），仅用于在官方系统中定位组织与套餐归属：它不是密码也不是 API Key，任何人都无法用它登录账号、调用接口或读取代码。您可以在官方控制台 console.anthropic.com/settings/organization 自行查看与复制，接入全程无需提供账号密码或验证码。"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/pages/claude-code/main.tsx"></script>
+  </body>
+</html>

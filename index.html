@@ -7,29 +7,32 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/UI/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
+    <!-- Baidu webmaster ownership verification (HTML tag method) -->
+    <meta name="baidu-site-verification" content="codeva-2o71eDK4kB" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8FAFC" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#06070B" />
 
-    <!-- SEO meta baked at build time: single-page site, so crawlers get the
-         full metadata without executing any JavaScript.
-         Title: core keyword | secondary keyword - brand (54 chars, within 50-60).
-         Description: ~149 chars incl. value props and a CTA for higher CTR. -->
-    <title>ChatGPT Plus / Codex 官方代充 | Claude Code 直连 - Gutast AI</title>
+    <!-- SEO meta baked at build time: brand hub page. Product keywords rank on
+         their own landing pages (/chatgpt-plus, /claude-code, /faq); this page
+         only targets the brand query "Gutast AI" and funnels visitors there. -->
+    <title>Gutast AI - 好品味，先用上顶尖 AI｜ChatGPT Plus 充值 · Claude Code 直连</title>
+    <!-- Description: ~40 CJK-equivalent chars. One core value + one CTA, no
+         price/promise stacking (Google truncates around 70 CJK chars). -->
     <meta
       name="description"
-      content="Gutast AI 官方渠道专席办理 ChatGPT Plus / Codex 代充（¥145 起），自有账号零密码接入，100% 官方划扣不开黑卡，支持正常续费、数电发票与全周期订阅保障；Claude Code 终端直连 ¥11 起，7 档套餐灵活选择。添加企微技术顾问，通常 3 分钟极速开通。"
+      content="好品味，先用上顶尖 AI。Gutast 官方渠道办理 ChatGPT Plus 充值与 Claude Code 直连，几分钟开通，立即咨询顾问。"
     />
     <meta
       name="keywords"
-      content="Gutast AI, ChatGPT代充, Codex代充, Claude Code直连, Plus会员代充, 官方渠道充值, 开发者算力"
+      content="Gutast AI, Gutast, ChatGPT代充, Codex代充, Claude Code直连, 官方渠道充值, AI订阅办理"
     />
     <link rel="canonical" href="https://www.gutast.com/" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="ChatGPT Plus / Codex 官方代充 | Claude Code 直连 - Gutast AI" />
+    <meta property="og:title" content="Gutast AI - 好品味，先用上顶尖 AI" />
     <meta
       property="og:description"
-      content="Gutast AI 官方渠道专席办理 ChatGPT Plus / Codex 代充（¥145 起），自有账号零密码接入，100% 官方划扣。Claude Code 终端直连 ¥11 起。添加企微顾问，通常 3 分钟极速开通。"
+      content="好品味，先用上顶尖 AI。Gutast 官方渠道办理 ChatGPT Plus 充值与 Claude Code 直连，几分钟开通。"
     />
     <meta property="og:url" content="https://www.gutast.com/" />
     <meta property="og:type" content="website" />
@@ -41,25 +44,22 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Gutast AI：ChatGPT Plus / Codex 官方代充 ¥145 起，Claude Code 直连 ¥11 起"
+      content="Gutast AI：好品味，先用上顶尖 AI"
     />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ChatGPT Plus / Codex 官方代充 | Claude Code 直连 - Gutast AI" />
+    <meta name="twitter:title" content="Gutast AI - 好品味，先用上顶尖 AI" />
     <meta
       name="twitter:description"
-      content="官方渠道专席代充，自有账号零密码接入，100% 官方划扣。Claude Code 终端直连 ¥11 起。添加企微顾问，3 分钟极速开通。"
+      content="官方渠道专席办理 ChatGPT Plus / Codex 充值与 Claude Code 终端直连，自有账号零密码接入。"
     />
     <meta name="twitter:image" content="https://www.gutast.com/UI/og-cover.png" />
-    <meta
-      name="twitter:image:alt"
-      content="Gutast AI：ChatGPT Plus / Codex 官方代充 ¥145 起，Claude Code 直连 ¥11 起"
-    />
+    <meta name="twitter:image:alt" content="Gutast AI：好品味，先用上顶尖 AI" />
 
-    <!-- Structured data: Organization, WebSite, Product + Offers, FAQPage.
-         Keep prices in sync with CHATGPT_PLANS in src/App.tsx and FAQ text
-         in sync with the visible FAQ section. -->
+    <!-- Structured data: Organization (single @id reused across all pages) +
+         WebSite. Page-specific entities (Product/Video/FAQ) live on their own
+         landing pages' HTML. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -77,7 +77,13 @@
             "duns": "710229185",
             "url": "https://www.gutast.com/",
             "logo": "https://www.gutast.com/UI/logo/300_300.webp",
-            "email": "mailto:475290875@qq.com",
+            "email": "475290875@qq.com",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "email": "475290875@qq.com",
+              "availableLanguage": ["zh-CN"]
+            },
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "光明区悦府花园4栋1901",
@@ -94,156 +100,6 @@
             "name": "Gutast AI",
             "inLanguage": "zh-CN",
             "publisher": { "@id": "https://www.gutast.com/#organization" }
-          },
-          {
-            "@type": "Product",
-            "@id": "https://www.gutast.com/#product-chatgpt-codex",
-            "name": "ChatGPT Plus / Codex 官方代充（Gutast AI）",
-            "image": [
-              "https://www.gutast.com/UI/og-cover.png",
-              "https://www.gutast.com/UI/logo/300_300.webp"
-            ],
-            "description": "自有账号办理 ChatGPT Plus / Codex 代充，100% 官方渠道划扣，无需提供账号密码，支持正常续费与全周期订阅保障。",
-            "brand": { "@type": "Brand", "name": "Gutast AI" },
-            "offers": [
-              {
-                "@type": "Offer",
-                "name": "Codex Plus",
-                "price": "145",
-                "priceCurrency": "CNY",
-                "availability": "https://schema.org/InStock",
-                "url": "https://www.gutast.com/#chatgpt-section",
-                "shippingDetails": {
-                  "@type": "OfferShippingDetails",
-                  "shippingRate": {
-                    "@type": "MonetaryAmount",
-                    "value": "0",
-                    "currency": "CNY"
-                  },
-                  "shippingDestination": {
-                    "@type": "DefinedRegion",
-                    "addressCountry": "CN"
-                  }
-                },
-                "hasMerchantReturnPolicy": {
-                  "@type": "MerchantReturnPolicy",
-                  "applicableCountry": "CN",
-                  "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
-                }
-              },
-              {
-                "@type": "Offer",
-                "name": "Codex Pro 5X",
-                "price": "680",
-                "priceCurrency": "CNY",
-                "availability": "https://schema.org/InStock",
-                "url": "https://www.gutast.com/#chatgpt-section",
-                "shippingDetails": {
-                  "@type": "OfferShippingDetails",
-                  "shippingRate": {
-                    "@type": "MonetaryAmount",
-                    "value": "0",
-                    "currency": "CNY"
-                  },
-                  "shippingDestination": {
-                    "@type": "DefinedRegion",
-                    "addressCountry": "CN"
-                  }
-                },
-                "hasMerchantReturnPolicy": {
-                  "@type": "MerchantReturnPolicy",
-                  "applicableCountry": "CN",
-                  "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
-                }
-              },
-              {
-                "@type": "Offer",
-                "name": "Codex Pro 20X",
-                "price": "1280",
-                "priceCurrency": "CNY",
-                "availability": "https://schema.org/InStock",
-                "url": "https://www.gutast.com/#chatgpt-section",
-                "shippingDetails": {
-                  "@type": "OfferShippingDetails",
-                  "shippingRate": {
-                    "@type": "MonetaryAmount",
-                    "value": "0",
-                    "currency": "CNY"
-                  },
-                  "shippingDestination": {
-                    "@type": "DefinedRegion",
-                    "addressCountry": "CN"
-                  }
-                },
-                "hasMerchantReturnPolicy": {
-                  "@type": "MerchantReturnPolicy",
-                  "applicableCountry": "CN",
-                  "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
-                }
-              }
-            ]
-          },
-          {
-            "@type": "FAQPage",
-            "@id": "https://www.gutast.com/#faq",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "ChatGPT Plus 代充安全吗？会不会封号？",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Gutast AI 走官网官方渠道划扣，Plus 严格按官网 $20 美元原价采购，绝不使用黑卡、盗刷等低价通道，并提供全周期订阅保障。明显低于官方成本的低价代充才存在会员被撤销、账号受限的风险。"
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "办理需要提供我的账号密码吗？",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "不需要。全程在您自己的账号上完成：您在官方升级会话中发起订阅，专席仅代为完成支付，客服全程不索要任何账号密码。"
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "付款后多久能开通会员？",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "通常几分钟内完成官方划扣与激活；如遇官方高峰期出现延迟，顾问会第一时间同步进度。"
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "可以开发票吗？",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "支持。可提供国内正规数电发票，付款后向顾问说明报销需求并提供抬头即可。"
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "会员到期后还能续费吗？",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "可以。官方渠道办理支持正常续费，到期前顾问会主动提醒；原有账号、历史 Prompt 与工程记录 100% 保留。"
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Claude Code 七档套餐怎么选？",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "¥11 起，提供按天卡、周卡、月卡等七档灵活选择，官方客户端直连非镜像，日均 500 次请求。轻度试用选天卡，日常开发建议月卡，重度重构与算法攻坚建议高倍率档位。"
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Claude Code 接入为什么只需要 Organization ID？安全吗？",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "安全。Organization ID 是 Anthropic 官方分配的组织唯一标识符（org_ 开头），仅用于在官方系统中定位组织与套餐归属：它不是密码也不是 API Key，任何人都无法用它登录账号、调用接口或读取代码。您可以在官方控制台 console.anthropic.com/settings/organization 自行查看与复制，接入全程无需提供账号密码或验证码。"
-                }
-              }
-            ]
           }
         ]
       }
@@ -251,6 +107,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/pages/home/main.tsx"></script>
   </body>
 </html>

@@ -9,7 +9,16 @@ dist/
 .idea/
 .DS_Store
 
+# Nested standalone repos (GitHub backlink repo)
+claude-chatgpt-recharge-guide/
+taste-skill-upstream/
+
 # Env files
 *.local
 .env
 .env.*
+
+# Blogger API credentials & python cache (never commit)
+doc/backlinks_articles/blogger/client_secret.json
+doc/backlinks_articles/blogger/token.json
+__pycache__/
