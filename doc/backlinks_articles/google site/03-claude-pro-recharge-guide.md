@@ -49,7 +49,7 @@ Claude 官网只支持海外信用卡和 PayPal，不支持支付宝与微信—
 
 以 Gutast AI（www.gutast.com）为例：自有账号确认档位 → 支付宝/微信人民币付款给专席 → 在官方会话内发起升级、专席代付。支持开发票，运营主体与 D-U-N-S 编码公开可查。
 
-同一条路径也支持 **ChatGPT Plus / Codex**（¥145/月起）与 **Claude Code 直连**（¥11 起七档算力套餐）。
+同一条路径也支持 **ChatGPT Plus / Codex**（¥145/月起）与 **Claude Code 代充**（¥11 起七档算力套餐）。
 
 ### 选档速查
 

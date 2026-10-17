@@ -16,8 +16,6 @@ export const VIDEO_SRC = '/recharge-guide.mp4';
 export const POSTER_SRC = '/UI/video-poster.webp';
 // WebVTT captions: crawler-readable transcript of the demo narration.
 export const VTT_SRC = '/recharge-guide.vtt';
-// Official-console walkthrough screenshot for the Organization ID guide.
-export const ORG_GUIDE_SRC = '/claude_get_orgonization_di_guide.webp';
 // WeChat QR code shown in the contact modal.
 export const QR_SRC = '/UI/wechat-qr-code.webp';
 
@@ -83,36 +81,51 @@ export const WALKTHROUGH_STEPS = [
   { title: '收据质保', desc: '官方收据凭证，全周期质保 + 数电发票' },
 ];
 
-// Zero-credential onboarding walkthrough for Claude Code. The step text is a
-// crawler-readable mirror of the ORG_GUIDE_SRC screenshot (SEO + Experience).
-export const ORG_ID_STEPS = [
-  { title: '登录 Anthropic 官方控制台', desc: '浏览器访问 console.anthropic.com，使用您自己的账号登录。' },
-  { title: '进入 Settings → Organization', desc: '点击控制台左下角「Settings」，在侧栏选择「Organization」设置页。' },
-  { title: '复制 org_ 开头的 ID 发给顾问', desc: '复制 Organization ID 并通过企微发送，顾问即刻完成代申请与环境接入。' },
+// Claude membership recharge plans: Pro/Max subscriptions proxy-purchased on
+// the customer's own account. Upgrade between tiers = pay the difference.
+export const CLAUDE_PLANS: Plan[] = [
+  {
+    label: 'Essential',
+    name: 'Claude Pro',
+    price: 145,
+    desc: '官方个人标准版，claude.ai 对话与 Claude Code 轻度编程，自有账号官方渠道代充。',
+    cta: '添加企微 · 办理 Pro',
+    service: 'Claude Pro（¥145/月）',
+  },
+  {
+    label: 'Pro Power',
+    name: 'Claude Max 5x',
+    price: 900,
+    desc: '5 倍使用额度，高频对话、深度调研与 Claude Code 重度开发进阶之选。',
+    cta: '立即开通 Max 5x',
+    service: 'Claude Max 5x（¥900/月）',
+    featured: true,
+    badge: '🔥 高频用户首选',
+  },
+  {
+    label: 'Max Ultra',
+    name: 'Claude Max 20x',
+    price: 1700,
+    desc: '20 倍顶配额度，全天候重度使用与团队场景，支持对公付款与代开发票。',
+    cta: '添加企微 · 咨询 20x',
+    service: 'Claude Max 20x（¥1700/月）',
+  },
 ];
 
-// E-E-A-T knowledge cards for the Organization ID workflow: Expertise,
-// Trustworthiness, Authoritativeness, Experience — one card per signal.
-export const ORG_ID_FACTS = [
+// Recharge commitments specific to the Claude line: warranty scope and
+// invoice support for business customers (rendered under the plan cards).
+export const CLAUDE_NOTES = [
   {
-    icon: '🎓',
-    tag: 'Expertise · 它是什么',
-    text: 'Organization ID 是 Anthropic 官方分配的组织唯一标识符，以 org_ 开头，广泛用于 API 管理与团队协作场景。',
+    // Shield emoji written as escape sequences to avoid encoding corruption
+    icon: '\u{1F6E1}\u{FE0F}',
+    title: '只质保订阅',
+    desc: '套餐有效期内会员失效免费补期续保；Claude 平台自身的封号风险不在质保范围内，请规范使用。',
   },
   {
-    icon: '🛡️',
-    tag: 'Trust · 为什么安全',
-    text: '它只是组织的"身份证号"：不是密码、不是验证码、更不是 API Key，持有者无法登录账号、无法调用接口、无法读取代码。',
-  },
-  {
-    icon: '🔗',
-    tag: 'Authority · 官方入口',
-    text: '仅在 Anthropic 官方控制台查看与复制：console.anthropic.com/settings/organization，谨防仿冒钓鱼站点。',
-  },
-  {
-    icon: '🧰',
-    tag: 'Experience · 接入实操',
-    text: '收到 org ID 后，顾问远程指导完成 Claude Code CLI 绑定与首次连通性验证，代码与数据 100% 留在您本地。',
+    // Receipt emoji written as escape sequence to avoid encoding corruption
+    icon: '\u{1F9FE}',
+    title: '公司客户可代开发票',
+    desc: '企业报销需求可代开发票，付款后向顾问说明并提供抬头即可办理。',
   },
 ];
 
@@ -151,13 +164,13 @@ export const FAQ_ITEMS: FaqItem[] = [
     topic: 'general',
   },
   {
-    q: 'Claude Code 七档套餐怎么选？',
-    a: '¥11 起，提供按天卡、周卡、月卡等七档灵活选择，官方客户端直连非镜像，日均 500 次请求。轻度试用选天卡，日常开发建议月卡，重度重构与算法攻坚建议高倍率档位。',
+    q: 'Claude 代充套餐怎么选？',
+    a: 'Claude Pro ¥145/月适合日常对话与轻度编程；Max 5x ¥900/月提供 5 倍使用额度，适合高频开发与 Claude Code 重度使用；Max 20x ¥1700/月为 20 倍顶配额度。已有会员可补差价直接升级更高档位，顾问可按您的用量推荐最省的档位。',
     topic: 'claude',
   },
   {
-    q: 'Claude Code 接入为什么只需要 Organization ID？安全吗？',
-    a: '安全。Organization ID 是 Anthropic 官方分配的组织唯一标识符（org_ 开头），仅用于在官方系统中定位组织与套餐归属：它不是密码也不是 API Key，任何人都无法用它登录账号、调用接口或读取代码。您可以在官方控制台 console.anthropic.com/settings/organization 自行查看与复制，接入全程无需提供账号密码或验证码。',
+    q: 'Claude 代充质保什么？包不包封号？',
+    a: '我们只质保订阅本身：套餐有效期内会员失效免费补期续保；Claude 平台自身的封号风险不在质保范围内。公司客户需要报销可代开发票，付款后提供抬头即可。',
     topic: 'claude',
   },
 ];

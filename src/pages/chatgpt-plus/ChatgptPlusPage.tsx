@@ -327,13 +327,13 @@ export default function ChatgptPlusPage() {
               <div className="mb-1 font-mono text-xs font-bold uppercase tracking-widest text-hyper-indigo dark:text-indigo-400">
                 ALSO AVAILABLE
               </div>
-              <h2 className="text-lg font-black tracking-tight">Claude Code 终端直连 · ¥11 起</h2>
+              <h2 className="text-lg font-black tracking-tight">Claude Pro / Max 会员代充 · ¥145 起</h2>
               <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                官方客户端直连非镜像，零凭证接入：仅需一个 Organization ID。
+                官方渠道正规代充，Pro / Max 5x / Max 20x 三档明码标价，已有会员补差价升级。
               </p>
             </div>
             <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-hyper-indigo dark:text-indigo-400">
-              查看接入指南
+              查看代充套餐
               <span className="transition group-hover:translate-x-1">→</span>
             </span>
           </div>

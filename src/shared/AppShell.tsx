@@ -75,7 +75,7 @@ const SCOPED_CSS = `
 // header and footer link between pages instead of same-page anchors.
 const NAV_LINKS: { href: string; label: string; pulse?: boolean }[] = [
   { href: '/chatgpt-plus', label: 'ChatGPT Plus 充值' },
-  { href: '/claude-code', label: 'Claude Code 直连', pulse: true },
+  { href: '/claude-code', label: 'Claude 会员代充', pulse: true },
   { href: '/chatgpt-plus#video-section', label: '充值实录' },
   { href: '/chatgpt-plus#why-section', label: '防坑保障' },
   { href: '/faq', label: '常见问题' },
@@ -353,7 +353,7 @@ export default function AppShell({ children, currentPage }: AppShellProps) {
               className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-wechat to-wechat-dark py-3.5 text-sm font-extrabold text-white shadow-glow-wechat active:scale-95"
             >
               <WechatIcon className="h-5 w-5" />
-              微信扫码 · ¥11 起办理
+              微信扫码 · ¥145 起办理
               <span className="rounded-md bg-black/20 px-2 py-0.5 font-mono text-[11px] font-medium opacity-90">无需密码 · 几分钟到账</span>
             </button>
           </div>

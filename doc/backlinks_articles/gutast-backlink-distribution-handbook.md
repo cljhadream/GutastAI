@@ -35,7 +35,7 @@
 | 4 | Claude 中文版上线解读 | https://www.gutast.com/blog/claude-chinese-ui-analysis | 中文界面 / 支持地区 / 热点解读 | 中（热点型） | 微博 / 知乎 / 公众号 |
 | 5 | Claude 订阅套餐怎么选（2026 版） | https://www.gutast.com/blog/claude-subscription-plan-guide | 三档对比 / 省钱建议 / API 福利 | 高（决策型） | 知乎 / 技术社区 / 公众号 |
 
-**站点品牌素材**：首页 https://www.gutast.com/（Slogan：开发者算力加速引擎；主营 Claude 订阅代付 / ChatGPT Plus / Codex / Claude Code 直连）
+**站点品牌素材**：首页 https://www.gutast.com/（Slogan：开发者算力加速引擎；主营 Claude 订阅代付 / ChatGPT Plus / Codex / Claude Code 代充）
 
 ![Gutast AI 品牌封面](https://www.gutast.com/UI/og-cover.png)
 
@@ -394,7 +394,7 @@ https://www.gutast.com/blog/claude-ban-risk-guide?utm_source=wechat&utm_medium=s
 - 代充两种模式对比：**密码托管模式 = 高危**（账号失控、资料泄露）；**官方会话代付模式 = 安全**（自己账号内发起升级，对方只付款，全程无密码）
 - 防坑第一原则：任何索要账号密码或验证码的代充，直接拉黑
 - Gutast AI 方案三步：自有账号确认档位 → 支付宝/微信人民币付款给专席 → 官方会话内发起升级、专席代付；可开发票，运营主体与 D-U-N-S 编码公开
-- 同路径支持 ChatGPT Plus / Codex（¥145/月起）与 Claude Code 直连（¥11 起七档）
+- 同路径支持 ChatGPT Plus / Codex（¥145/月起）与 Claude Code 代充（¥11 起七档）
 - 选档速查：日常 Pro（$20）、高频编码 Max 5x（$100）、团队重度 Max 20x（$200）
 
 ### 6.2 标题备选

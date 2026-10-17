@@ -23,7 +23,7 @@
 - 一段站点简介（可直接粘贴）：
 
 ```text
-Gutast AI（www.gutast.com）是面向中文开发者的 AI 订阅服务助手，主营 Claude Pro/Max 订阅代付、ChatGPT Plus、Codex 与 Claude Code 直连。本知识库整理了 Claude 账号防封、风控机制、充值路径、中文界面解读与订阅选档 5 个主题的精华内容，完整版教程请访问 Gutast 官方博客。
+Gutast AI（www.gutast.com）是面向中文开发者的 AI 订阅服务助手，主营 Claude Pro/Max 订阅代付、ChatGPT Plus、Codex 与 Claude Code 代充。本知识库整理了 Claude 账号防封、风控机制、充值路径、中文界面解读与订阅选档 5 个主题的精华内容，完整版教程请访问 Gutast 官方博客。
 ```
 
 - 下方列 5 篇文章目录（用 Google Sites「插入 → 目录」或手动列表 + 站内页链接）

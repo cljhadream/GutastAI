@@ -1,8 +1,7 @@
 import AppShell, { useOpenWechatModal, WechatIcon } from '../../shared/AppShell';
 import {
-  ORG_GUIDE_SRC,
-  ORG_ID_FACTS,
-  ORG_ID_STEPS,
+  CLAUDE_NOTES,
+  CLAUDE_PLANS,
   faqForPage,
 } from '../../shared/data';
 
@@ -10,9 +9,9 @@ import {
 const PAGE_FAQ = faqForPage('claude-code');
 
 /**
- * Claude Code landing page ("/claude-code"): zero-credential Organization ID
- * onboarding guide, E-E-A-T knowledge cards, page-scoped FAQ.
- * Single H1 topic so this URL ranks for "Claude Code 接入" queries.
+ * Claude membership recharge landing page ("/claude-code"): Pro / Max plans,
+ * upgrade-by-price-difference policy, warranty scope notice, page-scoped FAQ.
+ * Single H1 topic so this URL ranks for "Claude 代充 / Claude 会员" queries.
  */
 export default function ClaudeCodePage() {
   const openModal = useOpenWechatModal();
@@ -25,62 +24,61 @@ export default function ClaudeCodePage() {
         <div className="mb-8 flex flex-wrap items-center justify-center gap-2">
           <div className="inline-flex items-center gap-2 rounded-full border border-hyper-indigo/20 bg-hyper-indigo/10 px-4 py-2 font-mono text-xs font-bold text-hyper-indigo dark:text-indigo-400">
             <span className="h-2 w-2 animate-pulse rounded-full bg-hyper-indigo" />
-            100% 官方客户端直连 · 非第三方降智镜像
+            官方渠道正规代充 · 全程无需账号密码
           </div>
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
             <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            零凭证接入 · 仅需 Organization ID
+            已有会员 · 补差价升级
           </div>
         </div>
 
-        {/* Single-topic H1: this page targets "Claude Code 接入" queries */}
+        {/* Single-topic H1: this page targets "Claude 代充" queries */}
         <h1 className="mb-3 text-4xl font-black leading-[1.15] tracking-tight md:text-6xl">
           <span className="xa-gradient-text bg-gradient-to-r from-hyper-indigo via-hyper-violet to-hyper-orange bg-clip-text text-transparent">
-            Claude Code 终端直连
+            Claude Pro / Max 会员代充
           </span>
         </h1>
 
         {/* Subtitle */}
         <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 md:text-lg">
-          每天请求 <strong className="font-bold font-mono text-hyper-orange">500 次</strong>{' '}
-          官方版非镜像，高频排查 Bug、自动化重构充沛有余。按天 / 周卡 / 多档月卡{' '}
-          <strong className="font-bold text-slate-900 underline decoration-hyper-orange dark:text-white">七档套餐灵活选择</strong>
-          ，接入全程只需一个 Organization ID，无需交出账号密码。
+          Claude Pro <strong className="font-bold font-mono text-hyper-orange">¥145</strong> /月、Max 5x{' '}
+          <strong className="font-bold font-mono text-hyper-orange">¥900</strong>、Max 20x{' '}
+          <strong className="font-bold font-mono text-hyper-orange">¥1700</strong>
+          ，官方渠道正规代充，已有会员可
+          <strong className="font-bold text-slate-900 underline decoration-hyper-orange dark:text-white">补差价升级</strong>
+          ，付款后顾问全程代办，通常几分钟开通。
         </p>
 
         {/* Price highlight */}
         <div className="mb-8 inline-flex items-baseline gap-2 rounded-2xl border border-hyper-lightBorder bg-hyper-lightCard/60 px-6 py-3 shadow-sm backdrop-blur-md dark:border-hyper-darkBorder dark:bg-hyper-darkCard/60">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">灵活体验档位 · 起价仅</span>
-          <span className="font-mono text-4xl font-black text-hyper-orange">¥11</span>
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">Pro / Max 三档套餐 · 起价仅</span>
+          <span className="font-mono text-4xl font-black text-hyper-orange">¥145</span>
         </div>
 
         {/* Primary CTA row */}
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           <button
             type="button"
-            onClick={() => openModal('Claude Code 7 档套餐')}
+            onClick={() => openModal('Claude 会员代充')}
             className="xa-btn-ignite-wechat flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-wechat to-wechat-dark px-8 py-4 text-base font-bold text-white shadow-glow-wechat active:scale-95 sm:w-auto"
           >
             <WechatIcon className="h-6 w-6" />
-            <span>扫码选档 · 立即连接终端</span>
-            <span className="rounded-md bg-black/20 px-2 py-0.5 font-mono text-xs opacity-90">¥11 起 →</span>
+            <span>扫码选档 · 立即开通</span>
+            <span className="rounded-md bg-black/20 px-2 py-0.5 font-mono text-xs opacity-90">¥145 起 →</span>
           </button>
 
           <a
-            href="#orgid-guide"
+            href="#plans"
             className="w-full rounded-2xl border border-hyper-lightBorder bg-hyper-lightCard/50 px-7 py-4 text-center text-sm font-bold shadow-sm backdrop-blur-md transition hover:border-hyper-indigo hover:text-hyper-indigo dark:border-hyper-darkBorder dark:bg-hyper-darkCard/50 sm:w-auto"
           >
-            三步找到 Organization ID ↓
+            查看三档套餐 ↓
           </a>
         </div>
       </section>
 
-      {/* ================= Zero-credential onboarding guide (E-E-A-T) =================
-          Official-console screenshot as Experience proof, concept explainer as
-          Expertise, official console link as Authority, anti-phishing notice as
-          Trust. Step text mirrors the screenshot for crawlers. */}
+      {/* ================= Plans ================= */}
       <section
-        id="orgid-guide"
+        id="plans"
         className="relative mx-auto max-w-5xl scroll-mt-24 overflow-hidden rounded-3xl border border-hyper-indigo/30 bg-hyper-lightCard px-6 pb-10 shadow-glow-card dark:border-hyper-darkBorder dark:bg-hyper-darkCard md:px-10"
       >
         <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-hyper-indigo via-hyper-violet to-hyper-orange" />
@@ -90,117 +88,104 @@ export default function ClaudeCodePage() {
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-2 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
               <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-              零凭证接入 · 无需账号密码 / 验证码
+              官方渠道划扣 · 非低价黑卡通道
             </span>
             <span className="rounded-md border border-hyper-lightBorder px-3 py-1 font-mono text-xs text-slate-500 dark:border-hyper-darkBorder dark:text-slate-400">
-              代申请 + 环境接入一站式
+              Pro / Max 5x / Max 20x
             </span>
           </div>
           <h2 className="mb-3 text-2xl font-black tracking-tight md:text-3xl">
-            接入 Claude Code 只需要一个{' '}
-            <span className="font-mono text-hyper-indigo dark:text-indigo-400">Organization ID</span>
+            Claude 会员三档套餐 · <span className="font-mono text-hyper-indigo dark:text-indigo-400">明码标价</span>
           </h2>
           <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-            不交账号、不给密码、不要验证码。您只需提供以{' '}
-            <code className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs font-bold text-hyper-indigo dark:bg-white/5 dark:text-indigo-300">
-              org_
-            </code>{' '}
-            开头的组织唯一标识符：它在 Anthropic 官方系统里仅用于标识"您的组织是谁"，
-            <strong className="font-bold text-slate-900 dark:text-white">
-              无法登录、无法调用 API、无法读取您的代码与对话
-            </strong>
-            。以下三步教您在官方控制台找到它。
+            在您自己的 Claude 账号上代充开通，办理过程不需要提供账号密码。Pro 与 Max
+            均包含 claude.ai 对话与 Claude Code 使用额度，按用量选择档位即可。
           </p>
         </div>
 
-        {/* Three-step walkthrough: text mirror of the guide screenshot */}
-        <div className="mb-8 grid gap-4 md:grid-cols-3">
-          {ORG_ID_STEPS.map((step, i) => (
+        {/* Plan cards: indigo accent, mirrors the ChatGPT pricing layout */}
+        <div className="mb-8 grid gap-6 md:grid-cols-3">
+          {CLAUDE_PLANS.map((plan) => (
             <div
-              key={step.title}
-              className="group rounded-2xl border border-hyper-lightBorder bg-slate-50/60 p-5 transition hover:border-hyper-indigo/50 dark:border-hyper-darkBorder dark:bg-white/[0.02]"
+              key={plan.name}
+              className={`relative flex flex-col justify-between rounded-3xl bg-slate-50/60 p-7 transition duration-300 dark:bg-white/[0.02] ${
+                plan.featured
+                  ? 'border-2 border-hyper-indigo shadow-glow-card'
+                  : 'group border border-hyper-lightBorder hover:border-hyper-indigo/50 dark:border-hyper-darkBorder'
+              }`}
             >
-              <div className="mb-2 font-mono text-3xl font-black text-hyper-indigo/30 transition group-hover:text-hyper-indigo/70">
-                0{i + 1}
+              {plan.badge && (
+                <div className="absolute -top-3.5 right-6 rounded-full bg-gradient-to-r from-hyper-indigo to-hyper-violet px-3 py-1 font-mono text-[11px] font-black uppercase tracking-wider text-white shadow-md">
+                  {plan.badge}
+                </div>
+              )}
+              <div>
+                <div className={`mb-2 font-mono text-xs uppercase tracking-wider ${plan.featured ? 'font-bold text-hyper-indigo dark:text-indigo-400' : 'text-slate-400'}`}>
+                  {plan.label}
+                </div>
+                <h3 className={`text-xl transition ${plan.featured ? 'font-black' : 'font-bold group-hover:text-hyper-indigo dark:group-hover:text-indigo-400'}`}>
+                  {plan.name}
+                </h3>
+                <div className="mb-3 mt-4 flex items-baseline gap-1">
+                  <span className={`font-mono text-4xl font-black tracking-tight ${plan.featured ? 'text-hyper-indigo dark:text-indigo-400' : ''}`}>
+                    ¥{plan.price}
+                  </span>
+                  <span className="text-xs font-normal text-slate-400">/ 月</span>
+                </div>
+                <p className="mb-6 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{plan.desc}</p>
               </div>
-              <h3 className="mb-1 text-sm font-bold">{step.title}</h3>
-              <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">{step.desc}</p>
+              {plan.featured ? (
+                <button
+                  type="button"
+                  onClick={() => openModal(plan.service)}
+                  className="w-full rounded-xl bg-gradient-to-r from-hyper-indigo to-hyper-violet py-3.5 text-sm font-extrabold text-white shadow-lg transition hover:from-hyper-violet hover:to-hyper-indigo active:scale-95"
+                >
+                  ⚡ {plan.cta}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => openModal(plan.service)}
+                  className="w-full rounded-xl border-2 border-slate-200 py-3 text-sm font-bold shadow-sm transition hover:border-hyper-indigo hover:text-hyper-indigo active:scale-95 dark:border-slate-800"
+                >
+                  {plan.cta}
+                </button>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Official guide screenshot framed like a browser window */}
-        <figure className="overflow-hidden rounded-2xl border border-hyper-lightBorder shadow-cyber dark:border-hyper-darkBorder">
-          <div className="flex h-10 items-center gap-2.5 border-b border-hyper-lightBorder bg-slate-100/80 px-5 dark:border-hyper-darkBorder dark:bg-[#0A0D14]">
-            <span className="h-2.5 w-2.5 rounded-full border border-black/10 bg-[#FF5F56]" />
-            <span className="h-2.5 w-2.5 rounded-full border border-black/10 bg-[#FFBD2E]" />
-            <span className="h-2.5 w-2.5 rounded-full border border-black/10 bg-[#27C93F]" />
-            <span className="mx-auto font-mono text-xs text-slate-500">
-              console.anthropic.com → Settings → Organization
-            </span>
-          </div>
-          <img
-            src={ORG_GUIDE_SRC}
-            // Alt describes the image itself in one sentence; the detailed
-            // explanation lives in the figcaption below (better for screen
-            // readers and avoids keyword stuffing).
-            alt="在 Anthropic 控制台查看 Organization ID 的三步图解"
-            loading="lazy"
-            className="w-full bg-white object-contain"
-          />
-          <figcaption className="border-t border-hyper-lightBorder bg-slate-50 px-5 py-3 text-center text-xs leading-relaxed text-slate-500 dark:border-hyper-darkBorder dark:bg-[#07090E] dark:text-slate-400">
-            官方实操图解：claude.ai 个人资料页的 UID 以 <span className="font-mono font-bold">usr_</span> 开头；
-            Claude Code / API 接入使用{' '}
-            <span className="font-mono font-bold text-hyper-indigo dark:text-indigo-400">org_</span>{' '}
-            开头的 Organization ID（控制台 Settings → Organization）。
-          </figcaption>
-        </figure>
-
-        {/* E-E-A-T knowledge cards */}
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {ORG_ID_FACTS.map((fact) => (
-            <div
-              key={fact.tag}
-              className="rounded-2xl border border-hyper-lightBorder bg-slate-50/60 p-5 dark:border-hyper-darkBorder dark:bg-white/[0.02]"
-            >
-              <div className="mb-2 flex items-center gap-2">
-                <span>{fact.icon}</span>
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-hyper-indigo dark:text-indigo-400">
-                  {fact.tag}
-                </span>
-              </div>
-              <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">{fact.text}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Anti-phishing trust strip */}
-        <div className="mt-8 flex items-start gap-3 rounded-2xl border border-rose-500/30 bg-rose-500/5 p-5">
-          <span className="text-lg leading-none">⚠️</span>
-          <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
-            <strong className="font-bold text-rose-500">防钓鱼提醒：</strong>
-            Gutast AI 顾问
-            <strong className="font-bold text-slate-900 dark:text-white">从不索要账号密码、验证码或 API Key</strong>
-            ——办理 Claude Code 接入时，您唯一需要交付的就是 org_ 开头的 Organization ID。
-            请只在官方控制台 console.anthropic.com/settings/organization 查看与复制，谨防仿冒站点。
-          </p>
-        </div>
-
-        {/* Plan selection CTA */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-5 rounded-2xl border border-hyper-indigo/30 bg-gradient-to-r from-hyper-indigo/10 via-transparent to-hyper-violet/10 p-6 md:flex-row">
+        {/* Upgrade-by-difference strip */}
+        <div className="mb-8 flex flex-col items-center justify-between gap-5 rounded-2xl border border-hyper-indigo/30 bg-gradient-to-r from-hyper-indigo/10 via-transparent to-hyper-violet/10 p-6 md:flex-row">
           <div>
-            <h3 className="text-lg font-black">七档套餐怎么选？</h3>
+            <h3 className="text-lg font-black">已有会员？补差价直接升级</h3>
             <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-              ¥11 起按天卡、周卡、多档月卡灵活选择，顾问按您的用量推荐最省的档位。
+              Pro ↔ Max 5x ↔ Max 20x 按差价补足即可升级更高档位，无需重新购买整月。
             </p>
           </div>
           <button
             type="button"
-            onClick={() => openModal('Claude Code 7 档套餐')}
+            onClick={() => openModal('Claude 会员补差价升级')}
             className="w-full whitespace-nowrap rounded-xl bg-gradient-to-r from-hyper-indigo to-hyper-violet px-6 py-3.5 text-sm font-bold text-white shadow-lg transition hover:from-hyper-violet hover:to-hyper-indigo active:scale-95 md:w-auto"
           >
-            获取七档套餐表 →
+            咨询补差价升级 →
           </button>
+        </div>
+
+        {/* Warranty & invoice notices */}
+        <div className="grid gap-4 sm:grid-cols-2">
+          {CLAUDE_NOTES.map((note) => (
+            <div
+              key={note.title}
+              className="rounded-2xl border border-hyper-lightBorder bg-slate-50/60 p-5 dark:border-hyper-darkBorder dark:bg-white/[0.02]"
+            >
+              <div className="mb-2 flex items-center gap-2">
+                <span>{note.icon}</span>
+                <span className="text-sm font-bold text-slate-900 dark:text-white">{note.title}</span>
+              </div>
+              <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">{note.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -208,7 +193,7 @@ export default function ClaudeCodePage() {
       <section className="mx-auto max-w-3xl px-6 py-16">
         <div className="mb-8 text-center">
           <span className="font-mono text-xs font-bold uppercase tracking-widest text-hyper-indigo">FAQ</span>
-          <h2 className="mt-1 text-3xl font-extrabold tracking-tight">接入前常见问题</h2>
+          <h2 className="mt-1 text-3xl font-extrabold tracking-tight">办理前常见问题</h2>
         </div>
         <div className="grid gap-4">
           {PAGE_FAQ.map((item) => (
@@ -254,13 +239,13 @@ export default function ClaudeCodePage() {
       {/* ================= Bottom CTA ================= */}
       <section className="mx-auto max-w-4xl px-6 pb-20">
         <div className="relative overflow-hidden rounded-3xl border border-hyper-indigo/30 bg-gradient-to-r from-hyper-indigo/10 via-transparent to-hyper-violet/10 p-10 text-center">
-          <h2 className="mb-2 text-2xl font-black tracking-tight">把 Claude Code 接进您的终端</h2>
+          <h2 className="mb-2 text-2xl font-black tracking-tight">开通您的 Claude 会员</h2>
           <p className="mb-6 text-sm text-slate-500 dark:text-slate-400">
-            添加企微技术顾问，发送 Organization ID 即可代申请与环境接入，全程无需账号密码。
+            添加企微顾问，选档付款后全程代办，通常几分钟开通；已有会员可补差价升级。
           </p>
           <button
             type="button"
-            onClick={() => openModal('Claude Code 快速接入')}
+            onClick={() => openModal('Claude 会员代充')}
             className="xa-btn-ignite-wechat inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-wechat to-wechat-dark px-8 py-4 text-base font-bold text-white shadow-glow-wechat active:scale-95"
           >
             <WechatIcon className="h-6 w-6" />

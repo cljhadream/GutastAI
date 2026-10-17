@@ -58,9 +58,9 @@ export default function HomePage() {
           </a>
           与
           <a href="/claude-code" className="mx-1 font-bold text-hyper-indigo underline decoration-hyper-indigo/40 underline-offset-4 transition hover:text-hyper-orange dark:text-indigo-400">
-            Claude Code 终端直连
+            Claude Pro / Max 会员代充
           </a>
-          ，自有账号零密码接入，付款后通常几分钟完成。
+          ，官方渠道办理，付款后通常几分钟完成。
         </p>
 
         {/* Four core promises */}
@@ -143,23 +143,23 @@ export default function HomePage() {
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-hyper-indigo via-hyper-violet to-hyper-orange" />
             <div className="mb-3 flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-hyper-indigo dark:text-indigo-400">
               <span className="h-2 w-2 animate-pulse rounded-full bg-hyper-indigo" />
-              CLAUDE CODE · OFFICIAL CLIENT
+              CLAUDE PRO / MAX
             </div>
             <h3 className="mb-1 text-2xl font-black tracking-tight transition group-hover:text-hyper-indigo dark:group-hover:text-indigo-400">
-              Claude Code 终端直连
+              Claude Pro / Max 会员代充
             </h3>
             <div className="mb-4 mt-2 flex items-baseline gap-1">
-              <span className="font-mono text-3xl font-black text-hyper-indigo dark:text-indigo-400">¥11</span>
-              <span className="text-xs text-slate-400">起 · 七档套餐灵活选择</span>
+              <span className="font-mono text-3xl font-black text-hyper-indigo dark:text-indigo-400">¥145</span>
+              <span className="text-xs text-slate-400">起 · Pro / Max 三档套餐</span>
             </div>
             <ul className="mb-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-              <li>✓ 100% 官方客户端直连，非降智镜像</li>
-              <li>✓ 零凭证接入：仅需 Organization ID</li>
-              <li>✓ 日均 500 次请求，按天 / 周 / 月卡</li>
-              <li>✓ 附官方控制台三步接入图解</li>
+              <li>✓ 官方渠道正规代充，非低价黑卡通道</li>
+              <li>✓ Pro ¥145 · Max 5x ¥900 · Max 20x ¥1700</li>
+              <li>✓ 已有会员可补差价升级</li>
+              <li>✓ 只质保订阅 · 公司客户可代开发票</li>
             </ul>
             <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-bold text-hyper-indigo dark:text-indigo-400">
-              查看接入指南与套餐
+              查看代充套餐
               <span className="transition group-hover:translate-x-1">→</span>
             </span>
           </a>
