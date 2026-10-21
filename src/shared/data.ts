@@ -129,6 +129,26 @@ export const CLAUDE_NOTES = [
   },
 ];
 
+// Guide screenshot: where to copy the Organization ID in claude.ai settings.
+// Claude recharge only needs this ID — no password or verification code.
+export const ORG_GUIDE_SRC = '/claude_get_orgonization_id_guide.webp';
+
+// 3-step walkthrough rendered next to the guide screenshot.
+export const ORG_ID_STEPS = [
+  {
+    title: '登录 claude.ai 打开设置',
+    desc: '浏览器登录您自己的 Claude 账号，点击左下角头像进入 Settings 设置。',
+  },
+  {
+    title: '复制 Organization ID',
+    desc: '在「Organization / 组织」标签页找到组织 ID（UUID 格式）并复制。',
+  },
+  {
+    title: '发给顾问完成代充',
+    desc: '将 ID 发给企微顾问并付款，官方渠道代充，通常几分钟开通。',
+  },
+];
+
 export type FaqTopic = 'chatgpt' | 'claude' | 'general';
 
 export interface FaqItem {
@@ -145,7 +165,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: '办理需要提供我的账号密码吗？',
-    a: '不需要。全程在您自己的账号上完成：您在官方升级会话中发起订阅，专席仅代为完成支付，客服全程不索要任何账号密码。',
+    a: '不需要。ChatGPT Plus 全程在您自己的账号上完成：您在官方升级会话中发起订阅，专席仅代为完成支付；Claude 代充则只需提供 Organization ID（组织标识符），无需账号密码与验证码，客服全程不索要任何敏感凭据。',
     topic: 'general',
   },
   {

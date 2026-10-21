@@ -138,15 +138,28 @@ export default function ChatgptPlusPage() {
           </div>
 
           {/* Trust notice bar */}
-          <div className="flex items-center justify-center gap-2 border-t border-hyper-lightBorder bg-slate-50 px-6 py-3.5 text-center text-xs text-slate-500 dark:border-hyper-darkBorder dark:bg-[#07090E] dark:text-slate-400">
-            <span className="font-bold text-hyper-orange">● 技术验证：</span>
-            <span>
-              直接将官方升级会话交由专席代付即可，
-              <strong className="font-semibold text-slate-800 underline decoration-hyper-orange/50 dark:text-slate-100">
-                客服全程不索要任何密码
-              </strong>
+          <div className="border-t border-hyper-lightBorder bg-slate-50 px-6 py-3.5 text-center text-xs text-slate-500 dark:border-hyper-darkBorder dark:bg-[#07090E] dark:text-slate-400">
+            <div className="flex items-center justify-center gap-2">
+              <span className="font-bold text-hyper-orange">● 技术验证：</span>
+              <span>
+                直接将官方升级会话交由专席代付即可，
+                <strong className="font-semibold text-slate-800 underline decoration-hyper-orange/50 dark:text-slate-100">
+                  客服全程不索要任何密码
+                </strong>
+                。
+              </span>
+            </div>
+            {/* Scope note: the recording shows the ChatGPT flow only, not Claude. */}
+            <p className="mt-1.5">
+              本实录仅演示 ChatGPT Plus / Codex 的官方划扣流程，不含 Claude；Claude 会员代充请见
+              <a
+                href="/claude-code"
+                className="font-semibold text-hyper-orange underline decoration-hyper-orange/50 transition hover:opacity-80"
+              >
+                Claude 专页
+              </a>
               。
-            </span>
+            </p>
           </div>
         </div>
 

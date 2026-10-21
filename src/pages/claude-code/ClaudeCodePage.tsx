@@ -2,6 +2,8 @@ import AppShell, { useOpenWechatModal, WechatIcon } from '../../shared/AppShell'
 import {
   CLAUDE_NOTES,
   CLAUDE_PLANS,
+  ORG_GUIDE_SRC,
+  ORG_ID_STEPS,
   faqForPage,
 } from '../../shared/data';
 
@@ -24,7 +26,7 @@ export default function ClaudeCodePage() {
         <div className="mb-8 flex flex-wrap items-center justify-center gap-2">
           <div className="inline-flex items-center gap-2 rounded-full border border-hyper-indigo/20 bg-hyper-indigo/10 px-4 py-2 font-mono text-xs font-bold text-hyper-indigo dark:text-indigo-400">
             <span className="h-2 w-2 animate-pulse rounded-full bg-hyper-indigo" />
-            官方渠道正规代充 · 全程无需账号密码
+            官方渠道正规代充 · 只需 Organization ID
           </div>
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
             <span className="h-2 w-2 rounded-full bg-emerald-500" />
@@ -98,8 +100,8 @@ export default function ClaudeCodePage() {
             Claude 会员三档套餐 · <span className="font-mono text-hyper-indigo dark:text-indigo-400">明码标价</span>
           </h2>
           <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-            在您自己的 Claude 账号上代充开通，办理过程不需要提供账号密码。Pro 与 Max
-            均包含 claude.ai 对话与 Claude Code 使用额度，按用量选择档位即可。
+            在您自己的 Claude 账号上代充开通，办理只需一个 Organization ID，全程不需要账号密码。Pro 与
+            Max 均包含 claude.ai 对话与 Claude Code 使用额度，按用量选择档位即可。
           </p>
         </div>
 
@@ -189,6 +191,68 @@ export default function ClaudeCodePage() {
         </div>
       </section>
 
+      {/* ================= Organization ID guide ================= */}
+      <section className="mx-auto max-w-5xl px-6 py-16">
+        <div className="overflow-hidden rounded-3xl border border-hyper-lightBorder bg-hyper-lightCard p-8 shadow-sm dark:border-hyper-darkBorder dark:bg-hyper-darkCard md:p-10">
+          <div className="grid items-center gap-10 md:grid-cols-2">
+            {/* Left: promise headline + 3 steps + trust facts */}
+            <div>
+              <span className="mb-3 inline-flex items-center gap-2 rounded-md border border-hyper-indigo/30 bg-hyper-indigo/10 px-3 py-1 font-mono text-xs font-bold text-hyper-indigo dark:text-indigo-400">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-hyper-indigo" />
+                零凭证接入
+              </span>
+              <h2 className="mb-3 text-2xl font-black tracking-tight md:text-3xl">
+                代充只需一个{' '}
+                <span className="font-mono text-hyper-indigo dark:text-indigo-400">Organization ID</span>
+              </h2>
+              <p className="mb-6 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                不需要交出账号密码，也不需要邮箱验证码：您只需在 claude.ai
+                设置页复制组织 ID 发给顾问，我们即可在您的自有账号上完成官方渠道代充。
+              </p>
+              <ol className="space-y-4">
+                {ORG_ID_STEPS.map((step, i) => (
+                  <li key={step.title} className="flex gap-3">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-hyper-indigo to-hyper-violet font-mono text-xs font-black text-white">
+                      {i + 1}
+                    </span>
+                    <div>
+                      <div className="text-sm font-bold text-slate-900 dark:text-white">{step.title}</div>
+                      <p className="mt-0.5 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{step.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              {/* Trust facts */}
+              <div className="mt-6 flex flex-wrap gap-2">
+                {['无需账号密码', '无需验证码', 'ID 不含登录凭据'].map((fact) => (
+                  <span
+                    key={fact}
+                    className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400"
+                  >
+                    {fact}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: guide screenshot with caption */}
+            <figure className="overflow-hidden rounded-2xl border border-hyper-lightBorder shadow-md dark:border-hyper-darkBorder">
+              <img
+                src={ORG_GUIDE_SRC}
+                alt="Claude Organization ID 获取指引：在 claude.ai 设置页复制组织 ID"
+                width={1280}
+                height={720}
+                loading="lazy"
+                className="h-auto w-full"
+              />
+              <figcaption className="border-t border-hyper-lightBorder bg-slate-50/80 px-4 py-3 text-xs text-slate-500 dark:border-hyper-darkBorder dark:bg-white/[0.03] dark:text-slate-400">
+                指引图：在 claude.ai 的 Settings → Organization 中复制 Organization ID
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
       {/* ================= FAQ (page-scoped) ================= */}
       <section className="mx-auto max-w-3xl px-6 py-16">
         <div className="mb-8 text-center">
@@ -225,11 +289,12 @@ export default function ClaudeCodePage() {
               </div>
               <h2 className="text-lg font-black tracking-tight">ChatGPT Plus / Codex 官方充值 · ¥145 起</h2>
               <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                自有账号零密码办理，附充值实录视频与防坑对比，附数电发票。
+                {/* Product-scoped: the demo video records ChatGPT only. */}
+                自有账号零密码办理，附 ChatGPT 充值实录视频与防坑对比，附数电发票。
               </p>
             </div>
             <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-hyper-orange">
-              查看套餐与实录
+              查看 ChatGPT 实录
               <span className="transition group-hover:translate-x-1">→</span>
             </span>
           </div>

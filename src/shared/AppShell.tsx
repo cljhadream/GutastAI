@@ -76,7 +76,9 @@ const SCOPED_CSS = `
 const NAV_LINKS: { href: string; label: string; pulse?: boolean }[] = [
   { href: '/chatgpt-plus', label: 'ChatGPT Plus 充值' },
   { href: '/claude-code', label: 'Claude 会员代充', pulse: true },
-  { href: '/chatgpt-plus#video-section', label: '充值实录' },
+  // Label is product-scoped: the demo video records the ChatGPT flow only,
+  // so visitors on the Claude page don't expect a Claude recording there.
+  { href: '/chatgpt-plus#video-section', label: 'ChatGPT 充值实录' },
   { href: '/chatgpt-plus#why-section', label: '防坑保障' },
   { href: '/faq', label: '常见问题' },
 ];
