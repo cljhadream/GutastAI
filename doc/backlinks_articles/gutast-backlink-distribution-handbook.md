@@ -1,6 +1,6 @@
 # Gutast AI 站外外链分发作战手册（图文版）
 
-> **版本**：v1.0（2026-10-13）
+> **版本**：v1.1（2026-10-22：防封手册的环境自测改用自有检测工具 gutast.com/claude-ip，配图换新；v1.0 2026-10-13）
 > **适用对象**：站外运营 / 内容分发人员
 > **覆盖文章**：5 篇官方博客（gutast.com/blog）
 > **目标平台**：知乎 / 掘金 / CSDN / V2EX / 小红书 / 微博 / 公众号 / GitHub / 贴吧等
@@ -48,13 +48,13 @@
 | 图片 | 直链 URL | 建议用途 |
 | --- | --- | --- |
 | 品牌封面 OG 图 | `https://www.gutast.com/UI/og-cover.png` | 文章封面、分享卡片、公众号头图 |
-| ping0 环境自测演示图 | `https://www.gutast.com/blog/img/claude-env-ping0-demo.webp` | 讲「环境自测 / 防封」时的核心配图（知乎、掘金、小红书） |
+| Claude IP 检测结论示例图 | `https://www.gutast.com/blog/img/claude-env-gutast-ip-check.webp` | 讲「环境自测 / 防封」时的核心配图（知乎、掘金、小红书） |
 | 品牌 Logo（方图） | `https://www.gutast.com/UI/logo/300_300.webp` | 账号头像、水印、GitHub 列表配图 |
 | 企业微信二维码 | `https://www.gutast.com/UI/wechat-qr-code.webp` | 仅用于允许引流的平台（公众号菜单、GitHub README），**不要**发在小红书正文 |
 
-![ping0 环境自测演示图](https://www.gutast.com/blog/img/claude-env-ping0-demo.webp)
+![Claude IP 检测结论示例图](https://www.gutast.com/blog/img/claude-env-gutast-ip-check.webp)
 
-> ping0 五项绿灯演示图：分发「防封 / 自测」主题内容时，带上这张图，帖子说服力翻倍。
+> Claude IP 检测结论示例图（gutast.com/claude-ip 的 8 项检测结论）：图中 2 项被标红并附「怎么变绿」的处理方法，适合配「先自测、再对照处理」类内容。分发「防封 / 自测」主题时带上这张图。
 
 ![Gutast AI Logo](https://www.gutast.com/UI/logo/300_300.webp)
 
@@ -64,8 +64,8 @@
 
 1. 知乎 / 掘金 / CSDN 建议把图片**下载后上传到平台自有图床**，避免外链图床防盗链导致图片裂开。
 2. 公众号后台不支持外链图片，必须先下载再用素材库上传。
-3. 小红书封面建议用「ping0 演示图或文章截图 + 大字标题」自制 3:4 封面，点击率更高。
-4. 涉及 ping0 截图的帖子，配文注明「环境自测合格示例」，不要宣称「照做必不封」。
+3. 小红书封面建议用「检测结论示例图或文章截图 + 大字标题」自制 3:4 封面，点击率更高。
+4. 涉及检测截图的帖子，配文注明「检测结论示例」，不要宣称「全绿必不封」或「照做必不封」。
 
 ---
 
@@ -123,6 +123,8 @@ https://www.gutast.com/blog/{slug}?utm_source={source}&utm_medium=social&utm_cam
 
 `utm_source` 按平台取值：`zhihu` / `juejin` / `csdn` / `v2ex` / `xhs` / `weibo` / `wechat` / `github` / `tieba`。
 
+检测工具页 `https://www.gutast.com/claude-ip/` 同样加 UTM：单独推广工具时 `utm_campaign` 用 `claude_ip_check`；在防封手册的帖子里顺带提到时沿用 `claude_safety_faq`。
+
 **示例**（知乎 + 封号机制详解）：
 
 ```text
@@ -137,7 +139,8 @@ https://www.gutast.com/blog/claude-ban-risk-guide?utm_source=zhihu&utm_medium=so
 | --- | --- |
 | Claude 封号是什么原因 | 防封答疑手册 |
 | Claude 账号防封技巧 | 防封答疑手册 |
-| Claude 环境自测 ping0 教程 | 防封答疑手册 |
+| Claude 环境自测教程 | 防封答疑手册 |
+| Claude IP 检测 | 检测工具 https://www.gutast.com/claude-ip/ |
 | Claude 提前续费时间会叠加吗 | 防封答疑手册 |
 | Claude 账号被封还能退款吗 | 防封答疑手册 |
 | Claude 为什么大规模封号 | 封号机制详解 |
@@ -158,13 +161,13 @@ https://www.gutast.com/blog/claude-ban-risk-guide?utm_source=zhihu&utm_medium=so
 
 > **链接**：https://www.gutast.com/blog/claude-account-safety-faq
 > **定位**：全平台通吃的「痛点答疑」内容，最适合回答「Claude 为什么被封」类问题
-> **配图**：ping0 环境自测演示图（见第二节素材库）
+> **配图**：Claude IP 检测结论示例图（见第二节素材库）
 
 ### 4.1 内容速览（改写文案前必读）
 
 - 核心结论：封号大多是**环境问题**而非充值问题；正规渠道充值出问题只会「掉订阅」（掉订阅包赔），封号不质保
 - **账号六不原则**：不切 IP、不共享节点、接码一天 ≤2 次、不多设备高频切换、不接第三方 API 插件、不用于违规用途
-- **ping0.cc 五项绿灯自测**（3 分钟）：家庭宽带 IP / 风控值 <20% / 原生 IP / 共享人数 0-10 / 位置在支持地区
+- **Claude IP 检测 8 项全绿自测**（3 分钟，gutast.com/claude-ip）：出口在支持地区 / 家庭宽带或移动网络 / 无 VPN·代理·Tor·滥用·爬虫标记 / 原生 IP / claude.ai 与 api.anthropic.com 同一出口 / WebRTC 不泄露 / 时区一致 / 语言一致
 - 封号售后边界：个人环境原因封号无法售后；Apple ID 渠道退款只退回原支付渠道
 - 提前续费：支持，但新充值时间**覆盖**剩余时间，不叠加
 - 7 条防风控技巧：时区一致、TUN 全局代理、WebRTC 防泄漏、设备残留清理、GitHub 邮箱注册等
@@ -178,7 +181,7 @@ https://www.gutast.com/blog/claude-ban-risk-guide?utm_source=zhihu&utm_medium=so
 
 ### 4.3 推荐锚文本
 
-「Claude 封号是什么原因」「Claude 账号防封技巧」「Claude 环境自测 ping0 教程」
+「Claude 封号是什么原因」「Claude 账号防封技巧」「Claude 环境自测教程」
 
 ### 4.4 分平台文案模板
 
@@ -188,11 +191,11 @@ https://www.gutast.com/blog/claude-ban-risk-guide?utm_source=zhihu&utm_medium=so
 人在国内用 Claude，被封号基本不是充值的问题，而是环境问题——Anthropic 的风控是
 综合打分制：出口 IP、ASN 类型、时区、浏览器指纹、登录历史、行为模式全都在记分。
 
-我整理了一份完整的防封答疑手册，包含：账号使用六不原则、用 ping0.cc 做 3 分钟
-环境自测的五项绿灯标准（附合格示例截图）、封号后售后/退款的边界说明，以及时区、
-TUN 全局代理、WebRTC 防泄漏、邮箱选择等 7 条实战技巧：
+我整理了一份完整的防封答疑手册，包含：账号使用六不原则、用 Gutast Claude IP 检测
+做 3 分钟环境自测的 8 项全绿标准（附检测结论示例截图）、封号后售后/退款的边界说明，
+以及时区、TUN 全局代理、WebRTC 防泄漏、邮箱选择等 7 条实战技巧：
 
-Claude 账号防封答疑手册（附 ping0 自测合格图）：
+Claude 账号防封答疑手册（附 IP 环境检测示例）：
 https://www.gutast.com/blog/claude-account-safety-faq?utm_source=zhihu&utm_medium=social&utm_campaign=claude_safety_faq
 
 一句话总结：用就别怕，怕就别用；承受不起意外的话 GPT Plus 几乎没有风控。
@@ -205,7 +208,7 @@ Claude 账号防封答疑手册：六不原则、环境自测与七条防风控�
 
 用 Claude Code 写码三个月没被封，靠的不是运气，是把环境分做满了。手册内容包括：
 - 账号六不原则（切 IP / 接码频次 / 设备数 / 共享节点…）
-- ping0.cc 五项绿灯自测：家庭宽带、风控值 <20%、原生 IP、共享人数 0-10（附截图示例）
+- Claude IP 检测 8 项全绿自测：支持地区、家庭宽带、原生 IP、无风险标记、分流一致、WebRTC 不泄露、时区语言一致（附截图示例）
 - Claude 记录的 8 类风控信号拆解
 - 7 条防风控技巧：时区、TUN 全局代理、WebRTC Leak Shield、设备残留清理、GitHub 邮箱
 
@@ -219,9 +222,9 @@ Claude 账号防封答疑手册：六不原则、环境自测与七条防风控�
 结论先说：封号基本都是环境问题，和充值渠道无关，走正规渠道最多掉订阅（掉订阅
 包赔），封号不质保。
 
-文档里有个 ping0.cc 的五项绿灯自测标准，发出来大家可以对号入座：家庭宽带 IP /
-风控值 <20% / 原生 IP / 共享人数 0-10 / 位置在支持地区。另附 7 条防风控技巧
-（时区、TUN、WebRTC、设备关联清理等）。
+文档里有一套 Claude IP 检测的 8 项全绿自测标准，发出来大家可以对号入座：出口在
+支持地区 / 家庭宽带 IP / 原生 IP / 无 VPN·代理·Tor 标记 / 分流一致 / WebRTC 不泄露 /
+时区和语言与出口一致。另附 7 条防风控技巧（时区、TUN、WebRTC、设备关联清理等）。
 
 https://www.gutast.com/blog/claude-account-safety-faq?utm_source=v2ex&utm_medium=social&utm_campaign=claude_safety_faq
 
@@ -233,7 +236,7 @@ https://www.gutast.com/blog/claude-account-safety-faq?utm_source=v2ex&utm_medium
 ```text
 Claude 被封号的都在后悔没早点看这篇🔴
 封号≠充值有问题，90% 是环境踩坑！
-✅ 3 分钟 ping0 自测：风控值<20%、原生IP、家庭宽带
+✅ 3 分钟 IP 自测：家庭宽带、原生IP、时区一致，8 项全绿
 ✅ 六不原则：不切IP、不共享、接码一天≤2次
 ✅ 被封后正确处理姿势
 一篇讲透👉 链接见评论区/主页
@@ -243,8 +246,8 @@ Claude 被封号的都在后悔没早点看这篇🔴
 **微博**（可直接带裸链）：
 
 ```text
-Claude 封号 90% 是环境问题不是充值问题。3 分钟 ping0 自测（风控值<20%、原生IP、
-家庭宽带）+ 六不原则 + 7 条防风控技巧，一篇讲透：
+Claude 封号 90% 是环境问题不是充值问题。3 分钟 IP 自测（家庭宽带、原生IP、时区一致，
+8 项全绿）+ 六不原则 + 7 条防风控技巧，一篇讲透：
 https://www.gutast.com/blog/claude-account-safety-faq?utm_source=weibo&utm_medium=social&utm_campaign=claude_safety_faq
 #Claude# #AI工具#
 ```
@@ -254,13 +257,13 @@ https://www.gutast.com/blog/claude-account-safety-faq?utm_source=weibo&utm_mediu
 ```text
 用 Claude 的朋友注意了：最近封号潮里倒下的账号，绝大多数栽在环境而非充值。这份
 答疑手册把「怎么自查环境、怎么降低封禁概率、被封了怎么办、提前续费怎么算」一次
-讲清楚，附 ping0 检测合格截图。阅读原文：https://www.gutast.com/blog/claude-account-safety-faq?utm_source=wechat&utm_medium=social&utm_campaign=claude_safety_faq
+讲清楚，附 IP 环境检测示例截图。阅读原文：https://www.gutast.com/blog/claude-account-safety-faq?utm_source=wechat&utm_medium=social&utm_campaign=claude_safety_faq
 ```
 
 **GitHub / Awesome 列表投递**：
 
 ```markdown
-- [Claude 账号防封答疑手册](https://www.gutast.com/blog/claude-account-safety-faq?utm_source=github&utm_medium=social&utm_campaign=claude_safety_faq) - 账号六不原则、ping0.cc 五项绿灯环境自测、8 类风控信号与 7 条防风控实战技巧（中文）
+- [Claude 账号防封答疑手册](https://www.gutast.com/blog/claude-account-safety-faq?utm_source=github&utm_medium=social&utm_campaign=claude_safety_faq) - 账号六不原则、Claude IP 检测 8 项全绿环境自测、8 类风控信号与 7 条防风控实战技巧（中文）
 ```
 
 ---

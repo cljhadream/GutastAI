@@ -33,6 +33,7 @@ export interface IpInfo {
   org: string | null;
   asnDomain: string | null;
   asnCountry: string | null; // ASN registration country (ISO-2, upper case)
+  registeredCountry: string | null; // RIR registration country of the IP block (ISO-2)
   company: {
     name: string | null;
     domain: string | null;

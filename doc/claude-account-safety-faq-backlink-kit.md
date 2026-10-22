@@ -27,7 +27,7 @@ https://www.gutast.com/blog/claude-account-safety-faq.html
 
 - Claude 封号是什么原因
 - Claude 账号防封技巧
-- Claude 环境自测 ping0 教程
+- Claude 环境自测教程
 - Claude 提前续费时间会叠加吗
 - Claude 账号被封还能退款吗
 
@@ -52,7 +52,7 @@ https://www.gutast.com/blog/claude-account-safety-faq.html
 
 > 人在国内用 Claude，被封号基本不是充值的问题，而是环境问题——Anthropic 的风控是综合打分制：出口 IP、ASN 类型、时区、浏览器指纹、登录历史、行为模式全都在记分。
 >
-> 我整理了一份完整的防封答疑手册，包含：账号使用六不原则、用 ping0.cc 做 3 分钟环境自测的五项绿灯标准（附合格示例截图）、封号后售后/退款的边界说明，以及时区、TUN 全局代理、WebRTC 防泄漏、邮箱选择等 7 条实战技巧：
+> 我整理了一份完整的防封答疑手册，包含：账号使用六不原则、用 Gutast Claude IP 检测做 3 分钟环境自测的 8 项全绿标准（附检测结论示例截图）、封号后售后/退款的边界说明，以及时区、TUN 全局代理、WebRTC 防泄漏、邮箱选择等 7 条实战技巧：
 >
 > Claude 账号防封答疑手册：https://www.gutast.com/blog/claude-account-safety-faq.html
 >
@@ -64,7 +64,7 @@ https://www.gutast.com/blog/claude-account-safety-faq.html
 >
 > 用 Claude Code 写码三个月没被封，靠的不是运气，是把环境分做满了。手册内容包括：
 > - 账号六不原则（切 IP / 接码频次 / 设备数 / 共享节点…）
-> - ping0.cc 五项绿灯自测：家庭宽带、风控值 <20%、原生 IP、共享人数 0-10（附截图示例）
+> - Claude IP 检测 8 项全绿自测：支持地区、家庭宽带、原生 IP、无风险标记、分流一致、WebRTC 不泄露、时区语言一致（附截图示例）
 > - Claude 记录的 8 类风控信号拆解
 > - 7 条防风控技巧：时区、TUN 全局代理、WebRTC Leak Shield、设备残留清理、GitHub 邮箱
 >
@@ -74,7 +74,7 @@ https://www.gutast.com/blog/claude-account-safety-faq.html
 
 > 整理了一份 Claude 防封的答疑文档，起因是群里天天有人问"刚充就封号能不能赔"。结论先说：封号基本都是环境问题，和充值渠道无关，走正规渠道最多掉订阅（掉订阅包赔），封号不质保。
 >
-> 文档里有个 ping0.cc 的五项绿灯自测标准，发出来大家可以对号入座：家庭宽带 IP / 风控值 <20% / 原生 IP / 共享人数 0-10 / 位置在支持地区。另附 7 条防风控技巧（时区、TUN、WebRTC、设备关联清理等）。
+> 文档里有一套 Claude IP 检测的 8 项全绿自测标准，发出来大家可以对号入座：出口在支持地区 / 家庭宽带 IP / 原生 IP / 无 VPN·代理·Tor 标记 / 分流一致 / WebRTC 不泄露 / 时区和语言与出口一致。另附 7 条防风控技巧（时区、TUN、WebRTC、设备关联清理等）。
 >
 > https://www.gutast.com/blog/claude-account-safety-faq.html
 >
@@ -84,7 +84,7 @@ https://www.gutast.com/blog/claude-account-safety-faq.html
 
 > Claude 被封号的都在后悔没早点看这篇🔴
 > 封号≠充值有问题，90% 是环境踩坑！
-> ✅ 3 分钟 ping0 自测：风控值<20%、原生IP、家庭宽带
+> ✅ 3 分钟 IP 自测：家庭宽带、原生IP、时区一致，8 项全绿
 > ✅ 六不原则：不切IP、不共享、接码一天≤2次
 > ✅ 被封后正确处理姿势
 > 一篇讲透👉 链接见评论区/主页
@@ -94,11 +94,11 @@ https://www.gutast.com/blog/claude-account-safety-faq.html
 
 ### 5. 微信公众号 / 朋友圈（导语版）
 
-> 用 Claude 的朋友注意了：最近封号潮里倒下的账号，绝大多数栽在环境而非充值。这份答疑手册把「怎么自查环境、怎么降低封禁概率、被封了怎么办、提前续费怎么算」一次讲清楚，附 ping0 检测合格截图。阅读全文：https://www.gutast.com/blog/claude-account-safety-faq.html
+> 用 Claude 的朋友注意了：最近封号潮里倒下的账号，绝大多数栽在环境而非充值。这份答疑手册把「怎么自查环境、怎么降低封禁概率、被封了怎么办、提前续费怎么算」一次讲清楚，附 IP 环境检测示例截图。阅读全文：https://www.gutast.com/blog/claude-account-safety-faq.html
 
 ### 6. GitHub / Awesome 列表投递模板
 
-> - [Claude 账号防封答疑手册](https://www.gutast.com/blog/claude-account-safety-faq.html) - 账号六不原则、ping0.cc 五项绿灯环境自测、8 类风控信号与 7 条防风控实战技巧（中文）
+> - [Claude 账号防封答疑手册](https://www.gutast.com/blog/claude-account-safety-faq.html) - 账号六不原则、Claude IP 检测 8 项全绿环境自测、8 类风控信号与 7 条防风控实战技巧（中文）
 
 ## 四、外链传播守则（避免被删/被拉黑）
 

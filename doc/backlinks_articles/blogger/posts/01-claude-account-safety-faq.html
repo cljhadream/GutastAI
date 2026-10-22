@@ -2,16 +2,20 @@
 <p><em>本文为精简版，完整版《Claude 账号防封答疑手册》见文末链接。</em></p>
 <p>很多用户刚充值就遇到封号，第一反应是“渠道有问题”。实际上 Claude 的封号绝大多数是<b>环境问题</b>而非支付问题：风控系统会对出口 IP、ASN 类型、时区、浏览器指纹、登录历史、行为模式综合打分，任何一项异常都可能扣分。</p>
 <p>正规渠道充值后出问题，通常是“掉订阅”而非封号，掉订阅是包赔的；账号一旦因环境原因被封则无法售后。防封的核心，是把自己的环境做干净。</p>
-<p><img src="https://www.gutast.com/blog/img/claude-env-ping0-demo.webp" alt="ping0 环境自测合格示例" /></p>
-<h2>ping0.cc 五项绿灯自测（3 分钟）</h2>
+<p><img src="https://www.gutast.com/blog/img/claude-env-gutast-ip-check.webp" alt="Gutast Claude IP 检测结论示例" /></p>
+<h2>Claude IP 检测 8 项全绿自测（3 分钟）</h2>
+<p>开着平时访问 Claude 的代理，打开 <a href="https://www.gutast.com/claude-ip/?utm_source=blogger&amp;utm_medium=social&amp;utm_campaign=claude_safety_faq">Gutast Claude IP 检测</a>（免费、无需登录），8 项全部通过才算环境合格：</p>
 <ol>
-<li>IP 类型为<b>家庭宽带</b>（非机房 / 数据中心）</li>
-<li>风控值 <b>&lt; 20%</b></li>
-<li><b>原生 IP</b>（非广播 IP）</li>
-<li>IP 共享人数 <b>0-10 人</b></li>
-<li>IP 位置在 Claude <b>支持地区</b>内</li>
+<li>出口在 Claude <b>支持地区</b>内（中国大陆、香港不在其中）</li>
+<li>IP 类型为<b>家庭宽带</b>或移动网络（机房 IP 记为风险）</li>
+<li>VPN、代理、Tor、滥用、爬虫等<b>风险标记</b>均未命中</li>
+<li><b>原生 IP</b>（注册国家与实际所在地一致）</li>
+<li>claude.ai 与 api.anthropic.com 走<b>同一出口</b></li>
+<li><b>WebRTC</b> 不泄露真实 IP</li>
+<li>系统<b>时区</b>与出口所在地一致</li>
+<li>浏览器<b>语言</b>与出口所在地匹配</li>
 </ol>
-<p>任何一项红灯，先解决网络环境再谈使用习惯。</p>
+<p>没通过的项下面会附「怎么变绿」的处理方法，处理后点「重新检测」；先把环境做到全绿，再谈使用习惯。</p>
 <h2>账号六不原则</h2>
 <ul>
 <li>不频繁切换出口 IP</li>
@@ -31,7 +35,7 @@
 </ul>
 <p>实在担心风险、账号里存着重要工作流？ChatGPT Plus 几乎没有风控，是更稳妥的选择。</p>
 <blockquote>
-<p><b>完整原文：</b><a href="https://www.gutast.com/blog/claude-account-safety-faq?utm_source=blogger&amp;utm_medium=social&amp;utm_campaign=claude_safety_faq">Claude 账号防封答疑手册（附 ping0 自测合格示例）</a></p>
+<p><b>完整原文：</b><a href="https://www.gutast.com/blog/claude-account-safety-faq?utm_source=blogger&amp;utm_medium=social&amp;utm_campaign=claude_safety_faq">Claude 账号防封答疑手册（附 IP 环境检测示例）</a></p>
 </blockquote>
 <hr />
 <p><small>免责声明：本文为经验分享与公开信息整理，仅供参考，不构成任何规避服务条款的建议。请始终遵守 Anthropic / OpenAI 官方使用政策。更多教程见 <a href="https://www.gutast.com/?utm_source=blogger&amp;utm_medium=social&amp;utm_campaign=blogger_footer">Gutast AI 官网</a>。</small></p>

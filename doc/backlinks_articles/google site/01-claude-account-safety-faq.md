@@ -8,6 +8,12 @@
 https://www.gutast.com/blog/claude-account-safety-faq?utm_source=google-sites&utm_medium=social&utm_campaign=claude_safety_faq
 ```
 
+> **检测工具链接（UTM 版，正文「Gutast Claude IP 检测」处插入）**：
+
+```text
+https://www.gutast.com/claude-ip/?utm_source=google-sites&utm_medium=social&utm_campaign=claude_safety_faq
+```
+
 ---
 
 ## 页头标题（设为页面大标题）
@@ -19,7 +25,7 @@ Claude 账号防封答疑：六不原则、环境自测与 7 条防风控技巧
 ## 页面搜索说明（如页面设置中有该字段）
 
 ```text
-Claude 账号为什么被封？本文整理账号六不原则、ping0.cc 五项绿灯环境自测、7 条防风控实战技巧，以及封号后售后与退款的边界说明。
+Claude 账号为什么被封？本文整理账号六不原则、Claude IP 检测 8 项全绿环境自测、7 条防风控实战技巧，以及封号后售后与退款的边界说明。
 ```
 
 ---
@@ -32,19 +38,22 @@ Claude 账号为什么被封？本文整理账号六不原则、ping0.cc 五项�
 
 正规渠道充值后如果出问题，通常是「掉订阅」而非封号，掉订阅是包赔的；但账号一旦因环境原因被封，无法售后。这就是为什么防封的核心是把自己的环境做干净。
 
-【插图：ping0 环境自测演示图 `https://www.gutast.com/blog/img/claude-env-ping0-demo.webp`】
+【插图：Claude IP 检测结论示例图 `https://www.gutast.com/blog/img/claude-env-gutast-ip-check.webp`】
 
-### ping0.cc 五项绿灯自测（3 分钟）
+### Claude IP 检测 8 项全绿自测（3 分钟）
 
-打开 ping0.cc 对照检查，五项全部绿灯才算环境合格：
+开着平时访问 Claude 的代理，打开 **Gutast Claude IP 检测**（免费、无需登录）对照检查，8 项全部通过才算环境合格：
 
-1. IP 类型为**家庭宽带**（非机房 / 数据中心）
-2. 风控值 **< 20%**
-3. **原生 IP**（非广播 IP）
-4. IP 共享人数 **0-10 人**
-5. IP 位置在 Claude **支持地区**内
+1. 出口在 Claude **支持地区**内（中国大陆、香港不在其中）
+2. IP 类型为**家庭宽带**或移动网络（机房 IP 记为风险）
+3. VPN、代理、Tor、滥用、爬虫等**风险标记**均未命中
+4. **原生 IP**（注册国家与实际所在地一致）
+5. claude.ai 与 api.anthropic.com 走**同一出口**
+6. **WebRTC** 不泄露真实 IP
+7. 系统**时区**与出口所在地一致
+8. 浏览器**语言**与出口所在地匹配
 
-任何一项红灯，先解决网络环境再谈使用习惯。
+没通过的项下面会附「怎么变绿」的处理方法，处理后点「重新检测」；先把环境做到全绿，再谈使用习惯。
 
 ### 账号六不原则
 
@@ -72,7 +81,7 @@ Claude 账号为什么被封？本文整理账号六不原则、ping0.cc 五项�
 ## 文末 CTA（锚文字 + 链接）
 
 ```text
-锚文字：Claude 账号防封答疑手册（附 ping0 自测合格示例）
+锚文字：Claude 账号防封答疑手册（附 IP 环境检测示例）
 链接：https://www.gutast.com/blog/claude-account-safety-faq?utm_source=google-sites&utm_medium=social&utm_campaign=claude_safety_faq
 ```
 
@@ -87,5 +96,5 @@ Claude 账号为什么被封？本文整理账号六不原则、ping0.cc 五项�
 
 | 插入位置 | 图片 URL |
 | --- | --- |
-| 「ping0.cc 五项绿灯自测」小节 | `https://www.gutast.com/blog/img/claude-env-ping0-demo.webp` |
+| 「Claude IP 检测 8 项全绿自测」小节 | `https://www.gutast.com/blog/img/claude-env-gutast-ip-check.webp` |
 | （可选）页头横幅 | `https://www.gutast.com/UI/og-cover.png` |

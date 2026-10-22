@@ -251,7 +251,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: '什么是原生 IP？',
-    a: '出口 IP 的注册国家或地区与机房实际所在地一致，即为原生 IP；跨地区广播使用的属于广播 IP，部分平台对广播 IP 风控更严。本页的地区与 ASN 信息可用于判断。',
+    a: '出口 IP 的注册国家或地区与机房实际所在地一致，即为原生 IP；跨地区广播使用的属于广播 IP，部分平台对广播 IP 风控更严。本页按该 IP 在区域互联网注册机构（RIR）登记的国家与定位国家是否一致来判定。',
   },
   {
     q: '住宅 IP 和机房 IP 有什么区别？',
@@ -283,7 +283,7 @@ const PRINCIPLES: { title: string; body: string }[] = [
   },
   {
     title: '风险评分是怎么算的',
-    body: '只有 Claude 出口 IP 会被发送到本站 /api/ip 接口，由接口查询第三方 IP 情报（ipapi.is）的机房、VPN、代理、Tor、滥用与爬虫标记并扣分；查询结果在边缘缓存 24 小时，本站不做其他保存。',
+    body: '只有 Claude 出口 IP 会被发送到本站 /api/ip 接口，由接口查询第三方 IP 情报（ipapi.is）的机房、VPN、代理、Tor、滥用与爬虫标记并扣分，并通过 RIPEstat 查询该 IP 的 RIR 注册国家用于原生 IP 判定；查询结果在边缘缓存 24 小时，本站不做其他保存。',
   },
   {
     title: '连接延迟是怎么测的',
@@ -403,16 +403,17 @@ function timeInZone(timeZone: string): string {
   }).format(new Date());
 }
 
-// 原生 IP: the ASN's registration country matches where the IP is located;
-// otherwise it is a broadcast IP (registered in one country, announced in
-// another). Null when either side is unknown (e.g. keyless API response).
+// 原生 IP: the IP block's RIR registration country matches where the IP is
+// located; otherwise it is a broadcast IP (registered in one country,
+// announced in another). The ASN's country is not used: leased blocks and
+// multinational operators would be misjudged. Null when either side is unknown.
 function nativeVerdict(
-  asnCountry: string | null,
+  registeredCountry: string | null,
   geoCountry: string | null,
 ): { text: string; tone: Tone } | null {
-  if (!asnCountry || !geoCountry) return null;
-  if (asnCountry === geoCountry.toUpperCase()) return { text: '原生 IP', tone: 'good' };
-  return { text: `广播 IP（注册地：${regionName(asnCountry) ?? asnCountry}）`, tone: 'warn' };
+  if (!registeredCountry || !geoCountry) return null;
+  if (registeredCountry === geoCountry.toUpperCase()) return { text: '原生 IP', tone: 'good' };
+  return { text: `广播 IP（注册地：${regionName(registeredCountry) ?? registeredCountry}）`, tone: 'warn' };
 }
 
 /** Human-readable direction, e.g. "Claude 慢 15 小时" when the exit lags local time. */
@@ -886,7 +887,7 @@ export default function ClaudeRiskCheckPage() {
   const domesticIp = domestic.data?.ip ?? null;
   const exitTz = ipInfo?.timezone ?? null;
   const exitOffset = exitTz ? tzOffsetMinutes(exitTz) : null;
-  const native = ipInfo ? nativeVerdict(ipInfo.asnCountry, ipInfo.countryCode) : null;
+  const native = ipInfo ? nativeVerdict(ipInfo.registeredCountry, ipInfo.countryCode) : null;
   const typeVerdict = ipInfo ? ipTypeVerdict(ipInfo.type) : null;
 
   // R11: supported-region verdict from the trace `loc` (null = unknown).
@@ -1179,6 +1180,15 @@ export default function ClaudeRiskCheckPage() {
 
           {/* Informational rows: shown on demand, never coloured, never counted */}
           <Details>
+            <Row label="ASN 注册地">
+              {claudeTrace.phase === 'pending' ? (
+                <Pending />
+              ) : ipInfo?.asnCountry ? (
+                regionName(ipInfo.asnCountry) ?? ipInfo.asnCountry
+              ) : (
+                '—'
+              )}
+            </Row>
             <Row label="ASN 域名">
               {claudeTrace.phase === 'pending' ? (
                 <Pending />
@@ -1482,13 +1492,16 @@ export default function ClaudeRiskCheckPage() {
           )}
         </section>
 
-        {/* ================= How it works (static, prerendered) ================= */}
-        <section className={CARD_CLS}>
-          <h2 className="mb-4 flex items-center gap-2.5 text-lg font-black tracking-tight">
-            <span className="h-4 w-1 rounded-full bg-hyper-violet" />
-            检测原理
-          </h2>
-          <div className="grid gap-5 sm:grid-cols-2">
+        {/* ===== How it works (static, prerendered; collapsed by default — text-heavy) ===== */}
+        <details className={`group/principles ${CARD_CLS}`}>
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+            <h2 className="flex items-center gap-2.5 text-lg font-black tracking-tight">
+              <span className="h-4 w-1 rounded-full bg-hyper-violet" />
+              检测原理
+            </h2>
+            <span className="font-mono text-lg text-hyper-orange transition group-open/principles:rotate-45">＋</span>
+          </summary>
+          <div className="mt-4 grid gap-5 sm:grid-cols-2">
             {PRINCIPLES.map((item) => (
               <div key={item.title}>
                 <h3 className="mb-1.5 text-sm font-bold text-slate-900 dark:text-white">{item.title}</h3>
@@ -1496,7 +1509,7 @@ export default function ClaudeRiskCheckPage() {
               </div>
             ))}
           </div>
-        </section>
+        </details>
 
         {/* ================= FAQ (mirrors the JSON-LD verbatim) ================= */}
         <section>

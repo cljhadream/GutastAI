@@ -71,7 +71,7 @@ node -e "const s=require('fs').readFileSync('dist/index.html','utf8'); console.l
 
 ## 6. Claude IP 风险检测（/claude-ip + /api/ip/*）
 
-页面在浏览器端完成出口 IP / 连通性 / WebRTC / 环境检测；唯一的服务端依赖是 Pages Function `functions/api/ip/[ip].ts`：它把 Claude 出口 IP 转发给 ipapi.is 查询情报并在边缘缓存 24 h（成功响应浏览器缓存 1 h；错误响应一律 `no-store`；无 CORS 头，仅同源可用）。
+页面在浏览器端完成出口 IP / 连通性 / WebRTC / 环境检测；唯一的服务端依赖是 Pages Function `functions/api/ip/[ip].ts`：它把 Claude 出口 IP 转发给 ipapi.is 查询情报并在边缘缓存 24 h（成功响应浏览器缓存 1 h；错误响应一律 `no-store`；无 CORS 头，仅同源可用）。同时并行查询 RIPEstat 的 `rir-stats-country`（免费、无需 key，按合理使用原则调用）取 IP 的 RIR 注册国家，用于原生 IP 判定；RIPEstat 查不到时原生 IP 显示"未知"，该结果只缓存 10 分钟以便尽快重试。
 
 ### 6.1 `IPAPI_KEY` 密钥
 

@@ -29,7 +29,14 @@ const EDGE_CACHE_TTL_SECONDS = 86400; // 24 h edge cache per IP
 const BROWSER_CACHE_TTL_SECONDS = 3600; // 1 h browser cache
 const CACHE_NAMESPACE = 'ip-lookup';
 // Bump when the response schema or scoring changes so stale entries are skipped.
-const CACHE_VERSION = 3;
+const CACHE_VERSION = 5;
+// Partial results (registration country missing, usually a transient RIPEstat
+// failure) are cached briefly at both layers so they are retried soon.
+const PARTIAL_TTL_SECONDS = 600;
+// RIR registration country of the IP block (RIR delegation statistics via
+// RIPEstat): the "注册地" behind the page's 原生 IP check.
+const RIPESTAT_URL = 'https://stat.ripe.net/data/rir-stats-country/data.json';
+const RIPESTAT_TIMEOUT_MS = 8000;
 
 // Typed locally: no @cloudflare/workers-types dependency. The function only
 // uses standard Web APIs covered by the DOM lib (fetch/Request/Response/URL/
@@ -73,6 +80,7 @@ interface IpInfo {
   org: string | null;
   asnDomain: string | null;
   asnCountry: string | null; // ASN registration country (ISO-2, upper case)
+  registeredCountry: string | null; // RIR registration country of the IP block (ISO-2)
   company: IpCompany | null;
   latitude: number | null;
   longitude: number | null;
@@ -302,6 +310,7 @@ async function lookupIp(ip: string, env: FunctionContext['env']): Promise<IpInfo
       : (companyStr ?? null),
     asnDomain: keyed ? (asnObj?.domain ?? null) : null,
     asnCountry: keyed ? (asnObj?.country?.toUpperCase() ?? null) : null,
+    registeredCountry: null, // filled from RIPEstat by the handler
     company: keyed
       ? {
           name: companyObj?.name ?? null,
@@ -331,6 +340,28 @@ async function lookupIp(ip: string, env: FunctionContext['env']): Promise<IpInfo
     score: keyed ? computeScore(data) : null,
   };
   return info;
+}
+
+/**
+ * RIR registration country of the IP block (from RIR delegation statistics,
+ * via RIPEstat), e.g. "US" for ARIN space allocated in the US. Null on any
+ * failure: the page then shows the 原生 IP check as unknown.
+ */
+async function lookupRegisteredCountry(ip: string): Promise<string | null> {
+  const url = new URL(RIPESTAT_URL);
+  url.searchParams.set('resource', ip);
+  url.searchParams.set('sourceapp', 'gutast-ip-check');
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(RIPESTAT_TIMEOUT_MS) });
+    if (!res.ok) return null;
+    const data = (await res.json()) as {
+      data?: { located_resources?: { location?: string }[] };
+    };
+    const location = data.data?.located_resources?.[0]?.location;
+    return location && /^[A-Za-z]{2}$/.test(location) ? location.toUpperCase() : null;
+  } catch {
+    return null;
+  }
 }
 
 /** Extract the AS number from a keyless "AS15169 Google LLC" string. */
@@ -393,20 +424,30 @@ export async function onRequest(context: FunctionContext): Promise<Response> {
   if (cached) {
     // Rebuild the response so the browser-facing TTL stays 1 h.
     const body = await cached.text();
-    return json(JSON.parse(body), 200, `public, max-age=${BROWSER_CACHE_TTL_SECONDS}`);
+    const cachedInfo = JSON.parse(body) as IpInfo;
+    const browserTtl = cachedInfo.registeredCountry ? BROWSER_CACHE_TTL_SECONDS : PARTIAL_TTL_SECONDS;
+    return json(cachedInfo, 200, `public, max-age=${browserTtl}`);
   }
 
-  const info = await lookupIp(ip, env);
+  // Both upstreams in parallel; the registration country is optional.
+  const [info, registeredCountry] = await Promise.all([
+    lookupIp(ip, env),
+    lookupRegisteredCountry(ip),
+  ]);
   if (info === 'bogon') {
     return json({ error: 'invalid_ip' }, 400, 'no-store');
   }
   if (!info) {
     return json({ error: 'upstream_unavailable' }, 502, 'no-store');
   }
+  info.registeredCountry = registeredCountry;
 
   // Store with the edge TTL; never block the response on the write.
-  const cacheRes = json(info, 200, `public, max-age=${EDGE_CACHE_TTL_SECONDS}`);
+  const partial = registeredCountry === null;
+  const edgeTtl = partial ? PARTIAL_TTL_SECONDS : EDGE_CACHE_TTL_SECONDS;
+  const browserTtl = partial ? PARTIAL_TTL_SECONDS : BROWSER_CACHE_TTL_SECONDS;
+  const cacheRes = json(info, 200, `public, max-age=${edgeTtl}`);
   waitUntil(cache.put(cacheKey, cacheRes.clone()));
 
-  return json(info, 200, `public, max-age=${BROWSER_CACHE_TTL_SECONDS}`);
+  return json(info, 200, `public, max-age=${browserTtl}`);
 }

@@ -84,6 +84,55 @@ const NAV_LINKS: { href: string; label: string; pulse?: boolean }[] = [
   { href: '/faq', label: '常见问题' },
 ];
 
+// Footer directories: product links and legal pages keep their full keyword
+// labels; blog articles are clustered by topic so the guide section reads as
+// a scannable directory instead of one long wrapping link row. Group titles
+// carry the "Claude" keyword, so per-link anchors can stay concise.
+const FOOTER_PRODUCT_LINKS = [
+  { href: '/chatgpt-plus', label: 'ChatGPT Plus 充值' },
+  { href: '/claude-code', label: 'Claude 会员代充' },
+  { href: '/claude-ip', label: 'Claude IP 检测' },
+  { href: '/faq', label: '常见问题' },
+];
+
+const FOOTER_LEGAL_LINKS = [
+  { href: '/terms-of-service', label: '服务协议' },
+  { href: '/refund-policy', label: '退款与质保政策' },
+  { href: '/privacy-policy', label: '隐私声明' },
+];
+
+const GUIDE_GROUPS: { title: string; links: { href: string; label: string }[] }[] = [
+  {
+    title: 'Claude 账号安全',
+    links: [
+      { href: '/blog/claude-ban-risk-guide', label: '封号机制与防封指南' },
+      { href: '/blog/claude-new-account-ban-appeal', label: '新号被封申诉指南' },
+      { href: '/blog/claude-account-safety-faq', label: '账号防封答疑手册' },
+    ],
+  },
+  {
+    title: 'Claude 订阅充值',
+    links: [
+      { href: '/blog/claude-subscription-plan-guide', label: '订阅套餐怎么选' },
+      { href: '/blog/claude-pro-recharge-guide', label: 'Pro 充值攻略' },
+      { href: '/blog/claude-pro-payment-guide', label: 'Pro 充值支付流程' },
+    ],
+  },
+  {
+    title: 'Claude 入门与使用',
+    links: [
+      { href: '/blog/claude-registration-guide', label: '注册与使用完整指南' },
+      { href: '/blog/claude-chinese-ui-analysis', label: '中文版上线解读' },
+      { href: '/blog/claude-code-ipv6-issue', label: 'Claude Code 关闭 IPv6 指南' },
+      { href: '/blog/claude-code-timezone-risk-check', label: 'Claude Code 时区自查指南' },
+    ],
+  },
+];
+
+// Trust badges shown as pills under the footer brand blurb (moved from the
+// old copyright row so the bottom bar stays clean).
+const TRUST_BADGES = ['安全正规渠道', '全程无密', '可开正规发票'];
+
 // True when the nav link points at the current page (ignoring #hash).
 const isActive = (href: string, page?: PageId) =>
   page !== undefined && href.split('#')[0] === (page === 'home' ? '/' : `/${page}`);
@@ -277,60 +326,114 @@ export default function AppShell({ children, currentPage }: AppShellProps) {
           <main>{children}</main>
 
           {/* ================= Footer ================= */}
-          <footer className="border-t border-hyper-lightBorder pb-28 pt-12 text-xs text-slate-400 dark:border-hyper-darkBorder lg:pb-12">
+          <footer className="border-t border-hyper-lightBorder pb-28 text-xs text-slate-400 dark:border-hyper-darkBorder lg:pb-12">
             <div className="mx-auto max-w-6xl px-6">
-              {/* In-site navigation: keyword-rich internal links between the
-                  independent landing pages (SEO) */}
-              <nav
-                aria-label="站内导航"
-                className="mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 font-mono"
-              >
-                {NAV_LINKS.map((link) => (
-                  <a key={link.href} href={link.href} className="transition hover:text-hyper-orange">
-                    {link.label}
+              {/* Top row: brand blurb + product/legal directories */}
+              <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-12 md:grid-cols-12">
+                {/* Brand: logo, one-line value prop and trust pills */}
+                <div className="col-span-2 md:col-span-5">
+                  <a href="/" className="inline-flex items-center gap-3" aria-label="Gutast AI 首页">
+                    <img
+                      src="/UI/logo/300_300.webp"
+                      alt="Gutast AI Logo"
+                      className="h-9 w-9 rounded-lg object-contain"
+                    />
+                    <span className="flex flex-col leading-tight">
+                      <span className="bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-lg font-black tracking-tight text-transparent dark:from-white dark:to-slate-300">
+                        Gutast AI
+                      </span>
+                      <span className="font-mono text-[10px] font-bold tracking-[0.3em] text-slate-400 uppercase dark:text-slate-500">
+                        Good Taste, Top AI
+                      </span>
+                    </span>
                   </a>
-                ))}
-              </nav>
+                  <p className="mt-4 max-w-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                    官方正规渠道办理 ChatGPT Plus 与 Claude 会员，自有账号直接升级，全程无需提供账号密码。
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {TRUST_BADGES.map((badge) => (
+                      <span
+                        key={badge}
+                        className="rounded-full border border-hyper-lightBorder px-3 py-1 font-mono text-[11px] text-slate-500 dark:border-hyper-darkBorder dark:text-slate-400"
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-              {/* Policy pages: verifiable trust anchors (E-E-A-T) */}
-              <div className="mb-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono">
-                <a href="/terms-of-service" className="transition hover:text-hyper-orange">服务协议</a>
-                <a href="/refund-policy" className="transition hover:text-hyper-orange">退款与质保政策</a>
-                <a href="/privacy-policy" className="transition hover:text-hyper-orange">隐私声明</a>
+                {/* Product directory */}
+                <nav aria-label="产品服务" className="md:col-span-3">
+                  <h2 className="font-mono text-[11px] font-bold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                    产品服务
+                  </h2>
+                  <ul className="mt-4 space-y-2.5">
+                    {FOOTER_PRODUCT_LINKS.map((link) => (
+                      <li key={link.href}>
+                        <a href={link.href} className="transition hover:text-hyper-orange">
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+
+                {/* Legal directory: verifiable trust anchors (E-E-A-T) */}
+                <nav aria-label="支持与保障" className="md:col-span-4">
+                  <h2 className="font-mono text-[11px] font-bold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                    支持与保障
+                  </h2>
+                  <ul className="mt-4 space-y-2.5">
+                    {FOOTER_LEGAL_LINKS.map((link) => (
+                      <li key={link.href}>
+                        <a href={link.href} className="transition hover:text-hyper-orange">
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                    <li>
+                      <a href="mailto:475290875@qq.com" className="transition hover:text-hyper-orange">
+                        联系邮箱：475290875@qq.com
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
               </div>
 
-              {/* Developer guides: keyword-rich internal links to blog articles */}
-              <div className="mb-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono">
-                <span className="font-bold text-slate-500 dark:text-slate-400">开发者指南：</span>
-                <a href="/blog/claude-ban-risk-guide" className="transition hover:text-hyper-orange">Claude 封号机制与防封指南</a>
-                <a href="/blog/claude-new-account-ban-appeal" className="transition hover:text-hyper-orange">Claude 新号被封申诉指南</a>
-                <a href="/blog/claude-account-safety-faq" className="transition hover:text-hyper-orange">Claude 账号防封答疑手册</a>
-                <a href="/blog/claude-chinese-ui-analysis" className="transition hover:text-hyper-orange">Claude 中文版上线解读</a>
-                <a href="/blog/claude-subscription-plan-guide" className="transition hover:text-hyper-orange">Claude 订阅套餐怎么选</a>
-                <a href="/blog/claude-pro-recharge-guide" className="transition hover:text-hyper-orange">Claude Pro 充值攻略</a>
-                <a href="/blog/claude-pro-payment-guide" className="transition hover:text-hyper-orange">Claude Pro 充值支付流程</a>
-                <a href="/blog/claude-registration-guide" className="transition hover:text-hyper-orange">Claude 注册与使用完整指南</a>
-                <a href="/blog/claude-code-ipv6-issue" className="transition hover:text-hyper-orange">Claude Code 关闭 IPv6 指南</a>
-                <a href="/blog/claude-code-timezone-risk-check" className="transition hover:text-hyper-orange">Claude Code 时区自查指南</a>
-              </div>
-
-              {/* Legal entity disclosure: verifiable trust signal for E-E-A-T.
-                  DUNS number can be cross-checked on the official D&B lookup. */}
-              <div className="mb-6 space-y-1.5 text-center leading-relaxed">
-                <div>Gutast AI 运营主体：深圳市优品家居材料科技有限公司</div>
-                <div className="text-slate-500 dark:text-slate-500">
-                  D-U-N-S® 编码 710229185（邓白氏官方渠道可核验）· 联系邮箱：475290875@qq.com
+              {/* Guide directory: blog articles grouped by topic for scanability
+                  (keyword-rich internal links, SEO) */}
+              <div className="border-t border-hyper-lightBorder py-10 dark:border-hyper-darkBorder">
+                <h2 className="font-mono text-[11px] font-bold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                  开发者指南
+                </h2>
+                <div className="mt-6 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+                  {GUIDE_GROUPS.map((group) => (
+                    <section key={group.title} aria-label={group.title}>
+                      <h3 className="text-[13px] font-bold text-slate-500 dark:text-slate-300">
+                        {group.title}
+                      </h3>
+                      <ul className="mt-3 space-y-2.5">
+                        {group.links.map((link) => (
+                          <li key={link.href}>
+                            <a href={link.href} className="transition hover:text-hyper-orange">
+                              {link.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  ))}
                 </div>
               </div>
 
-              <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row">
+              {/* Bottom bar: legal entity disclosure (E-E-A-T) + copyright.
+                  DUNS number can be cross-checked on the official D&B lookup. */}
+              <div className="flex flex-col gap-2 border-t border-hyper-lightBorder py-6 leading-relaxed dark:border-hyper-darkBorder md:flex-row md:items-center md:justify-between">
                 <div>
                   © 2026 Gutast AI (gutast.com) · <span className="font-semibold">Gutast = Good Taste</span> · 好品味，先用上顶尖 AI
                 </div>
-                <div className="flex items-center gap-6 font-mono">
-                  <span>安全正规渠道</span>
-                  <span>全程无密</span>
-                  <span>可开正规发票</span>
+                <div className="text-slate-500 dark:text-slate-500">
+                  运营主体：深圳市优品家居材料科技有限公司 · D-U-N-S® 编码 710229185（邓白氏官方渠道可核验）
                 </div>
               </div>
             </div>
