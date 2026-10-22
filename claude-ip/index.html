@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/UI/favicon-48.png" />
+    <link rel="icon" type="image/webp" href="/UI/logo/72_72.webp" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/UI/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8FAFC" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#06070B" />
+
+    <!-- SEO meta baked at build time: free browser-side tool page. H1 (in
+         React) carries the single topic "Claude IP 风险检测". -->
+    <title>Claude IP 检测 - IP纯净度/风控值/原生IP/住宅IP 查询｜Gutast AI</title>
+    <!-- Description: ~40 CJK-equivalent chars. One core value + one CTA, no
+         price/promise stacking (Google truncates around 70 CJK chars). -->
+    <meta
+      name="description"
+      content="免费 Claude IP 检测：风控值与纯净度、原生 IP、住宅或机房 IP、VPN/代理/Tor、分流与 WebRTC 泄露，8 项全部通过即未发现已知风险。"
+    />
+    <meta
+      name="keywords"
+      content="Claude IP检测, Claude AI IP检测, Claude IP查询, Claude 出口IP, IP风控值查询, IP纯净度检测, 原生IP查询, 住宅IP查询, 家庭宽带IP, 机房IP, IP类型查询, IP归属地查询, Claude 分流检测, WebRTC泄露检测, VPN代理Tor检测, Claude 封号检测, Claude 支持地区"
+    />
+    <link rel="canonical" href="https://www.gutast.com/claude-ip" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Claude IP 检测 - IP纯净度/风控值/原生IP/住宅IP 查询｜Gutast AI" />
+    <meta
+      property="og:description"
+      content="免费 Claude IP 检测：风控值与纯净度、原生 IP、住宅或机房 IP、VPN/代理/Tor、分流与 WebRTC 泄露，8 项全部通过即未发现已知风险。"
+    />
+    <meta property="og:url" content="https://www.gutast.com/claude-ip" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Gutast AI" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:image" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta property="og:image:secure_url" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Gutast AI Claude IP 风险检测工具"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Claude IP 检测 - IP纯净度/风控值/原生IP/住宅IP 查询｜Gutast AI" />
+    <meta
+      name="twitter:description"
+      content="免费 Claude IP 检测：风控值与纯净度、原生 IP、住宅或机房 IP、VPN/代理/Tor、分流与 WebRTC 泄露，8 项全部通过即未发现已知风险。"
+    />
+    <meta name="twitter:image" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta name="twitter:image:alt" content="Gutast AI Claude IP 风险检测工具" />
+
+    <!-- Structured data: Organization (same @id as all pages) + WebApplication
+         + BreadcrumbList + FAQPage. The FAQPage mainEntity mirrors the visible
+         FAQ in src/pages/claude-ip/ClaudeRiskCheckPage.tsx VERBATIM
+         (task 4.3) — edit both together. Note: FAQ rich results are restricted
+         to authoritative gov/health sites since 2023 — this markup mainly
+         helps machine comprehension. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.gutast.com/#organization",
+            "name": "Gutast AI",
+            "slogan": "Good Taste, Top AI — 好品味，先用上顶尖 AI",
+            "legalName": "深圳市优品家居材料科技有限公司",
+            "duns": "710229185",
+            "url": "https://www.gutast.com/",
+            "logo": "https://www.gutast.com/UI/logo/300_300.webp",
+            "email": "475290875@qq.com",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "email": "475290875@qq.com",
+              "availableLanguage": ["zh-CN"]
+            }
+          },
+          {
+            "@type": "WebApplication",
+            "@id": "https://www.gutast.com/claude-ip#webapp",
+            "name": "Claude IP 风险检测",
+            "url": "https://www.gutast.com/claude-ip",
+            "applicationCategory": "SecurityApplication",
+            "operatingSystem": "Web",
+            "browserRequirements": "Requires JavaScript",
+            "inLanguage": "zh-CN",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+            "featureList": [
+              "IP 风控值与纯净度评分",
+              "原生 IP 判定",
+              "住宅（家庭宽带）/ 机房 IP 识别",
+              "VPN / 代理 / Tor 检测",
+              "WebRTC 泄露检测",
+              "Claude 支持地区核对",
+              "分流一致性检测",
+              "时区与语言环境检测"
+            ],
+            "publisher": { "@id": "https://www.gutast.com/#organization" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.gutast.com/claude-ip#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.gutast.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Claude IP 检测",
+                "item": "https://www.gutast.com/claude-ip"
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.gutast.com/claude-ip#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "检测的是哪个 IP？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "浏览器访问 claude.ai 时实际使用的出口 IP。走代理时是代理节点的 IP，直连时是本机宽带的公网 IP。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "为什么会显示三个不同的 IP？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "代理软件通常按规则分流：国内网站直连、Claude 走代理。三个 IP 分别对应国内直连、Cloudflare 默认线路和 Claude 线路。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "风险评分准吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "评分根据第三方 IP 情报（机房、VPN、代理、Tor、滥用记录）估算，仅供参考；Claude 的实际风控规则不公开。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "IP 会影响 Claude 封号吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "IP 是风控参考的因素之一：出口不在支持地区、被标记为 VPN / 代理 / 滥用，或与浏览器时区、语言明显不一致，都会增加风险。账号的注册方式、付款方式和使用行为同样重要，本页只检测网络环境，结果仅供参考。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "什么是原生 IP？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "出口 IP 的注册国家或地区与机房实际所在地一致，即为原生 IP；跨地区广播使用的属于广播 IP，部分平台对广播 IP 风控更严。本页的地区与 ASN 信息可用于判断。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "住宅 IP 和机房 IP 有什么区别？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "住宅 IP（家庭宽带 IP）由运营商分配给家庭用户；机房 IP 属于云服务器和 IDC，常被代理、爬虫和自动化程序使用，各平台对它的风控通常更严，本页把机房 IP 记为风险项。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "风控值多少算安全？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "业界通行参考：15% 以内为极度纯净，25% 以内为纯净，40% 以内为中性，50% 以上风险较高，70% 以上多数平台会直接拦截。评分仅供参考，以 Claude 实际风控为准。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "检测会记录我的 IP 吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "只有 Claude 出口 IP 会发送到本站接口查询 IP 情报，查询结果缓存 24 小时、不做其他保存；国内 IP 不会发送到本站，历史记录只保存在你的浏览器里。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Claude Code 也走这个出口吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "不一定。本页测的是浏览器的线路；Claude Code 命令行默认不读系统代理，需要设置 HTTPS_PROXY 或使用 TUN 模式才会走同一出口。"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/pages/claude-ip/main.tsx"></script>
+  </body>
+</html>

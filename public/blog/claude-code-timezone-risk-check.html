@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#06070B" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/UI/favicon-48.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/UI/apple-touch-icon.png" />
+  <title>Claude Code 疑似读取系统时区识别中国用户？机制拆解与自查指南</title>
+  <meta name="description" content="据社区逆向爆料，Claude Code 会读取系统时区与 ANTHROPIC_BASE_URL 域名判断中国大陆用户，并用 Unicode 隐写把标记藏进每一次请求。本文拆解两条识别路径、隐写机制与争议焦点，并给出时区自查、Asia/Singapore 修改方案与 NTP 分流建议。" />
+  <link rel="canonical" href="https://www.gutast.com/blog/claude-code-timezone-risk-check" />
+  <meta property="og:title" content="Claude Code 疑似读取系统时区识别中国用户？机制拆解与自查指南" />
+  <meta property="og:description" content="据爆料，这段逻辑不看 IP：系统时区像中国、或请求经过名单上的中转域名，就会被隐写标记。怎么判断、怎么自查、时区该怎么改，一文讲清。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.gutast.com/blog/claude-code-timezone-risk-check" />
+  <meta property="og:site_name" content="Gutast AI" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:image" content="https://www.gutast.com/UI/og-cover.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://www.gutast.com/blog/claude-code-timezone-risk-check#article",
+        "headline": "Claude Code 疑似读取系统时区识别中国用户？机制拆解与自查指南",
+        "description": "据爆料，这段逻辑不看 IP：系统时区像中国、或请求经过名单上的中转域名，就会被隐写标记。怎么判断、怎么自查、时区该怎么改，一文讲清。",
+        "inLanguage": "zh-CN",
+        "datePublished": "2026-10-22",
+        "dateModified": "2026-10-22",
+        "author": {
+          "@type": "Organization",
+          "name": "Gutast AI 内容团队",
+          "url": "https://www.gutast.com/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://www.gutast.com/#organization",
+          "name": "Gutast AI",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.gutast.com/UI/logo/300_300.webp"
+          }
+        },
+        "mainEntityOfPage": "https://www.gutast.com/blog/claude-code-timezone-risk-check",
+        "image": "https://www.gutast.com/UI/og-cover.png",
+        "articleSection": "开发者指南"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.gutast.com/" },
+          { "@type": "ListItem", "position": 2, "name": "开发者指南", "item": "https://www.gutast.com/#faq-section" },
+          { "@type": "ListItem", "position": 3, "name": "Claude Code 时区识别疑云与自查" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Claude Code 是靠 IP 识别中国用户的吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "不是。据社区逆向爆料，这段判断逻辑看的是系统时区与 ANTHROPIC_BASE_URL 指向的域名名单，跟出口 IP 完全无关——所以只挂代理未必能避开，时区才是最容易暴露的信号。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "把系统时区改成新加坡会有副作用吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "几乎没有。Asia/Singapore 与北京时间同为 UTC+8，电脑上的时间分秒不差，日程、闹钟完全不受影响，系统语言和输入法照常用简体中文，等于零成本避开被点名的两个时区。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "怎么自查我的时区和设备信息有没有暴露？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "打开 Gutast AI 的 Claude IP 检测，看「本地环境」卡片的时区判定：浏览器读到的时区与 Claude 出口时区自动比对，如果出口在国外、本地却是 Asia/Shanghai 或 Asia/Urumqi，会直接红标「浏览器为北京时间，与出口地区不一致」。所有信息只在浏览器本地读取，不上传不留存。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "这份爆料可信吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "目前还停留在社区逆向与爆料阶段，Anthropic 官方没有正面回应。建议把它当成一个值得警惕、且能自己动手验证的风险点来对待，而不是已经盖章的定论。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root{color-scheme:dark}
+    *{box-sizing:border-box}
+    body{margin:0;background:#06070B;color:#CBD5E1;font:16px/1.85 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+    a{color:#FF8A50;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+    header.site{border-bottom:1px solid #1F2436}
+    header.site .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:18px;padding-bottom:18px}
+    .brand{color:#fff;font-weight:800;font-size:18px;letter-spacing:.5px}
+    .brand small{color:#64748B;font-weight:400;font-size:12px;margin-left:8px}
+    .crumbs{font-size:13px;color:#64748B;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;margin:26px 0 4px}
+    .crumbs a{color:#94A3B8}
+    h1{color:#fff;font-size:26px;line-height:1.5;margin:14px 0 8px}
+    .meta{color:#64748B;font-size:13px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;margin-bottom:30px}
+    main{padding-bottom:24px}
+    h2{color:#F1F5F9;font-size:19px;margin:38px 0 10px;padding-left:12px;border-left:3px solid #FF5E1E}
+    h3{color:#E2E8F0;font-size:16px;margin:22px 0 8px}
+    p,li{margin:0 0 12px}
+    ul,ol{padding-left:22px;margin:0 0 14px}
+    table{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:14px}
+    th,td{border:1px solid #1F2436;padding:9px 12px;text-align:left;vertical-align:top}
+    th{background:#0D0F17;color:#F1F5F9;white-space:nowrap}
+    pre{background:#0D0F17;border:1px solid #1F2436;border-radius:10px;padding:14px 16px;overflow-x:auto;font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;color:#E2E8F0;margin:14px 0 18px;white-space:pre-wrap;word-break:break-all}
+    code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.92em;color:#FDBA74}
+    p code,li code,td code{background:#0D0F17;border:1px solid #1F2436;border-radius:5px;padding:1px 6px}
+    pre code{background:none;border:none;padding:0;color:#E2E8F0}
+    .note{border-left:3px solid #FFB800;background:rgba(255,184,0,.07);padding:12px 16px;border-radius:0 10px 10px 0;font-size:14px;margin:16px 0}
+    .danger{border-left:3px solid #EF4444;background:rgba(239,68,68,.07);padding:12px 16px;border-radius:0 10px 10px 0;font-size:14px;margin:16px 0}
+    strong{color:#F1F5F9}
+    .cta{border:1px solid #1F2436;background:linear-gradient(135deg,rgba(255,94,30,.10),rgba(255,94,30,.02));border-radius:14px;padding:22px 24px;margin:40px 0 8px}
+    .cta h2{margin:0 0 8px;border:none;padding:0;font-size:18px}
+    .cta p{font-size:14.5px;margin-bottom:14px}
+    .cta .btn{display:inline-block;background:#FF5E1E;color:#fff;font-weight:700;font-size:14.5px;padding:10px 22px;border-radius:10px}
+    .cta .btn:hover{text-decoration:none;background:#FF7A42}
+    .related{border-top:1px solid #1F2436;margin-top:34px;padding-top:20px;font-size:14.5px}
+    .related h2{font-size:16px;margin:0 0 10px}
+    .related ul{list-style:none;padding:0;margin:0}
+    .related li{margin:0 0 8px}
+    footer{border-top:1px solid #1F2436;margin-top:44px;padding:26px 20px 40px;text-align:center;font-size:12.5px;color:#64748B;line-height:2}
+    @media(max-width:600px){h1{font-size:22px}}
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="/">Gutast AI<small>开发者算力加速引擎</small></a>
+      <a href="/">← 返回首页</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="crumbs" aria-label="面包屑导航"><a href="/">首页</a> › 开发者指南 › Claude Code 时区识别疑云与自查</nav>
+    <article>
+      <h1>Claude Code 疑似读取系统时区识别中国用户？机制拆解与自查指南</h1>
+      <p class="meta">发布于 2026 年 10 月 22 日 · 阅读约 9 分钟 · 作者：Gutast AI 内容团队</p>
+
+      <p>一段被逆向出来的隐藏逻辑，据称把「你是不是中国用户」悄悄编码进了发往 Anthropic 的每一次请求里。关键是——<strong>它不看 IP，所以光挂代理未必安全</strong>。这篇讲清楚它怎么判断、怎么自查、以及时区到底该怎么设。</p>
+      <p>先把话说在前头：这件事目前还停在「社区逆向 + 爆料」的阶段，Anthropic 官方没有正面回应，所以下面讲的机制请当成一个值得警惕、且能自己验证的风险点，而不是已经盖章的定论。但它有意思的地方在于——它据称根本不看你的 IP，很多人「挂了代理就以为万事大吉」的判断，可能从一开始就是错的。文末给了自查入口和时区设置方案，急的话可以直接拉到底。</p>
+
+      <h2>一、事情是怎么被扒出来的</h2>
+      <p>2026 年 4 月前后，Claude Code 更新到 2.1.91 版本。几个月后，有开发者把它的打包文件拉出来逆向，在里面翻到一段没写进任何更新日志、还被特意混淆过的逻辑。帖子发到 Reddit 和 X 上，很快就发酵了，评论区里中外开发者吵成一团。</p>
+      <p>结论用一句话概括：<strong>Claude Code 会在本地悄悄判断「你是不是中国大陆用户」，再用一种几乎没人看得出来的方式，把这个判断结果编码进每一次发往 Anthropic 的请求里。</strong>叠加上同一时段社区里大面积反映的封号，很多人把两件事联系到了一起——如果这段逻辑属实，那它大概率就是账号风控、反转售、反蒸馏的一环。</p>
+
+      <h2>二、重点：它为什么不看 IP，你挂了代理也可能中招</h2>
+      <p>传统的地域限制靠 IP 归属地，你挂个境外节点就绕过去了。但这段逻辑据称走的是两条跟出口 IP 完全无关的路。</p>
+      <h3>路径一：系统时区</h3>
+      <p>它读的不是你的网络出口，而是你操作系统里设置的时区。</p>
+      <p>这一刀很准。因为大部分中国开发者的电脑，代理可以随手开关，但系统时区几乎不会去动——你总得靠它看时间、对日程。于是绝大多数人的时区就老老实实写着 <code>Asia/Shanghai</code>（上海）或者 <code>Asia/Urumqi</code>（乌鲁木齐）。<strong>代理骗得过服务器，时区骗不过自己的电脑。</strong></p>
+      <h3>路径二：你配的中转站 / 公司内网域名</h3>
+      <p>第二条路是环境变量 <code>ANTHROPIC_BASE_URL</code>。官方用法里，Claude Code 直接请求 <code>api.anthropic.com</code>，根本不需要设这个变量。但国内能直连的是少数，大量开发者只能把它指向一个中转站；很多公司则自建内网代理，统一给员工分发 API。</p>
+      <p>据爆料，Claude Code 拿到这个地址后，会把域名抠出来，跟一份内置名单逐一比对。这份名单据称有上百个域名（有人解出 147 个），既有各路中转站，也有一票国内大厂和 AI 公司的域名。名单不是明文，而是 base64 之后又做了一次 XOR（密钥 91），不反混淆出来只是一串乱码——这也是它一直没被发现的原因之一。</p>
+      <div class="danger">
+        说白了：<strong>只要你的时区像中国、或者你的请求经过了名单上的域名，你就被标记了，跟你 IP 挂在哪个国家没关系。</strong>
+      </div>
+
+      <h2>三、标记之后据称做了什么：把信号藏进日期里</h2>
+      <p>这部分是整件事最「精致」、也最让人不舒服的地方。Claude Code 每次发请求前，会在你的输入前面拼一段系统提示词，其中有很普通的一行，告诉模型今天几号：</p>
+      <pre><code>Today's date is 2026-06-30.</code></pre>
+      <p>爆料称，如果本地判断你是中国用户，这一行会被动两处手脚，而且两处都是肉眼完全看不出来的：</p>
+      <ul>
+        <li><strong>那个撇号：</strong><code>Today's</code> 里的 <code>'</code>，正常是 U+0027（键盘直接敲出来的那个）。被识别后，会被换成另外几个长得一模一样、但 Unicode 编码不同的字符之一。</li>
+        <li><strong>日期分隔符：</strong>如果检测到时区是 <code>Asia/Shanghai</code> 或 <code>Asia/Urumqi</code>，就把 <code>2026-06-30</code> 里的连字符 <code>-</code> 换成斜杠 <code>/</code>，变成 <code>2026/06/30</code>。</li>
+      </ul>
+      <p>你在任何编辑器、任何终端里看这行字，都跟正常版本没有任何区别。但在机器眼里，这两处差异叠起来，就是一个 2～3 比特的分类标记。Anthropic 的服务器收到请求，不用再做任何额外探测，只要读一下这行字里的撇号是哪个码位、分隔符是横还是斜，就知道这条请求「疑似来自中国大陆时区」。</p>
+      <p>这套手法有个专门的名字，叫<strong>隐写术（steganography）</strong>——把信息藏在一个看起来完全正常的载体里。它的狠处在于：就算你怀疑被传了数据，抓包也基本抓不出来，因为传的不是一个额外字段，而是正常内容里几个字符的「变体」。</p>
+
+      <h2>四、这算监控，还是反滥用？争议在哪</h2>
+      <p>我们倾向于把两种声音都摆出来，你自己判断：</p>
+      <ul>
+        <li><strong>理解派：</strong>Anthropic 在中国区没有正式服务，打击未授权转售、账号共享、模型蒸馏本身无可厚非，几乎所有大厂都在做风控。</li>
+        <li><strong>反对派：</strong>问题不在「做不做风控」，而在「怎么做」。软件行业一条被广泛接受的底线是——你可以收集信息，但你得告诉用户你在收集什么、为什么、怎么收集。GDPR 是这么要求的，苹果审核指南是这么要求的。而这段逻辑既没写进更新日志，又用混淆和隐写把自己藏得严严实实，这就越过了「透明」这条线。</li>
+      </ul>
+      <p>更让人在意的是身份问题：Claude Code 不是普通 App，它有你的文件系统权限、能跑 Shell、能读改你的代码和配置。这样一个工具，在你毫不知情时往请求里塞了个隐藏标记，无论初衷如何，信任都是要打折扣的。今天标的是中国时区，这套机制以后会不会标别的，只能说没人能保证。</p>
+
+      <h2>五、别急着慌，先自查：你现在漏没漏</h2>
+      <p>情绪归情绪，先搞清楚自己的环境安不安全，比什么都实在。打开 <a href="/claude-ip">Claude AI IP 检测</a>，里面的「本地环境」卡片正好覆盖这次曝出来的两条路径里最要命的那条——时区：</p>
+      <ul>
+        <li><strong>时区：</strong>读出本地时区，跟你 Claude 出口 IP 所在地的时区自动比对；出口在国外、本地却是 <code>Asia/Shanghai</code> / <code>Asia/Urumqi</code> 时，直接红标<strong>「浏览器为北京时间，与出口地区不一致」</strong>，一眼定位问题；</li>
+        <li><strong>语言、操作系统 / 浏览器：</strong>与出口地区的常用语言、地区特征交叉核对；</li>
+        <li><strong>更硬核的：</strong>WebGL 渲染器和 Canvas 指纹也一并展示。</li>
+      </ul>
+      <div class="note">
+        逻辑很简单：如果你的出口 IP 显示在美国，页面却红标「浏览器为北京时间，与出口地区不一致」，那你就是这次爆料里最典型的「高危画像」。Claude Code 读的是系统时区，浏览器 <code>Intl</code> 读到的也是同一个系统时区——所以这个自查结果，跟 Claude Code 在你本地看到的基本是一回事。
+      </div>
+      <p>看到红标不用慌，它不代表你已经被盯上，只是提醒「系统时区这个信号还露在外面」。想让它消掉，方法在下面第六节；改完回 <a href="/claude-ip">Claude AI IP 检测</a>复测一下就知道好没好。</p>
+      <p>隐私方面可以放心：设备信息全部在你浏览器本地读取和展示，不上传、不留存；页面上那份出口 IP 历史也是纯浏览器本地存储。</p>
+
+      <h2>六、时区到底该怎么设？三个方案</h2>
+      <p>自查完发现「时区不一致」，接下来就是怎么修。按省心程度从低到高：</p>
+      <h3>方案一：先把分流做干净（基础，必做）</h3>
+      <p>时区泄露不只时区一个口子。系统还会通过 NTP 时间同步去校时，这条如果直连，返回的时间信息一样会跟你的代理出口对不上。此外 <code>sentry.io</code>、<code>statsigapi.net</code> 这些遥测 / 监控域名也要一并走代理，别让它们直连本地。</p>
+      <table>
+        <tr><th>要走代理的类别</th><th>为什么</th><th>标签</th></tr>
+        <tr><td>NTP 时间同步</td><td>系统校时会暴露真实时区</td><td>时区</td></tr>
+        <tr><td>sentry.io / statsigapi.net</td><td>遥测 / 监控上报</td><td>遥测</td></tr>
+        <tr><td>anthropic.com / claude.ai</td><td>核心请求，一个都不能漏</td><td>核心</td></tr>
+      </table>
+      <p>分流配置的另一个常见坑是 IPv6 绕过规则直连，我们在 <a href="/blog/claude-code-ipv6-issue">Claude Code 关闭 IPv6 指南</a>里专门写过，建议一并处理，能堵掉大部分「网络层」的时区和身份泄露。</p>
+      <h3>方案二：把系统时区设成同区的新加坡或台北（推荐，性价比最高）</h3>
+      <p>这是最推荐普通用户做的一步：别再用 <code>Asia/Shanghai</code> / <code>Asia/Urumqi</code>，改成同为东八区（UTC+8）的：</p>
+      <ul>
+        <li>新加坡：<code>Asia/Singapore</code></li>
+        <li>台北：<code>Asia/Taipei</code></li>
+      </ul>
+      <p>好处非常实在：这俩都是 UTC+8，所以你电脑上显示的时间跟北京时间分毫不差，日程、闹钟、看时间完全不受影响；系统语言、输入法照样能用简体中文，交流没有任何障碍。但在 Claude Code 眼里，你的时区已经不是被点名的那两个了——<strong>等于几乎零成本地避开了这次爆料里的「时区特征」。</strong></p>
+      <h3>方案三：系统时区跟着代理出口走（最彻底，但要动脑）</h3>
+      <p>想做到最干净，就把系统时区直接设成代理出口所在地的时区。比如出口在美西就设 <code>America/Los_Angeles</code>，出口在日本就设 <code>Asia/Tokyo</code>。这样时区、IP、NTP 全对得上，画像最一致。</p>
+      <p>代价是你得自己做时间换算：美西比北京慢 15～16 小时（看夏令时），看时间时脑子里得加一下。嫌麻烦就退回方案二——对绝大多数人来说，方案二其实已经够用了。</p>
+      <p>改完时区，回到 <a href="/claude-ip">Claude AI IP 检测</a>再刷新一次，看时区判定是不是变成了「与出口一致」——这就是最直接的验收。</p>
+
+      <h2>常见问题</h2>
+      <h3>Q：Claude Code 是靠 IP 识别中国用户的吗？</h3>
+      <p>不是。据社区逆向爆料，这段判断逻辑看的是系统时区与 <code>ANTHROPIC_BASE_URL</code> 指向的域名名单，跟出口 IP 完全无关——所以只挂代理未必能避开，时区才是最容易暴露的信号。</p>
+      <h3>Q：把系统时区改成新加坡会有副作用吗？</h3>
+      <p>几乎没有。<code>Asia/Singapore</code> 与北京时间同为 UTC+8，电脑上的时间分秒不差，日程、闹钟完全不受影响，系统语言和输入法照常用简体中文，等于零成本避开被点名的两个时区。</p>
+      <h3>Q：怎么自查我的时区和设备信息有没有暴露？</h3>
+      <p>打开 <a href="/claude-ip">Claude IP 检测</a>，看「本地环境」卡片的时区判定：浏览器读到的时区与 Claude 出口时区自动比对，如果出口在国外、本地却是 <code>Asia/Shanghai</code> 或 <code>Asia/Urumqi</code>，会直接红标「浏览器为北京时间，与出口地区不一致」。所有信息只在浏览器本地读取，不上传不留存。</p>
+      <h3>Q：这份爆料可信吗？</h3>
+      <p>目前还停留在社区逆向与爆料阶段，Anthropic 官方没有正面回应。建议把它当成一个值得警惕、且能自己动手验证的风险点来对待，而不是已经盖章的定论。</p>
+
+      <div class="cta">
+        <h2>花两分钟，看清自己的风控画像</h2>
+        <p>Gutast AI 的 Claude IP 检测：免费、浏览器端直跑，一次看清三路出口 IP、DNS / WebRTC 泄露，以及本地时区与出口是否一致。改完时区回来复测，「与出口一致」就是验收标准。</p>
+        <a class="btn" href="/claude-ip">立即检测时区与出口 →</a>
+      </div>
+
+      <aside class="related">
+        <h2>相关阅读</h2>
+        <ul>
+          <li><a href="/blog/claude-code-ipv6-issue">为什么不建议用 IPv6 访问 Claude Code？分流场景稳定性指南</a></li>
+          <li><a href="/blog/claude-ban-risk-guide">Claude 封号机制详解：风控逻辑与自保指南</a></li>
+          <li><a href="/blog/claude-registration-guide">Claude 注册与使用完整指南</a></li>
+          <li><a href="/terms-of-service">Gutast AI 服务协议</a> · <a href="/refund-policy">退款与质保政策</a></li>
+        </ul>
+      </aside>
+      <p class="meta">免责声明：本文基于社区公开的逆向分析与爆料整理，相关机制截至发文尚未经 Anthropic 官方证实，仅供技术参考与自查，不构成任何结论性指控。请遵守当地法律法规与 Anthropic 官方使用政策。</p>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>© 2026 Gutast AI (gutast.com) · 运营主体：深圳市优品家居材料科技有限公司 · D-U-N-S® 710229185</div>
+      <div><a href="/">首页</a> · <a href="/terms-of-service">服务协议</a> · <a href="/refund-policy">退款与质保政策</a> · <a href="/privacy-policy">隐私声明</a></div>
+      <div>联系邮箱：475290875@qq.com</div>
+    </div>
+  </footer>
+</body>
+</html>

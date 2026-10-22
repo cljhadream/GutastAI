@@ -166,6 +166,32 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ================= Free tool: Claude IP risk check ================= */}
+      {/* Separately promoted landing page: keyword-rich anchor + surrounding
+          context text to pass topical relevance for "Claude IP 检测". */}
+      <section className="mx-auto max-w-5xl px-6 pb-2">
+        <a
+          href="/claude-ip"
+          className="group relative flex flex-col gap-5 overflow-hidden rounded-3xl border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-transparent to-hyper-orange/10 p-8 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-emerald-500 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div>
+            <div className="mb-2 flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-emerald-500">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+              FREE TOOL · 免费
+            </div>
+            <h3 className="mb-1 text-xl font-black tracking-tight transition group-hover:text-emerald-500">
+              Claude IP 检测：出口 IP / 风控评分 / 时区风险自查
+            </h3>
+            <p className="text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+              三路出口 IP、风险评分、分流一致性与 WebRTC、系统时区 8 项检测一次跑完；浏览器本地直跑，免费、无需注册、不留存数据。
+            </p>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-1.5 self-start rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-5 py-3 text-sm font-bold text-emerald-600 dark:text-emerald-400 sm:self-center">
+            立即检测 <span className="transition group-hover:translate-x-1">→</span>
+          </span>
+        </a>
+      </section>
+
       {/* ================= 3-step delivery flow ================= */}
       <section className="mx-auto max-w-5xl px-6 py-10">
         <div className="mb-8 text-center">

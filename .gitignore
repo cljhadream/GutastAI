@@ -18,6 +18,12 @@ taste-skill-upstream/
 .env
 .env.*
 
+# Cloudflare Pages local dev: secrets file + wrangler state (R30)
+.dev.vars
+.wrangler/
+.wrangler-config/
+.claude/
+
 # Blogger API credentials & python cache (never commit)
 doc/backlinks_articles/blogger/client_secret.json
 doc/backlinks_articles/blogger/token.json

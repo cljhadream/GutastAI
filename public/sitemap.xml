@@ -43,6 +43,12 @@
     <loc>https://www.gutast.com/faq</loc>
     <lastmod>2026-10-13</lastmod>
   </url>
+  <!-- Claude IP risk check landing page: created 2026-10-21 (free browser
+       side IP risk tool); 2026-10-22: check summary panel + two FAQs. -->
+  <url>
+    <loc>https://www.gutast.com/claude-ip</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
   <!-- Legal pages: content created 2026-10-13. -->
   <url>
     <loc>https://www.gutast.com/terms-of-service</loc>
@@ -94,5 +100,23 @@
   <url>
     <loc>https://www.gutast.com/blog/claude-registration-guide</loc>
     <lastmod>2026-10-15</lastmod>
+  </url>
+  <!-- Blog article: created 2026-10-21 (five-channel price comparison,
+       conversion-focused soft article leading to /claude-code). -->
+  <url>
+    <loc>https://www.gutast.com/blog/claude-pro-recharge-comparison</loc>
+    <lastmod>2026-10-21</lastmod>
+  </url>
+  <!-- Blog article: created 2026-10-22 (why IPv6 bypasses proxy rules for
+       Claude Code users, leads to /claude-ip risk check). -->
+  <url>
+    <loc>https://www.gutast.com/blog/claude-code-ipv6-issue</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <!-- Blog article: created 2026-10-22 (alleged Claude Code timezone
+       steganography, self-check via /claude-ip local environment card). -->
+  <url>
+    <loc>https://www.gutast.com/blog/claude-code-timezone-risk-check</loc>
+    <lastmod>2026-10-22</lastmod>
   </url>
 </urlset>

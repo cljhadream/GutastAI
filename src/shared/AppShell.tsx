@@ -11,7 +11,7 @@ import { QR_SRC } from './data';
 
 type Theme = 'dark' | 'light';
 
-export type PageId = 'home' | 'chatgpt-plus' | 'claude-code' | 'faq';
+export type PageId = 'home' | 'chatgpt-plus' | 'claude-code' | 'faq' | 'claude-ip';
 
 // Scoped styles: particle grid, flowing gradient text, ignite pulse, modal
 // entrance. All keyframes are prefixed with `xa-` to avoid collisions with
@@ -80,6 +80,7 @@ const NAV_LINKS: { href: string; label: string; pulse?: boolean }[] = [
   // so visitors on the Claude page don't expect a Claude recording there.
   { href: '/chatgpt-plus#video-section', label: 'ChatGPT 充值实录' },
   { href: '/chatgpt-plus#why-section', label: '防坑保障' },
+  { href: '/claude-ip', label: 'Claude IP 检测' },
   { href: '/faq', label: '常见问题' },
 ];
 
@@ -230,7 +231,7 @@ export default function AppShell({ children, currentPage }: AppShellProps) {
               </a>
 
               {/* Cross-page nav */}
-              <nav className="hidden items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300 md:flex">
+              <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-600 dark:text-slate-300 md:flex">
                 {NAV_LINKS.map((link) => {
                   const active = isActive(link.href, currentPage);
                   return (
@@ -309,6 +310,8 @@ export default function AppShell({ children, currentPage }: AppShellProps) {
                 <a href="/blog/claude-pro-recharge-guide" className="transition hover:text-hyper-orange">Claude Pro 充值攻略</a>
                 <a href="/blog/claude-pro-payment-guide" className="transition hover:text-hyper-orange">Claude Pro 充值支付流程</a>
                 <a href="/blog/claude-registration-guide" className="transition hover:text-hyper-orange">Claude 注册与使用完整指南</a>
+                <a href="/blog/claude-code-ipv6-issue" className="transition hover:text-hyper-orange">Claude Code 关闭 IPv6 指南</a>
+                <a href="/blog/claude-code-timezone-risk-check" className="transition hover:text-hyper-orange">Claude Code 时区自查指南</a>
               </div>
 
               {/* Legal entity disclosure: verifiable trust signal for E-E-A-T.

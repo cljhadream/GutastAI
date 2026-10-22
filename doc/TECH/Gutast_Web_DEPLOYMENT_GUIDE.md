@@ -1,9 +1,9 @@
 # Gutast AI (gutast.com) 部署指南
 
-**文档状态：** 已实施 V1.0（SEO P0/P1 优化：构建时预渲染、robots/sitemap、JSON-LD、社交分享图、FAQ）
-**更新日期：** 2026年10月12日
+**文档状态：** 已实施 V1.0（SEO P0/P1 优化：构建时预渲染、robots/sitemap、JSON-LD、社交分享图、FAQ）；V1.1 新增 Claude IP 风险检测（`/claude-ip` + `/api/ip/*` Pages Function，含密钥与 WAF 配置）
+**更新日期：** 2026年10月21日
 **部署目标：** https://www.gutast.com/
-**关联变更集：** `openspec/changes/seo-p0-p1-optimization/`
+**关联变更集：** `openspec/changes/seo-p0-p1-optimization/` · `openspec/changes/claude-risk-check/`
 
 ## 1. 构建与预渲染
 
@@ -68,3 +68,66 @@ node -e "const s=require('fs').readFileSync('dist/index.html','utf8'); console.l
 | `public/UI/apple-touch-icon.png` | 180x180 | iOS 桌面图标 |
 | `public/UI/favicon-48.png` | 48x48 | PNG favicon 回退（webp 之外的浏览器） |
 | `public/robots.txt` / `public/sitemap.xml` | — | 爬虫指引；lastmod 随内容更新手动维护 |
+
+## 6. Claude IP 风险检测（/claude-ip + /api/ip/*）
+
+页面在浏览器端完成出口 IP / 连通性 / WebRTC / 环境检测；唯一的服务端依赖是 Pages Function `functions/api/ip/[ip].ts`：它把 Claude 出口 IP 转发给 ipapi.is 查询情报并在边缘缓存 24 h（成功响应浏览器缓存 1 h；错误响应一律 `no-store`；无 CORS 头，仅同源可用）。
+
+### 6.1 `IPAPI_KEY` 密钥
+
+- **注册**：https://ipapi.is 注册免费账号（1,000 次/天；仅查询 Claude 出口 IP 且有 24 h 边缘缓存，量级足够；不足时升级付费档）。
+- **生产环境**：Cloudflare Dashboard → Workers & Pages → `gutast` 项目 → Settings → Environment variables → **Production** → Add variable：名称 `IPAPI_KEY`，值填 API Key，选择 **Encrypt**（加密），保存后需要**重新部署**一次才生效。
+- **本地环境**：项目根目录创建 `.dev.vars` 文件（已被 `.gitignore` 排除，严禁提交）：
+
+  ```ini
+  IPAPI_KEY=你的key
+  ```
+
+  `wrangler pages dev` 会自动加载该文件注入 `env.IPAPI_KEY`。
+- **无 Key 也能跑**：Function 在缺失 `IPAPI_KEY` 时回退到 ipapi.is 匿名档（无风险标记、score 为 null），页面风险卡显示"暂无数据"，其余卡片不受影响——这是预期行为，不是故障。
+
+### 6.2 WAF 限流规则（防白嫖代理）
+
+Function 无 CORS 头且校验严格，但仍在 Cloudflare 层加一道限流（建议 10 次 / 10 秒 / 客户端 IP）：
+
+Dashboard → Security → WAF → Rate limiting rules → Create rule：
+
+- **Match requests**（表达式编辑器）：
+
+  ```
+  (http.request.uri.path starts_with "/api/ip/")
+  ```
+
+- **With the same characteristics**: IP address
+- **Period**: 10 seconds；**Requests more than**: 10
+- **Action**: Block（10 秒冷却后自动放行）
+
+免费版 Rate limiting（1 条规则额度）可覆盖该路径；若额度被其它规则占用，可退化为 WAF Custom Rule 直接对 `/api/ip/` 的非浏览器 UA 或异常 UA 拒绝（弱化方案，优先用 Rate limiting）。
+
+### 6.3 本地测试
+
+```bash
+npm run build                                   # tsc + vite build（预渲染含 /claude-ip）
+npx wrangler pages dev dist --port 8788         # 静态产物 + functions/ 本地运行，自动读 .dev.vars
+```
+
+- 打开 `http://127.0.0.1:8788/claude-ip`：各卡片应显示真实数据或明确失败态。
+- 接口自检：
+
+  ```bash
+  curl -si "http://127.0.0.1:8788/api/ip/8.8.8.8" | head -n 15   # 200 + cache-control: public, max-age=3600
+  curl -si "http://127.0.0.1:8788/api/ip/192.168.1.1"            # 400 invalid_ip（内网拒绝）
+  curl -si -X POST "http://127.0.0.1:8788/api/ip/8.8.8.8"        # 405 method_not_allowed
+  ```
+
+- 注意：wrangler 4 需要 Node 20+；本机默认 Node 18 时用 nvm 的 node 直跑（例：`& "C:\Documents\tools\nvm4\nodejs\node.exe" node_modules\wrangler\bin\wrangler.js pages dev dist --port 8788`），若 workerd 报 compatibility date 不支持，追加 `--compatibility-date=2026-05-03`。
+
+### 6.4 部署后检查清单
+
+1. 页面可达且预渲染完整：`curl -s https://www.gutast.com/claude-ip | grep -c "检测原理"` ≥ 1。
+2. Function 正常：`curl -si "https://www.gutast.com/api/ip/8.8.8.8"` 返回 200 且带 `cache-control: public, max-age=3600`；页面风险卡显示评分（而非"暂无数据"）。
+3. 异常路径：`/api/ip/192.168.1.1` → 400；POST → 405。
+4. sitemap 含新 URL：`curl -s https://www.gutast.com/sitemap.xml | grep -c "claude-ip"` = 1。
+5. header / footer 导航出现"Claude IP 检测"且在该页为激活态。
+6. 搜索引擎提交：Google Search Console 与百度搜索资源平台提交 `https://www.gutast.com/claude-ip`。
+7. 隐私声明第八节（IP 风险检测工具）随本版本一同上线。

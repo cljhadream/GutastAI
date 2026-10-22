@@ -163,6 +163,57 @@ export default function ChatgptPlusPage() {
           </div>
         </div>
 
+        {/* Pre-recharge steps: what the customer must do in their own
+            browser before contacting the consultant (session must be ready
+            and Plus must be expired before recharging). */}
+        <div className="mt-6 rounded-3xl border border-hyper-lightBorder bg-hyper-lightCard p-6 shadow-cyber md:p-8 dark:border-hyper-darkBorder dark:bg-hyper-darkCard">
+          <h3 className="mb-1 text-lg font-extrabold tracking-tight">充值前操作步骤</h3>
+          <p className="mb-5 text-xs text-slate-500 dark:text-slate-400">
+            办理前请先在您自己的浏览器完成以下两步操作。
+          </p>
+          <ol className="space-y-3">
+            {/* Step 1: log in on chatgpt.com */}
+            <li className="flex items-start gap-3 rounded-2xl border border-hyper-lightBorder bg-slate-50 p-4 dark:border-hyper-darkBorder dark:bg-[#0B0F16]">
+              <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-hyper-orange/15 font-mono text-xs font-bold text-hyper-orange">
+                1
+              </span>
+              <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+                浏览器登录{' '}
+                <a
+                  href="https://chatgpt.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-hyper-orange underline decoration-hyper-orange/50 transition hover:opacity-80"
+                >
+                  chatgpt.com
+                </a>
+              </p>
+            </li>
+            {/* Step 2: open the session endpoint in the SAME browser */}
+            <li className="flex items-start gap-3 rounded-2xl border border-hyper-lightBorder bg-slate-50 p-4 dark:border-hyper-darkBorder dark:bg-[#0B0F16]">
+              <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-hyper-orange/15 font-mono text-xs font-bold text-hyper-orange">
+                2
+              </span>
+              <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+                登录完你的账号之后，用<span className="font-bold">同样的浏览器</span>打开{' '}
+                <a
+                  href="https://chatgpt.com/api/auth/session"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="break-all font-mono text-xs font-semibold text-hyper-orange underline decoration-hyper-orange/50 transition hover:opacity-80"
+                >
+                  https://chatgpt.com/api/auth/session
+                </a>
+              </p>
+            </li>
+          </ol>
+          {/* Notice: Plus must expire before a recharge can be applied */}
+          <p className="mt-4 flex items-start gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs font-semibold text-amber-700 dark:border-amber-500/20 dark:text-amber-400">
+            <span aria-hidden="true">⚠️</span>
+            注意：Plus 需要到期才可以充值。
+          </p>
+        </div>
+
         {/* Text walkthrough: crawler-readable transcript of the demo
             (Experience signal + long-tail queries like "ChatGPT 代充流程") */}
         <div className="mt-6 rounded-3xl border border-hyper-lightBorder bg-hyper-lightCard p-6 shadow-cyber md:p-8 dark:border-hyper-darkBorder dark:bg-hyper-darkCard">

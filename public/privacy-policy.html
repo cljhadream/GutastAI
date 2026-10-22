@@ -51,7 +51,7 @@
   <main class="wrap">
     <article>
       <h1>隐私声明</h1>
-      <p class="meta">生效日期：2026 年 10 月 13 日 · 最近更新：2026 年 10 月 13 日</p>
+      <p class="meta">生效日期：2026 年 10 月 13 日 · 最近更新：2026 年 10 月 22 日（新增第八节 IP 风险检测工具）</p>
 
       <h2>一、引言与适用范围</h2>
       <p>本声明说明 Gutast AI（gutast.com，运营主体：深圳市优品家居材料科技有限公司）在您咨询、下单与售后过程中如何收集、使用和保护您的信息。本声明与<a href="/terms-of-service">服务协议</a>共同适用。</p>
@@ -89,13 +89,23 @@
       <h2>七、Cookie 与追踪</h2>
       <p>本站为静态展示页面，当前版本不加载第三方统计或广告跟踪脚本。</p>
 
-      <h2>八、您的权利</h2>
+      <!-- Section 8: Claude IP risk check tool (added 2026-10-21, owner reviews wording) -->
+      <h2>八、IP 风险检测工具</h2>
+      <p>“<a href="/claude-ip">Claude IP 风险检测</a>”页面在您的浏览器中运行，用于核对您访问 Claude 时的网络出口，其数据处理方式如下：</p>
+      <ul>
+        <li><strong>浏览器直接访问的第三方：</strong>为获取出口信息，您的浏览器会直接向 claude.ai、api.anthropic.com、1.1.1.1（Cloudflare）、my.ip.cn / 2026.ip138.com、status.claude.com 以及 Google / Cloudflare 的 STUN 服务器发起请求。这些请求由您的浏览器直接发出，不经过本站服务器；</li>
+        <li><strong>发送到本站的内容：</strong>仅 Claude 出口 IP 一个字段会被发送到本站接口，用于查询 IP 情报。时区、浏览器语言、操作系统等环境信息只在您的浏览器本地读取用于比对，不会发送到任何服务器；</li>
+        <li><strong>第三方查询与缓存：</strong>本站接口将收到的出口 IP 转发给 ipapi.is 查询机房 / VPN / 代理 / Tor 等标记，查询结果在 Cloudflare 边缘缓存 24 小时以减少重复查询，到期自动失效；除此之外本站不保存 IP 或查询结果；</li>
+        <li><strong>本地历史：</strong>检测历史（Claude 出口 IP、所在国家与检测时间）仅保存在您浏览器的 localStorage 中，点击页面“清除”或清除浏览器数据即可删除，不会上传到本站。</li>
+      </ul>
+
+      <h2>九、您的权利</h2>
       <p>您有权查询、更正或删除我们留存的与您相关的订单与联系信息。发送邮件至 475290875@qq.com 并说明来意即可，我们将在 7 个工作日内处理。</p>
 
-      <h2>九、未成年人保护</h2>
+      <h2>十、未成年人保护</h2>
       <p>本站服务面向开发者与专业人士，不面向未成年人提供服务。</p>
 
-      <h2>十、政策更新与联系方式</h2>
+      <h2>十一、政策更新与联系方式</h2>
       <p>本声明可能不定期更新，更新后在页面发布并注明日期。<br />运营主体：深圳市优品家居材料科技有限公司<br />联系邮箱：475290875@qq.com<br />相关文件：<a href="/terms-of-service">服务协议</a> · <a href="/refund-policy">退款与质保政策</a></p>
     </article>
   </main>
