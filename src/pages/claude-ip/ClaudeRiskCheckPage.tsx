@@ -686,10 +686,12 @@ function CheckSummary({
   checks,
   checkedAt,
   onRecheck,
+  children,
 }: {
   checks: CoreCheck[];
   checkedAt: Date | null;
   onRecheck: () => void;
+  children: ReactNode; // trust score, shown above the verdict
 }) {
   const count = (status: CheckStatus) => checks.filter((check) => check.status === status).length;
   const pass = count('pass');
@@ -719,7 +721,9 @@ function CheckSummary({
 
   return (
     <section className={CARD_CLS} aria-live="polite">
-      <div className="flex flex-wrap items-start justify-between gap-4">
+      {children}
+
+      <div className="mt-5 flex flex-wrap items-start justify-between gap-4 border-t border-hyper-lightBorder/60 pt-5 dark:border-hyper-darkBorder/60">
         <div>
           <h2 className={`text-xl font-black tracking-tight md:text-2xl ${headline.cls}`}>{headline.text}</h2>
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
@@ -795,6 +799,7 @@ export default function ClaudeRiskCheckPage() {
   const [env, setEnv] = useState<EnvironmentInfo | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [checkedAt, setCheckedAt] = useState<Date | null>(null);
+  const [cardFailed, setCardFailed] = useState(false);
   // Bumped on every (re-)run; results from an older run are dropped so a
   // re-check never mixes data from two runs.
   const runRef = useRef(0);
@@ -817,6 +822,7 @@ export default function ClaudeRiskCheckPage() {
     setEnv(readEnvironment());
     setHistory(loadHistory());
     setCheckedAt(new Date());
+    setCardFailed(false);
 
     // Independent checks start in parallel (NFR-1); each fails on its own (R9).
     fetchTrace(CLAUDE_HOST).then(
@@ -897,8 +903,17 @@ export default function ClaudeRiskCheckPage() {
   // R13 + R11: API score, forced to 0 when the exit region is unsupported.
   const apiScore = ipInfo?.score ?? null;
   const score = apiScore !== null && regionSupported === false ? 0 : apiScore;
+  // Trust-score tiers (higher = cleaner); only 80+ is green.
   const scoreLabel =
-    score === null ? null : score >= 80 ? '低风险' : score >= 50 ? '中风险' : '高风险';
+    score === null
+      ? null
+      : score >= 95
+        ? '极度纯净'
+        : score >= 80
+          ? '纯净'
+          : score >= 50
+            ? '一般'
+            : '高风险';
 
   // R10: route note across the three exits.
   let routeNote: string | null = null;
@@ -994,7 +1009,82 @@ export default function ClaudeRiskCheckPage() {
 
       <div className="mx-auto max-w-4xl space-y-6 px-6 pb-16">
         {/* ================= Summary verdict over the core checks ================= */}
-        <CheckSummary checks={checks} checkedAt={checkedAt} onRecheck={runChecks} />
+        <CheckSummary checks={checks} checkedAt={checkedAt} onRecheck={runChecks}>
+          {regionSupported === false && (
+            <p className="mb-4 rounded-xl bg-red-500/10 px-4 py-3 text-sm font-bold text-red-600 dark:text-red-400">
+              当前出口不在 Claude 支持地区
+              {claudeLoc ? `（${regionName(claudeLoc) ?? claudeLoc}）` : ''}，评分已按最高风险处理。
+            </p>
+          )}
+
+          {/* IP trust score: big number + tier + estimate note */}
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-400">IP 信任评分</div>
+          <div className="mb-1 flex items-baseline gap-3">
+            {claudeTrace.phase === 'pending' ? (
+              <span className="text-2xl font-black">
+                <Pending />
+              </span>
+            ) : claudeTrace.phase === 'failed' ? (
+              <span className="text-2xl font-black text-slate-400">无法检测</span>
+            ) : ipInfoPhase === 'pending' ? (
+              <span className="text-2xl font-black">
+                <Pending />
+              </span>
+            ) : score === null ? (
+              <span className="text-2xl font-black text-slate-400">暂无数据</span>
+            ) : (
+              <>
+                <span
+                  className={`text-6xl font-black ${
+                    score >= 80
+                      ? 'text-emerald-500'
+                      : score >= 50
+                        ? 'text-amber-500'
+                        : 'text-red-500'
+                  }`}
+                >
+                  {score}
+                </span>
+                <Badge tone={score >= 80 ? 'good' : score >= 50 ? 'warn' : 'bad'}>
+                  {scoreLabel}
+                </Badge>
+              </>
+            )}
+          </div>
+          {score !== null && (
+            <>
+              {/* One-line verdict under the score. */}
+              <p className="mb-3 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                {score >= 95
+                  ? '该 IP 信誉极好'
+                  : score >= 80
+                    ? '该 IP 信誉良好'
+                    : score >= 50
+                      ? '该 IP 存在一定风险'
+                      : '该 IP 风险较高'}
+              </p>
+              {/* Gradient risk gauge: red (0, risky) to green (100, trusted). */}
+              <div className="mb-1">
+                <div className="relative h-2.5 rounded-full bg-gradient-to-r from-red-500 via-amber-400 to-emerald-500">
+                  <div
+                    className="absolute top-1/2 h-4 w-1.5 -translate-y-1/2 rounded-full bg-white shadow-md ring-1 ring-black/10"
+                    style={{ left: `calc(${Math.min(Math.max(score, 0), 100)}% - 3px)` }}
+                  />
+                </div>
+                <div className="mt-1.5 flex justify-between text-[11px] text-slate-400 dark:text-slate-500">
+                  <span>0 高危</span>
+                  <span>25</span>
+                  <span>50</span>
+                  <span>75</span>
+                  <span>100 可信</span>
+                </div>
+              </div>
+            </>
+          )}
+          <p className="text-xs text-slate-400 dark:text-slate-500">
+            估算值，仅供参考，以 Claude 实际风控为准
+          </p>
+        </CheckSummary>
 
         {/* ================= Three exit IPs (R6, R7, R8, R10) ================= */}
         <section className="space-y-3">
@@ -1047,74 +1137,6 @@ export default function ClaudeRiskCheckPage() {
               无法检测：获取 Claude 出口 IP 失败。
             </p>
           )}
-
-          {regionSupported === false && (
-            <p className="mb-4 rounded-xl bg-red-500/10 px-4 py-3 text-sm font-bold text-red-600 dark:text-red-400">
-              当前出口不在 Claude 支持地区
-              {claudeLoc ? `（${regionName(claudeLoc) ?? claudeLoc}）` : ''}，评分已按最高风险处理。
-            </p>
-          )}
-
-          {/* Score + label + estimate note */}
-          <div className="mb-1 flex items-baseline gap-3">
-            {claudeTrace.phase === 'pending' ? (
-              <span className="text-2xl font-black">
-                <Pending />
-              </span>
-            ) : claudeTrace.phase === 'failed' ? (
-              <span className="text-2xl font-black text-slate-400">无法检测</span>
-            ) : ipInfoPhase === 'pending' ? (
-              <span className="text-2xl font-black">
-                <Pending />
-              </span>
-            ) : score === null ? (
-              <span className="text-2xl font-black text-slate-400">暂无数据</span>
-            ) : (
-              <>
-                <span
-                  className={`text-5xl font-black ${
-                    score >= 80
-                      ? 'text-emerald-500'
-                      : score >= 50
-                        ? 'text-amber-500'
-                        : 'text-red-500'
-                  }`}
-                >
-                  {score}
-                </span>
-                <Badge tone={score >= 80 ? 'good' : score >= 50 ? 'warn' : 'bad'}>
-                  {scoreLabel}
-                </Badge>
-              </>
-            )}
-          </div>
-          {score !== null && (
-            <>
-              {/* One-line verdict under the score, competitor-style. */}
-              <p className="mb-3 text-sm font-semibold text-slate-600 dark:text-slate-300">
-                {score >= 80 ? '该 IP 风险较低' : score >= 50 ? '该 IP 存在一定风险' : '该 IP 风险较高'}
-              </p>
-              {/* Gradient risk gauge: red (0, risky) to green (100, trusted). */}
-              <div className="mb-1">
-                <div className="relative h-2.5 rounded-full bg-gradient-to-r from-red-500 via-amber-400 to-emerald-500">
-                  <div
-                    className="absolute top-1/2 h-4 w-1.5 -translate-y-1/2 rounded-full bg-white shadow-md ring-1 ring-black/10"
-                    style={{ left: `calc(${Math.min(Math.max(score, 0), 100)}% - 3px)` }}
-                  />
-                </div>
-                <div className="mt-1.5 flex justify-between text-[11px] text-slate-400 dark:text-slate-500">
-                  <span>0 高危</span>
-                  <span>25</span>
-                  <span>50</span>
-                  <span>75</span>
-                  <span>100 可信</span>
-                </div>
-              </div>
-            </>
-          )}
-          <p className="mb-4 text-xs text-slate-400 dark:text-slate-500">
-            估算值，仅供参考，以 Claude 实际风控为准
-          </p>
 
           <div>
             <Row label="支持地区">
@@ -1295,6 +1317,41 @@ export default function ClaudeRiskCheckPage() {
               )}
             </Row>
           </Details>
+        </section>
+
+        {/* ===== IPPure visitor card: third-party reference, official embed ===== */}
+        <section className={CARD_CLS}>
+          <h2 className="mb-2 flex items-center gap-2.5 text-lg font-black tracking-tight">
+            <span className="h-4 w-1 rounded-full bg-sky-500" />
+            IPPure 系数（第三方参考）
+          </h2>
+          <p className="mb-4 text-xs leading-relaxed text-slate-400 dark:text-slate-500">
+            由 IPPure 官方卡片提供，测的是浏览器访问 ippure.com 的线路；卡片上的 IP 与 Claude
+            出口不同时，说明两者走了不同的分流规则，以 Claude 出口为准。
+          </p>
+          {hideIp ? (
+            // The card prints the full IP, which the hide-IP toggle cannot mask.
+            <p className="text-sm text-slate-400">卡片含完整 IP，已随「隐藏 IP」隐藏。</p>
+          ) : !checkedAt ? (
+            // Only loaded once checks run, so the prerendered HTML never fetches it.
+            <Pending />
+          ) : cardFailed ? (
+            <Failed />
+          ) : (
+            <a href="https://ippure.com" target="_blank" rel="noreferrer" className="block max-w-[720px]">
+              {/* ?r= busts the in-page image cache so a re-check reloads the card. */}
+              <img
+                src={`https://my.ippure.com/v1/card?r=${checkedAt.getTime()}`}
+                alt="访客IP信息卡片"
+                title="点击查看IP信息"
+                width={720}
+                height={340}
+                loading="lazy"
+                onError={() => setCardFailed(true)}
+                className="h-auto w-full rounded-xl"
+              />
+            </a>
+          )}
         </section>
 
         {/* ================= Connectivity (R14, R15, R16) ================= */}

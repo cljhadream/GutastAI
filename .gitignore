@@ -24,6 +24,9 @@ taste-skill-upstream/
 .wrangler-config/
 .claude/
 
+# Trae IDE html share cache
+.trae-html-share-packages/
+
 # Blogger API credentials & python cache (never commit)
 doc/backlinks_articles/blogger/client_secret.json
 doc/backlinks_articles/blogger/token.json

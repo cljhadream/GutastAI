@@ -15,9 +15,9 @@
 // score = 100; tor => 0; otherwise subtract each penalty and clamp to 0..100.
 // ---------------------------------------------------------------------------
 const SCORE_PENALTIES = {
-  // 55: a datacenter IP alone lands below 50 (高风险), matching the page's
-  // red "机房 IP" core check.
-  datacenter: 55,
+  // 40: a datacenter IP alone scores 60 (一般, yellow); the page's 8-item
+  // check still marks "机房 IP" red.
+  datacenter: 40,
   vpn: 25,
   proxy: 25,
   abuser: 15,
@@ -29,7 +29,7 @@ const EDGE_CACHE_TTL_SECONDS = 86400; // 24 h edge cache per IP
 const BROWSER_CACHE_TTL_SECONDS = 3600; // 1 h browser cache
 const CACHE_NAMESPACE = 'ip-lookup';
 // Bump when the response schema or scoring changes so stale entries are skipped.
-const CACHE_VERSION = 5;
+const CACHE_VERSION = 6;
 // Partial results (registration country missing, usually a transient RIPEstat
 // failure) are cached briefly at both layers so they are retried soon.
 const PARTIAL_TTL_SECONDS = 600;
