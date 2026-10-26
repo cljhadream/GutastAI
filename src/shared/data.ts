@@ -193,6 +193,11 @@ export const FAQ_ITEMS: FaqItem[] = [
     a: '我们只质保订阅本身：套餐有效期内会员失效免费补期续保；Claude 平台自身的封号风险不在质保范围内。公司客户需要报销可代开发票，付款后提供抬头即可。',
     topic: 'claude',
   },
+  {
+    q: 'Claude 中转 / 镜像和官方代充有什么区别？哪个更稳定？',
+    a: '中转 / 镜像站把您的请求转发到共享账号或第三方接口，额度多人共享、随时可能跑路失联，也更容易被官方风控标记。Gutast 的 Claude 充值则是在您自己的官方账号上代充 Pro / Max 5x / Max 20x，官方客户端直连 Anthropic 官方服务器，不经过任何中转节点，是长期使用最稳定的方案。',
+    topic: 'claude',
+  },
 ];
 
 // Page-level FAQ filter: keep the visible list identical to the per-page

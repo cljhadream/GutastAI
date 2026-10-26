@@ -58,7 +58,7 @@ export default function HomePage() {
           </a>
           与
           <a href="/claude-code" className="mx-1 font-bold text-hyper-indigo underline decoration-hyper-indigo/40 underline-offset-4 transition hover:text-hyper-orange dark:text-indigo-400">
-            Claude Pro / Max 会员代充
+            Claude 充值 / Pro · Max 5x · 20x 会员代充
           </a>
           ，官方渠道办理，付款后通常几分钟完成。
         </p>
@@ -153,7 +153,7 @@ export default function HomePage() {
               <span className="text-xs text-slate-400">起 · Pro / Max 三档套餐</span>
             </div>
             <ul className="mb-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-              <li>✓ 官方渠道正规代充，非低价黑卡通道</li>
+              <li>✓ 官方渠道正规充值，非中转 / 镜像 / 黑卡通道</li>
               <li>✓ Pro ¥145 · Max 5x ¥900 · Max 20x ¥1700</li>
               <li>✓ 已有会员可补差价升级</li>
               <li>✓ 只质保订阅 · 公司客户可代开发票</li>

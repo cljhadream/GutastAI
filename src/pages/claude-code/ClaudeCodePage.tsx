@@ -46,7 +46,7 @@ export default function ClaudeCodePage() {
           Claude Pro <strong className="font-bold font-mono text-hyper-orange">¥145</strong> /月、Max 5x{' '}
           <strong className="font-bold font-mono text-hyper-orange">¥900</strong>、Max 20x{' '}
           <strong className="font-bold font-mono text-hyper-orange">¥1700</strong>
-          ，官方渠道正规代充，已有会员可
+          ，官方渠道正规充值代充——中转 / 镜像之外的稳定方案，已有会员可
           <strong className="font-bold text-slate-900 underline decoration-hyper-orange dark:text-white">补差价升级</strong>
           ，付款后顾问全程代办，通常几分钟开通。
         </p>
@@ -188,6 +188,56 @@ export default function ClaudeCodePage() {
               <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">{note.desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ================= Why not relay/mirror: stable solution ================= */}
+      {/* Keyword section: captures "Claude 中转 / 稳定方案" search intent and
+          converts it to the official-account recharge offering. */}
+      <section className="mx-auto max-w-5xl px-6 pb-4">
+        <div className="overflow-hidden rounded-3xl border border-hyper-lightBorder bg-hyper-lightCard p-8 shadow-sm dark:border-hyper-darkBorder dark:bg-hyper-darkCard md:p-10">
+          <div className="mb-8 text-center">
+            <span className="mb-3 inline-flex items-center gap-2 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+              CLAUDE 稳定方案
+            </span>
+            <h2 className="mb-3 text-2xl font-black tracking-tight md:text-3xl">
+              还在找 Claude 中转 / 镜像？官方账号充值才是稳定方案
+            </h2>
+            <p className="mx-auto max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+              中转和镜像站本质是把请求交给别人的账号跑，稳定性和安全都不在自己手里；官方充值代充让您在自己的账号上长期稳定使用。
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {/* Relay / mirror risks */}
+            <div className="rounded-2xl border border-red-500/25 bg-red-500/[0.04] p-6">
+              <h3 className="mb-2 text-base font-black text-red-500">Claude 中转 / 镜像站</h3>
+              <ul className="space-y-2 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+                <li>✕ 请求经第三方服务器转发，对话内容过别人的手</li>
+                <li>✕ 共享额度多人抢用，高峰期排队降速</li>
+                <li>✕ 站点随时跑路失联，充值余额难追回</li>
+              </ul>
+            </div>
+            {/* Shared account risks */}
+            <div className="rounded-2xl border border-amber-500/25 bg-amber-500/[0.04] p-6">
+              <h3 className="mb-2 text-base font-black text-amber-500">共享 / 拼车账号</h3>
+              <ul className="space-y-2 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+                <li>✕ 一号多人环境混杂，最易被官方风控清理</li>
+                <li>✕ 历史对话与工程记录随时可能丢失</li>
+                <li>✕ 低价背后基本是黑卡 / 盗刷通道</li>
+              </ul>
+            </div>
+            {/* Official recharge: the stable way */}
+            <div className="rounded-2xl border-2 border-emerald-500/40 bg-emerald-500/[0.06] p-6 shadow-sm">
+              <h3 className="mb-2 text-base font-black text-emerald-600 dark:text-emerald-400">Gutast 官方充值代充</h3>
+              <ul className="space-y-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                <li>✓ 自有账号 + 官方客户端，直连 Anthropic 官方服务器</li>
+                <li>✓ 不经过任何中转节点，数据记录 100% 留在自己账号</li>
+                <li>✓ Pro ¥145 · Max 5x ¥900 · Max 20x ¥1700，明码标价</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
