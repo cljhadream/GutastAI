@@ -116,6 +116,9 @@ const GUIDE_GROUPS: { title: string; links: { href: string; label: string }[] }[
       { href: '/blog/claude-subscription-plan-guide', label: '订阅套餐怎么选' },
       { href: '/blog/claude-pro-recharge-guide', label: 'Pro 充值攻略' },
       { href: '/blog/claude-pro-payment-guide', label: 'Pro 充值支付流程' },
+      // One-stop tutorial targeting "Claude 充值教程" queries; hub-links the
+      // two deep-dives above instead of repeating their detail sections.
+      { href: '/blog/claude-pro-recharge-tutorial', label: 'Pro 充值教程' },
     ],
   },
   {

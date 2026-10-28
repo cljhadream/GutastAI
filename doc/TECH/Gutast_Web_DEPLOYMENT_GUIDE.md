@@ -1,13 +1,13 @@
 # Gutast AI (gutast.com) 部署指南
 
-**文档状态：** 已实施 V1.0（SEO P0/P1 优化：构建时预渲染、robots/sitemap、JSON-LD、社交分享图、FAQ）；V1.1 新增 Claude IP 风险检测（`/claude-ip` + `/api/ip/*` Pages Function，含密钥与 WAF 配置）
-**更新日期：** 2026年10月21日
+**文档状态：** 已实施 V1.0（SEO P0/P1 优化：构建时预渲染、robots/sitemap、JSON-LD、社交分享图、FAQ）；V1.1 新增 Claude IP 风险检测（`/claude-ip` + `/api/ip/*` Pages Function，含密钥与 WAF 配置）；V1.2 更新构建自检命令（多页面预渲染断言）
+**更新日期：** 2026年10月26日
 **部署目标：** https://www.gutast.com/
 **关联变更集：** `openspec/changes/seo-p0-p1-optimization/` · `openspec/changes/claude-risk-check/`
 
 ## 1. 构建与预渲染
 
-本项目为 React 18 + Vite 5 CSR 单页应用，通过 `@prerenderer/rollup-plugin` + Puppeteer 在**构建时**将 `/` 的完整渲染 DOM 快照进 `dist/index.html`，爬虫无需执行 JavaScript 即可抓取 H1、定价（¥145 / ¥680 / ¥1280）、对比表、3 步流程、FAQ 与 footer。
+本项目为 React 18 + Vite 5 多页应用（`/`、`/claude-code/`、`/chatgpt-plus/`、`/faq/`、`/claude-ip/`），通过 `@prerenderer/rollup-plugin` + Puppeteer 在**构建时**将各页面完整渲染 DOM 快照进对应 `dist/<route>/index.html`，爬虫无需执行 JavaScript 即可抓取标题、H1、定价（¥145 起）、对比表、流程与 FAQ。
 
 ```bash
 npm ci
@@ -15,13 +15,19 @@ npm run build    # tsc && vite build（预渲染已内置于 vite build 生命�
 ```
 
 - 渲染完成信号：`src/App.tsx` 首次 commit 后 `document.dispatchEvent(new Event('render-event'))`，`vite.config.ts` 的 `rendererOptions.renderAfterDocumentEvent` 监听同一事件。
-- 构建后自检（无 JS 内容断言）：
+- 构建后自检（无 JS 内容断言，覆盖全部 5 个预渲染页面，任一页失败则退出码非 0）：
 
 ```bash
-node -e "const s=require('fs').readFileSync('dist/index.html','utf8'); console.log(['官方代充','¥145','faq-section','极简 3 步交付流程'].every(k=>s.includes(k)))"
+node -e "const fs=require('fs');const pages=['','claude-code/','chatgpt-plus/','faq/','claude-ip/'];let fail=0;for(const p of pages){const s=fs.readFileSync('dist/'+p+'index.html','utf8');const kb=Math.round(s.length/102.4)/10;const ok=kb>15&&s.indexOf('<div id=\"root\"></div>')<0;fail+=ok?0:1;console.log(('/'+p).padEnd(15),kb+' KB',ok?'OK':'FAIL (pre-render missing)')}process.exit(fail)"
 ```
 
-输出应为 `true`（长度约 35 kB，若为 CSR 空壳则仅 ~2 kB）。
+- 首页关键词断言：
+
+```bash
+node -e "const s=require('fs').readFileSync('dist/index.html','utf8'); console.log(['Gutast AI','ChatGPT Plus','代充','¥145','极简'].every(k=>s.includes(k)))"
+```
+
+输出应为 `true`（当前各页约 27–46 kB，若为 CSR 空壳则仅 ~2 kB 且上方脚本输出 FAIL）。
 
 ### 1.1 构建环境要求（CI）
 
@@ -52,7 +58,7 @@ node -e "const s=require('fs').readFileSync('dist/index.html','utf8'); console.l
 
 ## 4. 部署后验证清单
 
-1. **爬虫可见性**：`curl -s https://www.gutast.com/ | grep -c "官方代充"` ≥ 1（0 = CSR 空壳上线，检查构建日志中预渲染是否被跳过）。
+1. **爬虫可见性**：`curl -s https://www.gutast.com/ | grep -c "代充"` ≥ 1（0 = CSR 空壳上线，检查构建日志中预渲染是否被跳过）。
 2. **robots.txt 可达**：`https://www.gutast.com/robots.txt` 返回 200，含 `Sitemap: https://www.gutast.com/sitemap.xml`。
 3. **sitemap.xml 可达**：`https://www.gutast.com/sitemap.xml` 返回 200。
 4. **搜索引擎提交**：Google Search Console 提交 sitemap；百度搜索资源平台提交链接（可配合 API/手动推送）。
