@@ -23,5 +23,10 @@
     "file": "05-claude-subscription-plan-guide.html",
     "title": "Claude 订阅套餐怎么选？Pro / Max 5x / Max 20x 三档对比（2026 版）",
     "labels": ["Claude", "套餐对比", "订阅指南"]
+  },
+  {
+    "file": "06-claude-shared-account-expose.html",
+    "title": "9.9 元包月 Claude？起底闲鱼共享账号黑产：你买的“独享号”可能正和几十个人挤在同一个池子里",
+    "labels": ["Claude", "黑产揭秘", "防坑指南"]
   }
 ]
