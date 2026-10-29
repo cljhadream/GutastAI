@@ -31,3 +31,6 @@ taste-skill-upstream/
 doc/backlinks_articles/blogger/client_secret.json
 doc/backlinks_articles/blogger/token.json
 __pycache__/
+
+# Internal reference only (scraped competitor TOC, never publish)
+doc/xueba-ai/references/kamacoder-topics.md
