@@ -10,6 +10,7 @@
 | 02 | [我的 Claude Code 开工实录：装好之后别急着用，先花十分钟做这 6 件事](./claude-code-first-day-checklist/README.md) | 开工清单：git 后悔药两条救命命令、CLAUDE.md 最小模板、给 AI 下指令的"三要素"，命令全部可照抄 |
 | 03 | [我的踩坑实录：为什么换了 IP 还是被认出来？搞懂机房 IP 和住宅 IP 的"出身"](./datacenter-ip-vs-home-ip/README.md) | ASN 是 IP 的户口：三层判定讲透"换 IP 没用"的原因，附三种 IP 出身对比和三条选择原则 |
 | 04 | [我的账单复盘：Claude Code 一个晚上到底花多少钱？把 Token 计费拆开给你看](./claude-code-token-cost/README.md) | Token 计费原理：为什么聊得越久每句越贵，附省钱四招和可以照抄的提示词 |
+| 05 | [我的注册整理：把"注册 Claude"拆成三步，新手照着走就行](./claude-signup-three-steps/README.md) | 注册全流程：稳网络（美国住宅 IP）→ 备手机号（两条路线和风险）→ 正式注册，附每步可照抄的清单 |
 
 ## 相关资源
 

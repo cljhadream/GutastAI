@@ -125,6 +125,8 @@ const GUIDE_GROUPS: { title: string; links: { href: string; label: string }[] }[
     title: 'Claude 入门与使用',
     links: [
       { href: '/blog/claude-registration-guide', label: '注册与使用完整指南' },
+      { href: '/blog/claude-home-ip-setup-guide', label: '美国住宅 IP 配置' },
+      { href: '/blog/claude-phone-verification-guide', label: '手机号验证全解' },
       { href: '/blog/claude-chinese-ui-analysis', label: '中文版上线解读' },
       { href: '/blog/claude-code-ipv6-issue', label: 'Claude Code 关闭 IPv6 指南' },
       { href: '/blog/claude-code-timezone-risk-check', label: 'Claude Code 时区自查指南' },
@@ -397,6 +399,16 @@ export default function AppShell({ children, currentPage }: AppShellProps) {
                     <li>
                       <a href="mailto:475290875@qq.com" className="transition hover:text-hyper-orange">
                         联系邮箱：475290875@qq.com
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://github.com/cljhadream/GutastAI"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition hover:text-hyper-orange"
+                      >
+                        Gutast AI 开源项目（GitHub）
                       </a>
                     </li>
                   </ul>

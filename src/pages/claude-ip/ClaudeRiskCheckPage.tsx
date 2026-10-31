@@ -1079,6 +1079,45 @@ export default function ClaudeRiskCheckPage() {
                   <span>100 可信</span>
                 </div>
               </div>
+              {/* Dual CTA, always both buttons; primary swaps by tier:
+                  score < 50 pushes home-IP purchase, otherwise recharge. */}
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                {score < 50 ? (
+                  <>
+                    <a
+                      href="https://www.webshare.io/?referral_code=r382aur0jyca"
+                      target="_blank"
+                      rel="nofollow sponsored noopener"
+                      className="rounded-lg bg-hyper-orange px-4 py-2 text-sm font-bold text-white transition hover:opacity-90"
+                    >
+                      出口风险高 · 换静态住宅 IP
+                    </a>
+                    <a
+                      href="/claude-code"
+                      className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
+                    >
+                      环境好了 · 再来充值
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <a
+                      href="/claude-code"
+                      className="rounded-lg bg-hyper-orange px-4 py-2 text-sm font-bold text-white transition hover:opacity-90"
+                    >
+                      {score >= 80 ? '出口不错 · 订阅充值找我们' : '订阅充值 · 自有账号办理'}
+                    </a>
+                    <a
+                      href="https://www.webshare.io/?referral_code=r382aur0jyca"
+                      target="_blank"
+                      rel="nofollow sponsored noopener"
+                      className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
+                    >
+                      {score >= 80 ? '换静态住宅 IP' : '出口一般？换住宅 IP'}
+                    </a>
+                  </>
+                )}
+              </div>
             </>
           )}
           <p className="text-xs text-slate-400 dark:text-slate-500">
@@ -1352,6 +1391,32 @@ export default function ClaudeRiskCheckPage() {
               />
             </a>
           )}
+        </section>
+
+        {/* ===== Webshare referral card: disclosed affiliate placement ===== */}
+        <section className={CARD_CLS}>
+          <h2 className="mb-2 flex items-center gap-2.5 text-lg font-black tracking-tight">
+            <span className="h-4 w-1 rounded-full bg-emerald-500" />
+            出口不是住宅 IP？先换再注册
+          </h2>
+          <p className="text-xs leading-relaxed text-slate-400 dark:text-slate-500">
+            如果上面的检测显示出口是机房 IP，或风险评分偏高，注册 Claude
+            前建议先换成静态住宅 IP。我们自己用的是 Webshare 的 Static
+            Residential，1 个 IP 的最小套餐每月约 2～6 美元，可
+            <a
+              href="https://www.webshare.io/?referral_code=r382aur0jyca"
+              target="_blank"
+              rel="nofollow sponsored noopener"
+              className="font-bold text-hyper-orange hover:underline"
+            >
+              通过邀请链接注册
+            </a>
+            （推广链接，对你无任何加价）。买好之后的配置方法，见
+            <a href="/blog/claude-home-ip-setup-guide" className="text-hyper-orange hover:underline">
+              美国住宅 IP 配置全流程
+            </a>
+            。
+          </p>
         </section>
 
         {/* ================= Connectivity (R14, R15, R16) ================= */}

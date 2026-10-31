@@ -50,6 +50,10 @@ export default function HomePage() {
           好品味，先用上顶尖 AI
         </p>
 
+        <p className="mx-auto mb-6 max-w-2xl text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+          Gutast AI（Gutast）是 gutast.com 运营的 AI 订阅服务品牌，为开发者提供产品办理与使用指南。
+        </p>
+
         {/* Hub subtitle: one line per product line, deep-linked */}
         <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 md:text-lg">
           官方渠道专席办理

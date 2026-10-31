@@ -1,0 +1,27 @@
+<p><img src="https://www.gutast.com/UI/og-cover.png" alt="Gutast AI" /></p>
+<p><b>导读：</b>注册 Claude，网络是第一道坎，也是被问得最多的一道：机场节点能连上 Claude，但注册总是触发验证甚至被拒——因为机场大多是机房 IP，在风控眼里"出身"可疑。真正稳的做法，是花每月几美元拿一个美国住宅 IP 挂在机场线路后面。这篇把全流程拆成 8 步，照着做半小时配好。</p>
+<p>先把原理一句话讲透：<b>机场线路解决"能不能连上"，住宅 IP 解决"连上之后可不可信"。</b>机房 IP 的 ASN 归属是云厂商，注册这种敏感环节天然被盯；住宅 IP 出身就是普通美国家庭宽带，可信度完全不同。两个都要，缺一不可。</p>
+<h2>一、8 步总览</h2>
+<ol>
+<li>准备 Clash Verge Rev 和一条能用的线路，注册代理服务商账号；</li>
+<li>选静态住宅（Static Residential）套餐；</li>
+<li>拿代理四件套；</li>
+<li>拼 HTTP 节点链接；</li>
+<li>导入客户端，建入口组并绑定链式代理；</li>
+<li>选好入口出口，连通测试；</li>
+<li>出口检测与排错；</li>
+<li>（可选）IP 不满意就换。</li>
+</ol>
+<h2>二、选套餐：三个数字别买错</h2>
+<p>认准 <b>Static Residential</b>，别买成轮换住宅（IP 会变，注册要的是固定出口）。购买页默认勾的是 1000 个 IP 的大单，手动改这三处：<b>数量改 1</b>（点 Custom 填 1 再保存）、<b>流量选 250GB</b>（个人学习绰绰有余）、<b>地区必选 United States</b>（别留在 Random）。有 High Concurrency 加购的建议勾上——不勾，并发一超限就 429，网页间歇性打不开。</p>
+<h2>三、四件套和节点链接</h2>
+<p>付款生效后进 Proxy List，把 <b>Connection 设为 Direct Connection、Authentication 设为 Username/Password</b>，然后从<b>同一行</b>抄下 IP、端口、用户名、密码——混了不同行的信息，就是认证失败 407 的头号原因。注意这是<b>代理凭据</b>，不是服务商的登录账密。</p>
+<p>四件套按模板拼成一条链接：<code>http://用户名:密码@代理IP:端口#节点名</code>。前缀保持 <code>http://</code> 别改成 https——HTTP 代理照样能跑 HTTPS 网站；用户名密码里有特殊字符的，要做 URL 编码，或者干脆在客户端里手填四件套，更稳。</p>
+<h2>四、Clash 里配链式代理（核心一步）</h2>
+<p>目标是让住宅出口的流量先过你的中转入口：在<b>能正常用的那个订阅</b>上右键"编辑代理组"，建一个类型为 select 的组，<b>组名必须全小写填 <code>dialer</code></b>，引入你的中转节点（<b>不要把住宅节点自己引进来</b>，会循环依赖）；保存后再右键"编辑节点"粘入链接，点"高级"进 YAML，在住宅节点里、与 name/server 同级的位置加一行 <code>dialer-proxy: 'dialer'</code>，保存。</p>
+<p>链路顺序：<b>你的电脑 → 中转入口 → 美国住宅出口 → 目标网站</b>。Clash Verge Rev v2.4.5 以上也可以用"链式代理"面板点选配置，和手动绑定二选一，别同时开。</p>
+<h2>五、检测和排错：先核 IP 再看分数</h2>
+<p>配完别急着注册，先做出口检测：<b>看到的公共 IP 必须等于你买的那个 IP、地区显示美国、ASN 是住宅/ISP 标签</b>；再查 DNS 和 WebRTC 没有泄漏真实地址。建议配置前后用同一检测站各测一次留底，IP 类型从机房变住宅、风险分明显下降，说明链路配对了。</p>
+<p>三个高频故障速查：<b>429</b> 是并发超限，减请求或加购 High Concurrency；<b>407</b> 是认证失败，回同一行重抄凭据；<b>循环依赖</b>是 dialer 组里混进了住宅节点本身，移出去就好。IP 分数实在不满意，Proxy List 里可以换 IP，但替换次数有限、换完要把新四件套同步进客户端——而且换 IP 不保证分数更好，延迟高先查入口。</p>
+<hr />
+<p><small>免责声明：本文流程与价格基于服务商公开页面与社区实践整理，界面与价格可能随时调整，请以实际页面为准，并遵守目标服务的使用条款与当地法规。逐步图文版见 <a href="https://www.gutast.com/blog/claude-home-ip-setup-guide?utm_source=blogger&amp;utm_medium=social&amp;utm_campaign=claude_home_ip_setup_guide">Claude 美国住宅 IP 配置全流程</a>，出口检测工具见 <a href="https://www.gutast.com/claude-ip?utm_source=blogger&amp;utm_medium=social&amp;utm_campaign=claude_home_ip_setup_guide">Gutast AI 免费 IP 风控检测</a>。</small></p>

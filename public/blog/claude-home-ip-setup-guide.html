@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#06070B" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/UI/favicon-48.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/UI/apple-touch-icon.png" />
+  <title>Claude 怎么拿到美国住宅 IP：Webshare 静态住宅 + Clash Verge 全流程配置（2026 版）</title>
+  <meta name="description" content="手把手拿到美国静态住宅 IP：Webshare 选套餐（1 IP / 250GB / United States）、取代理四件套、拼 HTTP 节点、Clash Verge Rev 建 dialer 代理组与 dialer-proxy 链式代理、出口检测与 6 类故障排查、更换 IP 的正确姿势。" />
+  <link rel="canonical" href="https://www.gutast.com/blog/claude-home-ip-setup-guide" />
+  <meta property="og:title" content="Claude 怎么拿到美国住宅 IP：Webshare 静态住宅 + Clash Verge 全流程配置（2026 版）" />
+  <meta property="og:description" content="从注册 Webshare 到出口检测：静态住宅套餐怎么选、代理四件套怎么拿、dialer 链式代理怎么配、429 与 407 怎么排、IP 不满意怎么换，一篇讲完。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.gutast.com/blog/claude-home-ip-setup-guide" />
+  <meta property="og:site_name" content="Gutast AI" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:image" content="https://www.gutast.com/UI/og-cover.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://www.gutast.com/blog/claude-home-ip-setup-guide#article",
+        "headline": "Claude 怎么拿到美国住宅 IP：Webshare 静态住宅 + Clash Verge 全流程配置（2026 版）",
+        "description": "从注册 Webshare 到出口检测：静态住宅套餐怎么选、代理四件套怎么拿、dialer 链式代理怎么配、429 与 407 怎么排、IP 不满意怎么换，一篇讲完。",
+        "inLanguage": "zh-CN",
+        "datePublished": "2026-10-30",
+        "dateModified": "2026-10-30",
+        "author": {
+          "@type": "Organization",
+          "name": "Gutast AI 内容团队",
+          "url": "https://www.gutast.com/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://www.gutast.com/#organization",
+          "name": "Gutast AI",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.gutast.com/UI/logo/300_300.webp"
+          }
+        },
+        "mainEntityOfPage": "https://www.gutast.com/blog/claude-home-ip-setup-guide",
+        "image": "https://www.gutast.com/UI/og-cover.png",
+        "articleSection": "开发者指南"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.gutast.com/" },
+          { "@type": "ListItem", "position": 2, "name": "开发者指南", "item": "https://www.gutast.com/#faq-section" },
+          { "@type": "ListItem", "position": 3, "name": "Claude 怎么拿到美国住宅 IP" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.gutast.com/blog/claude-home-ip-setup-guide#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "注册 Claude 直接用机场节点不行吗，为什么一定要住宅 IP？",
+            "acceptedAnswer": { "@type": "Answer", "text": "机场节点大多是数据中心 IP（ASN 归属云厂商），Claude 在注册这类敏感环节对机房 IP 天然警惕，容易触发验证甚至封号。住宅 IP 出身是普通家庭宽带，可信度更高。机场线路在配置里仍然有用——它作为链式代理的入口，住宅 IP 接在它后面做出口。" }
+          },
+          {
+            "@type": "Question",
+            "name": "Webshare 的 Private 和 Dedicated 两种静态住宅有什么区别？",
+            "acceptedAnswer": { "@type": "Answer", "text": "Private 是有限共享（原文示例约 1.50 美元/月/IP），成本低，适合先试水；Dedicated 是独享（原文示例约 3.50 美元/月/IP），这个 IP 只有你在用。打算长期把 Claude 当主力工具，建议上 Dedicated；只是先配置体验，Private 够用。价格以官网实时页面为准。" }
+          },
+          {
+            "@type": "Question",
+            "name": "遇到 429（client_connect_high_concurrency）怎么办？",
+            "acceptedAnswer": { "@type": "Answer", "text": "429 表示并发请求超过套餐并发上限，网页会间歇性打不开或连接中断。先减少同时发起的请求；仍复现就去 Webshare 的 Plans & Pricing 编辑当前套餐加购 High Concurrency（付费加购项，不需要多买 IP）。这也是下单时就建议勾选 High Concurrency 的原因。" }
+          },
+          {
+            "@type": "Question",
+            "name": "Clash 提示循环依赖或代理链错误怎么处理？",
+            "acceptedAnswer": { "@type": "Answer", "text": "检查两点：dialer 代理组里不能选「美国家宽」节点本身，只能放中转入口；住宅节点里的 dialer-proxy: 'dialer' 必须指向 dialer 组且不能自引用。两处都改对，重启连接即可。" }
+          },
+          {
+            "@type": "Question",
+            "name": "换了 IP 之后需要重新配置吗？",
+            "acceptedAnswer": { "@type": "Answer", "text": "需要。回到 Proxy List 重抄新记录的 IP、端口、用户名、密码四件套（不要混用旧密码旧端口），在 Clash Verge Rev 里编辑现有的家宽节点更新这四项并保存，dialer 代理组和 dialer-proxy 绑定保持不动，然后用同一检测站重新测出口。" }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root{color-scheme:dark}
+    *{box-sizing:border-box}
+    body{margin:0;background:#06070B;color:#CBD5E1;font:16px/1.85 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+    a{color:#FF8A50;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+    header.site{border-bottom:1px solid #1F2436}
+    header.site .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:18px;padding-bottom:18px}
+    .brand{color:#fff;font-weight:800;font-size:18px;letter-spacing:.5px}
+    .brand small{color:#64748B;font-weight:400;font-size:12px;margin-left:8px}
+    .crumbs{font-size:13px;color:#64748B;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;margin:26px 0 4px}
+    .crumbs a{color:#94A3B8}
+    h1{color:#fff;font-size:26px;line-height:1.5;margin:14px 0 8px}
+    .meta{color:#64748B;font-size:13px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;margin-bottom:30px}
+    main{padding-bottom:24px}
+    h2{color:#F1F5F9;font-size:19px;margin:38px 0 10px;padding-left:12px;border-left:3px solid #FF5E1E}
+    h3{color:#E2E8F0;font-size:16px;margin:22px 0 8px}
+    p,li{margin:0 0 12px}
+    ul,ol{padding-left:22px;margin:0 0 14px}
+    table{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:14px}
+    th,td{border:1px solid #1F2436;padding:9px 12px;text-align:left;vertical-align:top}
+    th{background:#0D0F17;color:#F1F5F9;white-space:nowrap}
+    .note{border-left:3px solid #FFB800;background:rgba(255,184,0,.07);padding:12px 16px;border-radius:0 10px 10px 0;font-size:14px;margin:16px 0}
+    .warn{border-left:3px solid #EF4444;background:rgba(239,68,68,.07);padding:12px 16px;border-radius:0 10px 10px 0;font-size:14px;margin:16px 0}
+    code{background:#0D0F17;border:1px solid #1F2436;border-radius:6px;padding:1px 7px;font-size:13.5px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#F1F5F9}
+    strong{color:#F1F5F9}
+    pre{background:#0D0F17;border:1px solid #1F2436;border-radius:10px;padding:16px 18px;overflow-x:auto;font-size:13.5px;line-height:1.75;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#E2E8F0;margin:14px 0 22px}
+    pre code{background:none;border:none;padding:0}
+    .stepnum{display:inline-block;background:#FF5E1E;color:#fff;font-weight:700;font-size:12px;border-radius:6px;padding:1px 9px;margin-right:8px;vertical-align:middle}
+    .cta{border:1px solid #1F2436;background:linear-gradient(135deg,rgba(255,94,30,.10),rgba(255,94,30,.02));border-radius:14px;padding:22px 24px;margin:40px 0 8px}
+    .cta h2{margin:0 0 8px;border:none;padding:0;font-size:18px}
+    .cta p{font-size:14.5px;margin-bottom:14px}
+    .cta .btn{display:inline-block;background:#FF5E1E;color:#fff;font-weight:700;font-size:14.5px;padding:10px 22px;border-radius:10px}
+    .cta .btn:hover{text-decoration:none;background:#FF7A42}
+    .related{border-top:1px solid #1F2436;margin-top:34px;padding-top:20px;font-size:14.5px}
+    .related h2{font-size:16px;margin:0 0 10px}
+    .related ul{list-style:none;padding:0;margin:0}
+    .related li{margin:0 0 8px}
+    footer{border-top:1px solid #1F2436;margin-top:44px;padding:26px 20px 40px;text-align:center;font-size:12.5px;color:#64748B;line-height:2}
+    @media(max-width:600px){h1{font-size:22px}}
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="/">Gutast AI<small>开发者算力加速引擎</small></a>
+      <a href="/">← 返回首页</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="crumbs" aria-label="面包屑导航"><a href="/">首页</a> › 开发者指南 › Claude 怎么拿到美国住宅 IP</nav>
+    <article>
+      <h1>Claude 怎么拿到美国住宅 IP：Webshare 静态住宅 + Clash Verge 全流程配置（2026 版）</h1>
+      <p class="meta">发布于 2026 年 10 月 30 日 · 阅读约 12 分钟 · 作者：Gutast AI 内容团队</p>
+
+      <p>「Claude 怎么注册」系列里，我们讲过<a href="/blog/claude-registration-guide">注册全流程</a>和<a href="/blog/claude-phone-verification-guide">手机号验证</a>，但被追问得最多的一步其实是更前面的：<strong>美国住宅 IP 到底怎么弄到手、怎么配到电脑上？</strong>这篇一次讲完。流程是通用的：注册 Webshare → 选静态住宅套餐 → 拿代理四件套 → 拼节点 → Clash Verge Rev 配链式代理 → 出口检测 → （可选）换 IP。全程照做，半小时内能配好，每月成本 2～6 美元。</p>
+
+      <div class="note">
+        <strong>先搞清楚为什么是它。</strong>机场节点大多是数据中心 IP（ASN 归属云厂商），注册 Claude 这种敏感环节对机房 IP 天然警惕；住宅 IP 出身就是普通美国家庭宽带，可信度完全不同。想深入了解风控为什么盯 IP 出身，见<a href="/blog/claude-ban-risk-guide">Claude 封号机制详解</a>。机场线路不是没用了——它接下来会做链式代理的入口，住宅 IP 接在它后面做出口。
+      </div>
+
+      <h2>全流程总览</h2>
+      <table>
+        <tr><th>#</th><th>步骤</th><th>在哪操作</th><th>卡点提醒</th></tr>
+        <tr><td>1</td><td>准备客户端并注册账号</td><td>Clash Verge Rev + Webshare</td><td>先确保有一条能正常上网的线路</td></tr>
+        <tr><td>2</td><td>选套餐和地区</td><td>Webshare 购买页</td><td>数量改 1、地区选 United States</td></tr>
+        <tr><td>3</td><td>拿代理四件套</td><td>Webshare → Proxy List</td><td>IP/端口/用户名/密码必须同一行</td></tr>
+        <tr><td>4</td><td>拼 HTTP 节点链接</td><td>本地（模板见下文）</td><td>保持 <code>http://</code> 前缀，别改成 https</td></tr>
+        <tr><td>5</td><td>导入并绑定链式代理</td><td>Clash Verge Rev</td><td>组名必须是全小写 <code>dialer</code></td></tr>
+        <tr><td>6</td><td>选入口与出口，连通测试</td><td>Clash Verge Rev 代理页</td><td>入口在前、住宅出口在后</td></tr>
+        <tr><td>7</td><td>出口检测与排错</td><td>IP 检测站</td><td>先核对出口 IP 再看分数</td></tr>
+        <tr><td>8</td><td>换 IP（可选）</td><td>Webshare → Proxy List</td><td>延迟高先查入口，别急着换出口</td></tr>
+      </table>
+
+      <h2><span class="stepnum">第 1 步</span>准备客户端，注册 Webshare</h2>
+      <p>两样东西先备齐：</p>
+      <ul>
+        <li><strong>Clash Verge Rev</strong>（Windows 示例）：先把现有订阅导入，选一个能正常打开网页的节点——它就是后面链式代理的入口。完全没有可用线路的，先去解决网络准备，再回来继续。</li>
+        <li><strong>Webshare 账号</strong>：<a href="https://www.webshare.io/?referral_code=r382aur0jyca" rel="nofollow sponsored noopener" target="_blank">通过邀请链接注册</a>（我们的推荐码，对你注册无任何加价），有 Google 账号可以直接 Google 登录，也可以邮箱注册（填资料、过邮箱验证）。已有账号直接登录。</li>
+      </ul>
+      <p>登录后进入控制台，左侧能看到产品菜单。认准 <strong>Static Residential（静态住宅）</strong>这一项——<strong>不要选 Rotating Residential（轮换住宅）</strong>，后者 IP 会变，注册账号要的是固定出口。点 Buy Now 进入购买页。</p>
+      <div class="note">
+        <strong>配图点位①</strong>：Webshare 控制台左侧产品菜单截图，红框标出 Static Residential 入口（遮挡账号邮箱）。
+      </div>
+
+      <h2><span class="stepnum">第 2 步</span>选套餐：1 个 IP、250GB、United States</h2>
+      <p>购买页默认勾的是 1000 个 IP 的大套餐，<strong>先别急着付款</strong>，按下面顺序改：</p>
+      <ol>
+        <li><strong>选档位</strong>：Private（有限共享，示例价约 $1.50/月/IP）适合先试水；Dedicated（独享，示例价约 $3.50/月/IP）适合长期主力。价格以官网实时页面为准。</li>
+        <li><strong>数量改 1</strong>：IP 数量点 Custom，填 <code>1</code>，点旁边的 Save。看右侧 Summary 确认只剩 1 个 IP 再继续。</li>
+        <li><strong>流量</strong>：个人学习用选 <strong>250GB</strong> 档足够；跑任务多再上 1000GB。每改一项都看一眼 Summary 的总价。</li>
+        <li><strong>地区必选 United States</strong>：在 Country/Locations 里选美国。<strong>别留在 Random</strong>，随机地区对注册没有意义。</li>
+        <li><strong>加购项</strong>：<strong>High Concurrency 强烈建议勾上</strong>——不勾的话并发一超限就 429，网页间歇性打不开；High IP Reputation 预算允许就加，作用是筛选欺诈分更低的 IP（它是筛 IP 的，不是防封险）；High Priority Network 按实际需求选。</li>
+      </ol>
+      <p>已经买过但没勾 High Concurrency 的不用重买：去 <strong>Plans &amp; Pricing → 编辑当前套餐</strong>补加即可。</p>
+      <div class="note">
+        <strong>配图点位②③</strong>：购买设置页（Custom 数量 1 + Save 位置）截图；加购项勾选区截图（遮挡订单金额也可保留，金额本身不敏感）。
+      </div>
+
+      <h2><span class="stepnum">第 3 步</span>拿代理四件套（必须同一行）</h2>
+      <p>付款生效后，进入 <strong>Static Residential → Proxy List</strong>，先做两个确认：</p>
+      <ul>
+        <li>Connection Method 选 <strong>Direct Connection</strong>（这是 Webshare 的产品选项，链式代理稍后在 Clash 里配，不影响）；</li>
+        <li>Authentication Method 选 <strong>Username/Password</strong>。</li>
+      </ul>
+      <p>然后找到你那条美国代理记录，确认状态是 <strong>Working</strong>、Country 是 <strong>United States</strong>，从<strong>同一行</strong>抄下四件套：<strong>Proxy Address（IP）、Port（端口）、Username、Password</strong>。原样保存，注意大小写，别带多余空格。</p>
+      <div class="warn">
+        <strong>两个最容易搞混的点</strong>：① 四件套必须来自同一行记录，混了第二行的端口或密码就是 407 认证失败；② 这里的 Username/Password 是<strong>代理凭据</strong>，不是你 Webshare 的登录邮箱和密码。
+      </div>
+      <div class="note">
+        <strong>配图点位④</strong>：Proxy List 页面截图，红框标出同一行的 IP/Port/Username/Password 四个字段（凭据打码）。
+      </div>
+
+      <h2><span class="stepnum">第 4 步</span>拼成一条 HTTP 节点链接</h2>
+      <p>把四件套按这个模板拼成一行（这就是 Clash 能识别的分享链接格式）：</p>
+      <pre><code>http://用户名:密码@代理IP:端口#节点名
+
+# 示例（信息为虚构演示）：
+http://abc123:def456@38.xxx.xxx.10:6540#美国家宽</code></pre>
+      <p>三个注意：</p>
+      <ul>
+        <li>前缀保持 <code>http://</code>。<strong>访问 HTTPS 网站也不需要改成 https://</strong>——HTTP 代理本身就能承载 HTTPS 流量，改了反而连不上；</li>
+        <li>节点名随意，建议就叫「美国家宽」，方便后面在列表里找；</li>
+        <li>用户名或密码里有特殊字符（<code>@ : / # ?</code> 等）会导致链接解析错位，需要 URL 编码后再填入，或者不用链接格式、直接按第 5 步在客户端里手填四件套（效果一样，还更稳）。</li>
+      </ul>
+
+      <h2><span class="stepnum">第 5 步</span>导入 Clash Verge Rev，绑定链式代理</h2>
+      <p>这一步的目标：让「美国家宽」这个出口的流量，先经过你的中转入口再出门。共两组操作：</p>
+
+      <h3>操作 A：建 dialer 代理组（放入口）</h3>
+      <ol>
+        <li>在「订阅」页找到<strong>当前在用、能正常连</strong>的订阅，右键 → <strong>编辑代理组</strong>；</li>
+        <li>类型选 <strong>select（手动选择）</strong>；<strong>代理组名填 <code>dialer</code>——全小写、不能拼错</strong>，下一步的绑定靠这个名字；</li>
+        <li>「引入代理」里选择你现有的中转节点（或只包含这些节点的组）——<strong>不要把「美国家宽」自己引进来</strong>，也不要引入会绕回家宽的组，否则循环依赖；</li>
+        <li>点 <strong>添加前置代理组</strong>，确认 dialer 出现在右侧列表，再点底部<strong>保存</strong>（只填名字不点添加，组不会创建）。</li>
+      </ol>
+
+      <h3>操作 B：加住宅节点并绑定出口</h3>
+      <ol>
+        <li>同一个订阅右键 → <strong>编辑节点</strong>，把第 4 步的链接粘到顶部输入框，点 <strong>添加前置代理节点</strong>，确认「美国家宽」出现在列表（这里的「前置」指配置列表位置，不是链路顺序）；</li>
+        <li>点窗口右上角<strong>「高级」</strong>进入 YAML 编辑，找到「美国家宽」节点，在它的字段里加一行 <code>dialer-proxy: 'dialer'</code>——<strong>与 name、server 同级缩进</strong>，不要写到最外层，也不要放进 proxy-groups；</li>
+        <li>保存。如果报 YAML 错误，先检查冒号、单引号和缩进。</li>
+      </ol>
+      <p>配好的节点长这样：</p>
+      <pre><code>proxies:
+  - name: "美国家宽"          # US residential exit (HTTP static residential)
+    type: http
+    server: 38.xxx.xxx.10     # Proxy Address from Proxy List
+    port: 6540                # Port from the same line
+    username: "abc123"        # Proxy credential, not Webshare login
+    password: "def456"
+    dialer-proxy: "dialer"    # Bind entry group; same indent as name/server
+
+proxy-groups:
+  - name: "dialer"            # All lowercase; must match dialer-proxy
+    type: select
+    proxies:
+      - 你的中转入口节点       # Transit only; never include the home node itself</code></pre>
+      <div class="note">
+        <strong>两种配法二选一</strong>：上面的手动 dialer 绑定是通用做法；Clash Verge Rev <strong>v2.4.5 及以上</strong>也可以用代理页的「链式代理」面板点选配置（先点入口、再点出口，确认入口在上出口在下后启用）。用面板的话，记得先删掉节点里手动加的 <code>dialer-proxy</code> 行。<strong>两种方式不要同时开</strong>。
+      </div>
+      <div class="note">
+        <strong>配图点位⑤⑥</strong>：编辑代理组窗口截图（类型 select、组名 dialer、引入代理区）；高级 YAML 编辑截图（红框标出 dialer-proxy 行，凭据打码）。
+      </div>
+
+      <h2><span class="stepnum">第 6 步</span>选好入口出口，连通测试</h2>
+      <p>打开 Clash 的「代理」页：</p>
+      <ol>
+        <li><strong>dialer 组里选中转入口</strong>：挑一个稳定、延迟低的线路；别选「美国家宽」自己，也别选会绕回家宽的组；</li>
+        <li><strong>负责浏览器流量的组里选「美国家宽」</strong>：首次检测可以临时切全局模式、把 GLOBAL 指到美国家宽，测完再切回规则模式并确认目标网站仍走住宅出口；</li>
+        <li><strong>开系统代理，点一次延迟测试</strong>，开个普通网页确认能正常加载。</li>
+      </ol>
+      <p>链路顺序是：<strong>你的电脑 → 中转入口 → 美国住宅出口 → 目标网站</strong>。超时或延迟异常高时，先单独测中转入口，再回头核对住宅节点的四件套。要接管不走系统代理的程序，按客户端指引开 TUN。</p>
+
+      <h2><span class="stepnum">第 7 步</span>出口检测：先核 IP，再看分数</h2>
+      <p>配置完<strong>别急着注册</strong>，先过检测：</p>
+      <ol>
+        <li><strong>核对出口 IP</strong>：打开 <a href="/claude-ip">Claude IP 风控检测</a>，看到的公共 IP 应该等于 Proxy List 里你买的那个 IP、地区显示美国。如果还是中转节点的 IP，回第 6 步检查流量分组到底选了什么出口；</li>
+        <li><strong>看 ASN 和 IP 类型</strong>：运营商、ASN 归属应该是住宅/ISP 标签，不再是云厂商机房。不同检测库的标签和分数会有差异，先确认出口地址一致，分数做参考；</li>
+        <li><strong>查 DNS / WebRTC</strong>：确认没有暴露真实公网 IP 或国内网络信息（WebRTC 显示本地内网地址不等于公网泄漏）；</li>
+        <li><strong>留前后对比</strong>：用同一浏览器、同一检测站，配置前测一次、配置后测一次各留底——IP 类型从机房变住宅、风险分明显下降，就说明链路配对了。</li>
+      </ol>
+      <h3>排错速查表</h3>
+      <table>
+        <tr><th>现象</th><th>处理</th></tr>
+        <tr><td>检测到的还是原来的 IP / 地区不对</td><td>确认浏览器走了系统代理、当前规则命中住宅出口；换一家检测站交叉验证（个别站地理库没更新）</td></tr>
+        <tr><td>节点超时 / 连不上</td><td>先单独测中转入口，再核对四件套是否同一行；确认 Webshare 状态 Working、流量没用完、套餐没过期</td></tr>
+        <tr><td>网页间歇打不开 / 报 429</td><td>并发超限。先减少同时发起的请求；去 Plans &amp; Pricing 编辑套餐补加 High Concurrency</td></tr>
+        <tr><td>报 407 / 认证失败</td><td>从同一行重新复制代理用户名和密码；含特殊字符的重新做 URL 编码或改手填</td></tr>
+        <tr><td>报循环依赖 / 代理链错误</td><td>dialer 组里不能选住宅节点本身；住宅节点的 <code>dialer-proxy</code> 必须指向 dialer 且不能自引用</td></tr>
+        <tr><td>分数和别人的不一样</td><td>各检测库标准不同，以你的实际出口、ASN 和访问表现为准，别对着别人的分数较劲</td></tr>
+      </table>
+      <p>日常使用中，记得在 Webshare 控制台盯一下<strong>流量余量和续期时间</strong>，流量耗尽或套餐到期会直接断线。</p>
+
+      <h2><span class="stepnum">第 8 步</span>（可选）IP 不满意？换一个</h2>
+      <p>检测分数不理想、或实际访问体验差，可以换 IP。<strong>但先想清楚</strong>：如果只是延迟高，问题多半出在中转入口，先换入口测试；换出口 IP 不保证分数会更好。确认要换：</p>
+      <ol>
+        <li><strong>发起替换</strong>：Static Residential → Proxy List，找到目标代理，点右侧 Actions 的三个点 → <strong>Replace Proxy</strong>。替换次数有限制（在 Proxy Settings → Replace Proxies 查看本月剩余次数，可能产生费用），别手滑乱换；</li>
+        <li><strong>选筛选方式（二选一）</strong>：<em>Country</em> → 搜选 United States（最常用，别选 Random）；或 <em>ASN</em> → 输入运营商编号并<strong>在下拉结果里选中</strong>才能提交（如 Charter Communications 的 20115，库存随时变化，没有就退回按国家选）。一次只能用一个筛选条件；</li>
+        <li><strong>确认替换</strong>：页面上 Removing 应显示旧 IP、Adding 显示新代理，核对替换次数与费用后点 Replace；</li>
+        <li><strong>更新客户端并重测</strong>：回 Proxy List 抄新记录的四件套（<strong>别混用旧密码旧端口</strong>），在 Clash Verge Rev 里编辑现有「美国家宽」节点更新 server/port/username/password 保存——dialer 组和 <code>dialer-proxy</code> 绑定保持不动；最后用同一检测站重新测出口。</li>
+      </ol>
+
+      <h2>常见问题（FAQ）</h2>
+      <h3>只买机场不做住宅 IP 行不行？</h3>
+      <p>能连上 Claude，但注册和风控环节机房 IP 被拦的概率高不少。可以这么理解：机场线路解决「能不能连上」，住宅 IP 解决「连上之后可不可信」，注册这件事两者都要。</p>
+      <h3>Private 和 Dedicated 怎么选？</h3>
+      <p>先试水选 Private（有限共享，成本最低）；确定要长期用 Claude，选 Dedicated 独享，IP 干净度更可控。价格以官网实时页面为准。</p>
+      <h3>流量 250GB 真的够吗？</h3>
+      <p>网页对话和 Claude Code 的文本流量很小，250GB 对个人学习绰绰有余；只有持续跑大流量任务才需要考虑 1000GB。</p>
+      <h3>配置完要先测什么再注册？</h3>
+      <p>顺序：出口 IP 一致 → 地区美国 → ASN/类型是住宅 → DNS/WebRTC 无泄漏。全过了再进注册流程。注册时手机号怎么解决，见<a href="/blog/claude-phone-verification-guide">手机号验证全解</a>。</p>
+
+      <div class="cta">
+        <h2>网络配好了，注册和充值我们接着帮你</h2>
+        <p>出口检测用 <a href="/claude-ip" style="color:#FF8A50">Gutast AI 免费 IP 风控检测</a>，输入 IP 即出报告；注册完要订阅充值的，Claude Pro / Max 官方渠道办理与 Claude Code 充值套餐都在 <a href="/claude-code" style="color:#FF8A50">Gutast AI</a>：升级的是你自己的账号，全程不索要密码和验证码，官方收据确认交付，订阅有效期内全周期质保。</p>
+        <a class="btn" href="/claude-code">查看套餐与办理流程 →</a>
+      </div>
+
+      <aside class="related">
+        <h2>相关阅读</h2>
+        <ul>
+          <li><a href="/blog/claude-registration-guide">Claude 注册与使用完整指南：Google 账号免验证直连法最省事（2026 版）</a></li>
+          <li><a href="/blog/claude-phone-verification-guide">Claude 注册手机号验证全解：+86 收不到验证码怎么办？</a></li>
+          <li><a href="/blog/claude-code-timezone-risk-check">Claude Code 时区风控自查</a></li>
+          <li><a href="/blog/claude-ban-risk-guide">Claude 封号机制详解：风控逻辑与自保指南</a></li>
+          <li><a href="/refund-policy">退款与质保政策</a> · <a href="/terms-of-service">服务协议</a></li>
+        </ul>
+      </aside>
+      <p class="meta">免责声明：本文流程与价格信息基于 Webshare、Clash Verge Rev 公开页面与社区实践整理，更新于 2026 年 10 月 30 日，界面与价格可能随版本调整而变化，请以实际页面为准。文中 Webshare 注册为邀请链接，通过它注册可能为我们带来少量返佣，不影响你的价格。配置网络工具用于访问所在地区合法可用的服务，请遵守目标服务的使用条款与当地法规。</p>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>© 2026 Gutast AI (gutast.com) · 运营主体：深圳市优品家居材料科技有限公司 · D-U-N-S® 710229185</div>
+      <div><a href="/">首页</a> · <a href="/terms-of-service">服务协议</a> · <a href="/refund-policy">退款与质保政策</a> · <a href="/privacy-policy">隐私声明</a></div>
+      <div>联系邮箱：475290875@qq.com</div>
+    </div>
+  </footer>
+</body>
+</html>

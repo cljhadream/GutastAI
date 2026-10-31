@@ -43,6 +43,8 @@ Gutast AI 的官方网站与内容矩阵，面向重度 AI Coding 使用者，�
 | 主题 | 文章 |
 | --- | --- |
 | Claude 注册教程（2026 最新） | [claude-registration-guide](https://www.gutast.com/blog/claude-registration-guide.html) |
+| Claude 注册手机号验证（+86 收不到验证码） | [claude-phone-verification-guide](https://www.gutast.com/blog/claude-phone-verification-guide.html) |
+| Claude 美国住宅 IP 配置全流程（Webshare + Clash Verge） | [claude-home-ip-setup-guide](https://www.gutast.com/blog/claude-home-ip-setup-guide.html) |
 | Claude 封号风险评估 | [claude-ban-risk-guide](https://www.gutast.com/blog/claude-ban-risk-guide.html) |
 | 新号被封如何申诉解封 | [claude-new-account-ban-appeal](https://www.gutast.com/blog/claude-new-account-ban-appeal.html) |
 | Claude 账号安全 FAQ | [claude-account-safety-faq](https://www.gutast.com/blog/claude-account-safety-faq.html) |
