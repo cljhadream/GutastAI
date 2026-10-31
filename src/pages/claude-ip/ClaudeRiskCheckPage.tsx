@@ -1080,40 +1080,43 @@ export default function ClaudeRiskCheckPage() {
                 </div>
               </div>
               {/* Dual CTA, always both buttons; primary swaps by tier:
-                  score < 50 pushes home-IP purchase, otherwise recharge. */}
-              <div className="mt-3 flex flex-wrap items-center gap-2">
+                  score < 50 pushes home-IP guide, otherwise recharge.
+                  Two-line buttons: small status line + value-proposition line. */}
+              <div className="mt-3 flex flex-wrap items-stretch gap-2.5">
                 {score < 50 ? (
                   <>
                     <a
-                      href="https://www.webshare.io/?referral_code=r382aur0jyca"
-                      target="_blank"
-                      rel="nofollow sponsored noopener"
-                      className="rounded-lg bg-hyper-orange px-4 py-2 text-sm font-bold text-white transition hover:opacity-90"
+                      href="/blog/claude-home-ip-setup-guide"
+                      className="flex flex-col justify-center rounded-xl bg-hyper-orange px-5 py-2 text-white shadow-lg transition hover:opacity-90"
                     >
-                      出口风险高 · 换静态住宅 IP
+                      <span className="text-[11px] font-semibold opacity-85">出口风险高，先换 IP</span>
+                      <span className="text-sm font-black leading-snug">Webshare 住宅 IP · 低至 $2/月</span>
                     </a>
                     <a
                       href="/claude-code"
-                      className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
+                      className="flex flex-col justify-center rounded-xl border-2 border-slate-300 px-4 py-2 transition hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800"
                     >
-                      环境好了 · 再来充值
+                      <span className="text-[11px] font-semibold text-slate-400">环境好了再来</span>
+                      <span className="text-sm font-bold leading-snug text-slate-600 dark:text-slate-300">安全代充 · 可开发票</span>
                     </a>
                   </>
                 ) : (
                   <>
                     <a
                       href="/claude-code"
-                      className="rounded-lg bg-hyper-orange px-4 py-2 text-sm font-bold text-white transition hover:opacity-90"
+                      className="flex flex-col justify-center rounded-xl bg-hyper-orange px-5 py-2 text-white shadow-lg transition hover:opacity-90"
                     >
-                      {score >= 80 ? '出口不错 · 订阅充值找我们' : '订阅充值 · 自有账号办理'}
+                      <span className="text-[11px] font-semibold opacity-85">
+                        {score >= 80 ? '出口不错，直接上号' : '出口一般，建议优化后再充'}
+                      </span>
+                      <span className="text-sm font-black leading-snug">安全代充 · 可开发票</span>
                     </a>
                     <a
-                      href="https://www.webshare.io/?referral_code=r382aur0jyca"
-                      target="_blank"
-                      rel="nofollow sponsored noopener"
-                      className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
+                      href="/blog/claude-home-ip-setup-guide"
+                      className="flex flex-col justify-center rounded-xl border-2 border-slate-300 px-4 py-2 transition hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800"
                     >
-                      {score >= 80 ? '换静态住宅 IP' : '出口一般？换住宅 IP'}
+                      <span className="text-[11px] font-semibold text-slate-400">换个更稳的出口</span>
+                      <span className="text-sm font-bold leading-snug text-slate-600 dark:text-slate-300">住宅 IP 低至 $2/月 · Webshare</span>
                     </a>
                   </>
                 )}
