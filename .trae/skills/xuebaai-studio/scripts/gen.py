@@ -21,10 +21,11 @@ jobs.json（列表，每项一张图）:
   n         可选：出几张候选（文件名加 -1 -2 -3），3 人以上的场景建议 3，看图挑一张；命令行用 --n
   crowd     可选 true：不追加"只有这N个人"和"其他人不要出现"（场景里本来就要有路人时用）
   style     可选：覆盖默认风格后缀（一般不要改，改了就和别的图不统一了）
+  watermark 可选 true：打开 API 水印（中文"AI生成"角标，默认关，见 SKILL.md 红线）；命令行用 --watermark
 
 --dry-run 只打印最终提示词，不调接口（出图前先看一眼，也方便存档）。
 已存在的文件默认跳过；失败自动重试 2 次；每张成功后把最终提示词记到 <输出目录>/_prompts.json。
-默认开启 API 水印（"AI生成"），符合 2025-09 起的 AI 生成内容标识要求；密钥只在 volc-image-gen 里，本脚本不读取、不打印。
+密钥只在 volc-image-gen 里，本脚本不读取、不打印。
 """
 import argparse
 import json
@@ -151,7 +152,7 @@ def record(outdir, name, entry):
     f.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-def run(jobs, outdir, force, dry, n_default=1):
+def run(jobs, outdir, force, dry, n_default=1, watermark=False):
     outdir = Path(outdir).resolve()   # 相对路径会让接口脚本的 makedirs('') 报错
     outdir.mkdir(parents=True, exist_ok=True)
     gen = None if dry else load_generator()
@@ -172,7 +173,7 @@ def run(jobs, outdir, force, dry, n_default=1):
                 continue
             for attempt in range(3):
                 r = gen(prompt=prompt, output_path=str(dst), style=j.get("style", STYLE), size=size,
-                        watermark=True, use_base64=True, reference_image=ref)
+                        watermark=j.get("watermark", watermark), use_base64=True, reference_image=ref)
                 if r.get("success"):
                     print("OK  ", name, f"{r['size'] / 1024:.0f}KB", flush=True)
                     record(outdir, name, {"prompt": prompt, "ref": ref and Path(ref).name, "size": size})
@@ -195,6 +196,7 @@ def main():
     ap.add_argument("--n", type=int, default=1, help="每张图出几张候选（3 人以上的场景建议 3）")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--watermark", action="store_true", help="打开 API 水印（中文\"AI生成\"角标，默认关，见 SKILL.md 红线）")
     ap.add_argument("--list", action="store_true", help="列出人物占位词和构图预设")
     a = ap.parse_args()
 
@@ -215,12 +217,12 @@ def main():
             job["layout"] = a.layout
         if a.ref:
             job["ref"] = a.ref
-        run([job], out.parent, a.force, a.dry_run)
+        run([job], out.parent, a.force, a.dry_run, watermark=a.watermark)
         return
     if not (a.jobs and a.outdir):
         ap.error("批量模式要写 jobs.json 和输出目录；单张模式要写 --scene 和 --out")
     jobs = json.loads(Path(a.jobs).read_text(encoding="utf-8"))
-    run(jobs, Path(a.outdir), a.force, a.dry_run, a.n)
+    run(jobs, Path(a.outdir), a.force, a.dry_run, a.n, watermark=a.watermark)
 
 
 if __name__ == "__main__":
