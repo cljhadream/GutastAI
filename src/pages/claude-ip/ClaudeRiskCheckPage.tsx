@@ -1080,23 +1080,24 @@ export default function ClaudeRiskCheckPage() {
                 </div>
               </div>
               {/* Dual CTA, always both buttons; primary swaps by tier:
-                  score < 50 pushes home-IP guide, otherwise recharge.
+                  score < 60 pushes home-IP guide, otherwise recharge
+                  (60+ is good enough to buy, per conversion tuning).
                   Two-line buttons: small status line + value-proposition line. */}
               <div className="mt-3 flex flex-wrap items-stretch gap-2.5">
-                {score < 50 ? (
+                {score < 60 ? (
                   <>
                     <a
                       href="/blog/claude-home-ip-setup-guide"
                       className="flex flex-col justify-center rounded-xl bg-hyper-orange px-5 py-2 text-white shadow-lg transition hover:opacity-90"
                     >
-                      <span className="text-[11px] font-semibold opacity-85">出口风险高，先换 IP</span>
-                      <span className="text-sm font-black leading-snug">Webshare 住宅 IP · 低至 $2/月</span>
+                      <span className="text-[11px] font-semibold opacity-85">分数低不一定是 IP，先对症解决</span>
+                      <span className="text-sm font-black leading-snug">按提示修复风险项，再上号更稳</span>
                     </a>
                     <a
                       href="/claude-code"
                       className="flex flex-col justify-center rounded-xl border-2 border-slate-300 px-4 py-2 transition hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800"
                     >
-                      <span className="text-[11px] font-semibold text-slate-400">环境好了再来</span>
+                      <span className="text-[11px] font-semibold text-slate-400">修好环境再来</span>
                       <span className="text-sm font-bold leading-snug text-slate-600 dark:text-slate-300">安全代充 · 可开发票</span>
                     </a>
                   </>
@@ -1107,7 +1108,7 @@ export default function ClaudeRiskCheckPage() {
                       className="flex flex-col justify-center rounded-xl bg-hyper-orange px-5 py-2 text-white shadow-lg transition hover:opacity-90"
                     >
                       <span className="text-[11px] font-semibold opacity-85">
-                        {score >= 80 ? '出口不错，直接上号' : '出口一般，建议优化后再充'}
+                        {score >= 80 ? '出口纯净，放心上号' : '出口基本达标，可以尝试上号'}
                       </span>
                       <span className="text-sm font-black leading-snug">安全代充 · 可开发票</span>
                     </a>
@@ -1115,7 +1116,7 @@ export default function ClaudeRiskCheckPage() {
                       href="/blog/claude-home-ip-setup-guide"
                       className="flex flex-col justify-center rounded-xl border-2 border-slate-300 px-4 py-2 transition hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800"
                     >
-                      <span className="text-[11px] font-semibold text-slate-400">换个更稳的出口</span>
+                      <span className="text-[11px] font-semibold text-slate-400">想要更稳的出口</span>
                       <span className="text-sm font-bold leading-snug text-slate-600 dark:text-slate-300">住宅 IP 低至 $2/月 · Webshare</span>
                     </a>
                   </>
