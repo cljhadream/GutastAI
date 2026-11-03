@@ -95,20 +95,20 @@ export const CLAUDE_PLANS: Plan[] = [
   {
     label: 'Pro Power',
     name: 'Claude Max 5x',
-    price: 900,
+    price: 1050,
     desc: '5 倍使用额度，高频对话、深度调研与 Claude Code 重度开发进阶之选。',
     cta: '立即开通 Max 5x',
-    service: 'Claude Max 5x（¥900/月）',
+    service: 'Claude Max 5x（¥1050/月）',
     featured: true,
     badge: '🔥 高频用户首选',
   },
   {
     label: 'Max Ultra',
     name: 'Claude Max 20x',
-    price: 1700,
+    price: 2000,
     desc: '20 倍顶配额度，全天候重度使用与团队场景，支持对公付款与代开发票。',
     cta: '添加企微 · 咨询 20x',
-    service: 'Claude Max 20x（¥1700/月）',
+    service: 'Claude Max 20x（¥2000/月）',
   },
 ];
 
@@ -185,7 +185,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Claude 代充套餐怎么选？',
-    a: 'Claude Pro ¥145/月适合日常对话与轻度编程；Max 5x ¥900/月提供 5 倍使用额度，适合高频开发与 Claude Code 重度使用；Max 20x ¥1700/月为 20 倍顶配额度。已有会员可补差价直接升级更高档位，顾问可按您的用量推荐最省的档位。',
+    a: 'Claude Pro ¥145/月适合日常对话与轻度编程；Max 5x ¥1050/月提供 5 倍使用额度，适合高频开发与 Claude Code 重度使用；Max 20x ¥2000/月为 20 倍顶配额度。已有会员可补差价直接升级更高档位，顾问可按您的用量推荐最省的档位。',
     topic: 'claude',
   },
   {

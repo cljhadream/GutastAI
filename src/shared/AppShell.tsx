@@ -11,7 +11,7 @@ import { QR_SRC } from './data';
 
 type Theme = 'dark' | 'light';
 
-export type PageId = 'home' | 'chatgpt-plus' | 'claude-code' | 'faq' | 'claude-ip';
+export type PageId = 'home' | 'chatgpt-plus' | 'claude-code' | 'claude-max' | 'faq' | 'claude-ip';
 
 // Scoped styles: particle grid, flowing gradient text, ignite pulse, modal
 // entrance. All keyframes are prefixed with `xa-` to avoid collisions with
@@ -76,6 +76,7 @@ const SCOPED_CSS = `
 const NAV_LINKS: { href: string; label: string; pulse?: boolean }[] = [
   { href: '/chatgpt-plus', label: 'ChatGPT Plus 充值' },
   { href: '/claude-code', label: 'Claude 会员代充', pulse: true },
+  { href: '/claude-max', label: 'MAX 成品号套餐', pulse: true },
   // Label is product-scoped: the demo video records the ChatGPT flow only,
   // so visitors on the Claude page don't expect a Claude recording there.
   { href: '/chatgpt-plus#video-section', label: 'ChatGPT 充值实录' },
@@ -91,6 +92,7 @@ const NAV_LINKS: { href: string; label: string; pulse?: boolean }[] = [
 const FOOTER_PRODUCT_LINKS = [
   { href: '/chatgpt-plus', label: 'ChatGPT Plus 充值' },
   { href: '/claude-code', label: 'Claude 会员代充' },
+  { href: '/claude-max', label: 'MAX 成品号套餐' },
   { href: '/claude-ip', label: 'Claude IP 检测' },
   { href: '/faq', label: '常见问题' },
 ];

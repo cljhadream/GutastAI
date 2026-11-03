@@ -104,13 +104,13 @@ export default function HomePage() {
       <section id="products" className="mx-auto max-w-5xl scroll-mt-24 px-6 py-10">
         <div className="mb-8 text-center">
           <span className="font-mono text-xs font-bold uppercase tracking-widest text-hyper-orange">PRODUCT LINES</span>
-          <h2 className="mt-1 text-3xl font-extrabold tracking-tight">两大核心服务</h2>
+          <h2 className="mt-1 text-3xl font-extrabold tracking-tight">核心服务</h2>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
             每条产品线拥有独立的落地页：套餐、流程与常见问题一页看全。
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {/* Entry: ChatGPT Plus / Codex landing page */}
           <a
             href="/chatgpt-plus"
@@ -158,12 +158,41 @@ export default function HomePage() {
             </div>
             <ul className="mb-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li>✓ 官方渠道正规充值，非中转 / 镜像 / 黑卡通道</li>
-              <li>✓ Pro ¥145 · Max 5x ¥900 · Max 20x ¥1700</li>
+              <li>✓ Pro ¥145 · Max 5x ¥1050 · Max 20x ¥2000</li>
               <li>✓ 已有会员可补差价升级</li>
               <li>✓ 只质保订阅 · 公司客户可代开发票</li>
             </ul>
             <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-bold text-hyper-indigo dark:text-indigo-400">
               查看代充套餐
+              <span className="transition group-hover:translate-x-1">→</span>
+            </span>
+          </a>
+
+          {/* Entry: Claude Max finished-account bundle landing page */}
+          <a
+            href="/claude-max"
+            className="group relative flex flex-col overflow-hidden rounded-3xl border border-hyper-violet/40 bg-gradient-to-br from-hyper-lightCard via-hyper-lightCard to-hyper-violet/5 p-8 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-hyper-violet dark:from-hyper-darkCard dark:via-hyper-darkCard dark:to-hyper-violet/15"
+          >
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-hyper-violet via-hyper-indigo to-hyper-orange" />
+            <div className="mb-3 flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-hyper-violet dark:text-violet-400">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-hyper-violet" />
+              CLAUDE MAX 系列
+            </div>
+            <h3 className="mb-1 text-2xl font-black tracking-tight transition group-hover:text-hyper-violet dark:group-hover:text-violet-400">
+              MAX 成品号包订阅套餐
+            </h3>
+            <div className="mb-4 mt-2 flex items-baseline gap-1">
+              <span className="font-mono text-3xl font-black text-hyper-violet dark:text-violet-400">¥1375</span>
+              <span className="text-xs text-slate-400">起 · MAX5X / MAX20X 四档</span>
+            </div>
+            <ul className="mb-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+              <li>✓ 成品号 + 配套订阅（MAX5X $125 / 月 · MAX20X 送 $250 首月）</li>
+              <li>✓ 订阅费用透明 · 付费凭证可核验</li>
+              <li>✓ 质保档享 2 周服务质保</li>
+              <li>✓ 团队多用户部署增购 · 附赠海外视频平台成品号</li>
+            </ul>
+            <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-bold text-hyper-violet dark:text-violet-400">
+              查看四档套餐
               <span className="transition group-hover:translate-x-1">→</span>
             </span>
           </a>

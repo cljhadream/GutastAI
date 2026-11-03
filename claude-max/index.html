@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/UI/favicon-48.png" />
+    <link rel="icon" type="image/webp" href="/UI/logo/72_72.webp" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/UI/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8FAFC" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#06070B" />
+
+    <!-- SEO meta baked at build time: dedicated landing page so "Claude Max
+         成品号 / MAX5X / MAX20X" ranks on its own URL. Title: user-search
+         phrasing first, brand last. H1 (in React) carries the single topic
+         "MAX 系列｜全球化网络适配咨询方案".
+         Prices below MUST mirror MAX_SKUS in src/pages/claude-max/ClaudeMaxPage.tsx. -->
+    <title>Claude Max 成品号包订阅套餐 - MAX5X/MAX20X 四档｜Gutast AI</title>
+    <!-- Description: ~40 CJK-equivalent chars. One core value + one CTA, no
+         price/promise stacking (Google truncates around 70 CJK chars). -->
+    <meta
+      name="description"
+      content="Claude Max 成品号包订阅套餐 ¥1375 起：MAX5X / MAX20X 标准与质保四档可选，订阅费用透明可核验凭证，附赠海外视频平台成品号。"
+    />
+    <meta
+      name="keywords"
+      content="Claude Max成品号, MAX5X成品号包, MAX20X成品号包, Claude Max订阅套餐, Claude Max 5x, Claude Max 20x, 成品号订阅服务, 团队多用户部署, 全球化网络适配, 可核验付费凭证"
+    />
+    <link rel="canonical" href="https://www.gutast.com/claude-max" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Claude Max 成品号包订阅套餐 - MAX5X/MAX20X 四档｜Gutast AI" />
+    <meta
+      property="og:description"
+      content="MAX 系列全球化网络适配咨询方案：MAX5X / MAX20X 标准与质保四档套餐，MAX5X 订阅 125 美元 / 月、MAX20X 送 1 个月 250 美元订阅，支持团队多用户部署。"
+    />
+    <meta property="og:url" content="https://www.gutast.com/claude-max" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Gutast AI" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:image" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta property="og:image:secure_url" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Claude Max 成品号包订阅套餐 ¥1375 起，四档可选 - Gutast AI"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Claude Max 成品号包订阅套餐 - MAX5X/MAX20X 四档｜Gutast AI" />
+    <meta
+      name="twitter:description"
+      content="MAX 系列成品号包订阅套餐 ¥1375 起，MAX5X / MAX20X 标准与质保四档可选，订阅费用透明可核验凭证。"
+    />
+    <meta name="twitter:image" content="https://www.gutast.com/UI/og-cover.png" />
+    <meta
+      name="twitter:image:alt"
+      content="Claude Max 成品号包订阅套餐 ¥1375 起，四档可选 - Gutast AI"
+    />
+
+    <!-- Structured data: Organization + BreadcrumbList + Product + Offers +
+         FAQPage (visible Q&A only, same list as the page section below).
+         Keep FAQ text in sync with ClaudeMaxPage.tsx PAGE_FAQ. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.gutast.com/#organization",
+            "name": "Gutast AI",
+            "slogan": "Good Taste, Top AI — 好品味，先用上顶尖 AI",
+            "legalName": "深圳市优品家居材料科技有限公司",
+            "duns": "710229185",
+            "url": "https://www.gutast.com/",
+            "logo": "https://www.gutast.com/UI/logo/300_300.webp",
+            "email": "475290875@qq.com",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "email": "475290875@qq.com",
+              "availableLanguage": ["zh-CN"]
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.gutast.com/claude-max#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.gutast.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Claude Max 成品号包订阅套餐",
+                "item": "https://www.gutast.com/claude-max"
+              }
+            ]
+          },
+          {
+            "@type": "Product",
+            "@id": "https://www.gutast.com/claude-max#product-claude-max",
+            "name": "Claude Max 成品号包订阅套餐（Gutast AI MAX 系列）",
+            "image": [
+              "https://www.gutast.com/UI/og-cover.png",
+              "https://www.gutast.com/UI/logo/300_300.webp"
+            ],
+            "description": "MAX 系列全球化网络适配咨询方案：成品账号 + 配套订阅服务（MAX5X 订阅 125 美元/月，MAX20X 送 1 个月 250 美元订阅，订阅费用透明，可提供真实付费凭证截图），质保档享 2 周服务质保，附赠海外视频平台成品号，支持多人团队成套部署增购。",
+            "brand": { "@type": "Brand", "name": "Gutast AI" },
+            "offers": [
+              {
+                "@type": "Offer",
+                "name": "MAX5X 成品号包订阅套餐",
+                "price": "1375",
+                "priceCurrency": "CNY",
+                "availability": "https://schema.org/InStock",
+                "url": "https://www.gutast.com/claude-max#plans",
+                "shippingDetails": {
+                  "@type": "OfferShippingDetails",
+                  "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "CNY"
+                  },
+                  "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "CN"
+                  }
+                },
+                "hasMerchantReturnPolicy": {
+                  "@type": "MerchantReturnPolicy",
+                  "applicableCountry": "CN",
+                  "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+                }
+              },
+              {
+                "@type": "Offer",
+                "name": "MAX5X 质保成品号包订阅套餐",
+                "price": "1775",
+                "priceCurrency": "CNY",
+                "availability": "https://schema.org/InStock",
+                "url": "https://www.gutast.com/claude-max#plans",
+                "shippingDetails": {
+                  "@type": "OfferShippingDetails",
+                  "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "CNY"
+                  },
+                  "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "CN"
+                  }
+                },
+                "hasMerchantReturnPolicy": {
+                  "@type": "MerchantReturnPolicy",
+                  "applicableCountry": "CN",
+                  "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+                }
+              },
+              {
+                "@type": "Offer",
+                "name": "MAX20X 成品号包订阅套餐",
+                "price": "2650",
+                "priceCurrency": "CNY",
+                "availability": "https://schema.org/InStock",
+                "url": "https://www.gutast.com/claude-max#plans",
+                "shippingDetails": {
+                  "@type": "OfferShippingDetails",
+                  "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "CNY"
+                  },
+                  "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "CN"
+                  }
+                },
+                "hasMerchantReturnPolicy": {
+                  "@type": "MerchantReturnPolicy",
+                  "applicableCountry": "CN",
+                  "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+                }
+              },
+              {
+                "@type": "Offer",
+                "name": "MAX20X 质保成品号包订阅套餐",
+                "price": "3450",
+                "priceCurrency": "CNY",
+                "availability": "https://schema.org/InStock",
+                "url": "https://www.gutast.com/claude-max#plans",
+                "shippingDetails": {
+                  "@type": "OfferShippingDetails",
+                  "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "CNY"
+                  },
+                  "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "CN"
+                  }
+                },
+                "hasMerchantReturnPolicy": {
+                  "@type": "MerchantReturnPolicy",
+                  "applicableCountry": "CN",
+                  "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+                }
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.gutast.com/claude-max#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "MAX 系列成品号包订阅套餐包含哪些内容？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "每个套餐包含两部分：成品账号技术服务（500 / 900 / 1700 元档位）与配套订阅服务（MAX5X 为 125 美元 / 月，MAX20X 送 1 个月 250 美元订阅）。订阅费用透明，可提供真实付费凭证截图；所有套餐均附赠海外视频平台（Muse / FB / INS / X 成品号），质保档位另享 2 周服务质保。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "配套订阅服务的费用怎么算？能提供凭证吗？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "MAX5X 档配套订阅为 125 美元 / 月；MAX20X 档赠送 1 个月 250 美元订阅。订阅费用透明，可提供真实付费凭证截图供核验。订阅相关费用由客户自主完成支付，我们仅提供配套技术咨询协助。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "标准版和质保版有什么区别？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "同一 MAX 档位下，质保版对应更高档位的质保成品账号（MAX5X 质保版 900 元档位、MAX20X 质保版 1700 元档位），享 2 周服务质保 + 1:1 远程技术指导；标准版无远程一对一技术指导，可联系客服免费获取稳定使用参考方案。可根据预算与稳定性需求选择。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "MAX5X 和 MAX20X 应该怎么选？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "MAX5X 对应 5 倍订阅额度档位（1375 / 1775 元），适合个人开发者与高频日常使用；MAX20X 对应 20 倍订阅额度档位（2650 / 3450 元）并赠送 1 个月 250 美元订阅，适合重度使用与团队场景。团队多人使用可增购多人团队成套部署方案（310 元起）。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "多人团队怎么部署？费用怎么算？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "可增购多人团队成套部署方案，310 元起，费用不含在套餐内，按需选购；团队部署配套物料（IP、软路由等）单独选购、非强制。顾问会按团队人数与使用场景给出成套部署与运维指导方案。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "下单福利附赠的海外视频平台成品号是什么？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "所有套餐下单均附赠海外视频平台（Muse / FB / INS / X 成品号），下单即送，随套餐一并交付。"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "质保政策是怎样的？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "质保成品账号档位（MAX5X 质保版 / MAX20X 质保版）享 2 周服务质保，MAX20X 质保版另含全套网络方案 1:1 专家服务；标准档位无质保期。本项目仅提供网络环境调试、技术部署咨询与运维指导服务。"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/pages/claude-max/main.tsx"></script>
+  </body>
+</html>

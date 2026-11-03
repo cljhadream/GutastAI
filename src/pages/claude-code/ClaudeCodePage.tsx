@@ -44,8 +44,8 @@ export default function ClaudeCodePage() {
         {/* Subtitle */}
         <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 md:text-lg">
           Claude Pro <strong className="font-bold font-mono text-hyper-orange">¥145</strong> /月、Max 5x{' '}
-          <strong className="font-bold font-mono text-hyper-orange">¥900</strong>、Max 20x{' '}
-          <strong className="font-bold font-mono text-hyper-orange">¥1700</strong>
+          <strong className="font-bold font-mono text-hyper-orange">¥1050</strong>、Max 20x{' '}
+          <strong className="font-bold font-mono text-hyper-orange">¥2000</strong>
           ，官方渠道正规充值代充——中转 / 镜像之外的稳定方案，已有会员可
           <strong className="font-bold text-slate-900 underline decoration-hyper-orange dark:text-white">补差价升级</strong>
           ，付款后顾问全程代办，通常几分钟开通。
@@ -234,7 +234,7 @@ export default function ClaudeCodePage() {
               <ul className="space-y-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
                 <li>✓ 自有账号 + 官方客户端，直连 Anthropic 官方服务器</li>
                 <li>✓ 不经过任何中转节点，数据记录 100% 留在自己账号</li>
-                <li>✓ Pro ¥145 · Max 5x ¥900 · Max 20x ¥1700，明码标价</li>
+                <li>✓ Pro ¥145 · Max 5x ¥1050 · Max 20x ¥2000，明码标价</li>
               </ul>
             </div>
           </div>

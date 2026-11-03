@@ -45,6 +45,7 @@ export default defineConfig({
         home: rootPath('./index.html'),
         chatgptPlus: rootPath('./chatgpt-plus/index.html'),
         claudeCode: rootPath('./claude-code/index.html'),
+        claudeMax: rootPath('./claude-max/index.html'),
         faq: rootPath('./faq/index.html'),
         claudeIp: rootPath('./claude-ip/index.html'),
       },
@@ -52,14 +53,14 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    landingPageIndexes(['chatgpt-plus', 'claude-code', 'faq', 'claude-ip']),
+    landingPageIndexes(['chatgpt-plus', 'claude-code', 'claude-max', 'faq', 'claude-ip']),
     // Build-time prerendering (SEO): snapshot the fully rendered React DOM of
     // every landing page so crawlers see real content without JS. The plugin's
     // catch-all serves `<route>/index.html` for extensionless routes, and each
     // snapshot is written to dist/<route>/index.html — which matches how
     // Cloudflare Pages maps extensionless URLs to directory index files.
     prerender({
-      routes: ['/', '/chatgpt-plus', '/claude-code', '/faq', '/claude-ip'],
+      routes: ['/', '/chatgpt-plus', '/claude-code', '/claude-max', '/faq', '/claude-ip'],
       renderer: '@prerenderer/renderer-puppeteer',
       rendererOptions: {
         // Dispatched from AppShell after the first React commit
